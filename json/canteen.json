@@ -1,0 +1,12 @@
+{ "menu": [
+  {"date" : "2.3.2018",
+    "meals" : [
+      {
+        "ctgry"     : "Seezeit-Teller",
+        "title"     : "Schnipo",
+        "priceStud" : "0.8",
+        "priceEmpl" : "4.9"
+      }
+    ]
+  }
+]}
