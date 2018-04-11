@@ -14,6 +14,12 @@ const config = {
               deEndpoint: "http://www.max-manager.de/daten-extern/seezeit/xml/mensa_htwg/speiseplan.xml",
               enEndpoint: "http://www.max-manager.de/daten-extern/seezeit/xml/mensa_htwg/speiseplan_en.xml"
           }
+      },
+      ldap: {
+          url: "ldaps://ldap.htwg-konstanz.de:636",
+          searchBase: "ou=users,dc=fh-konstanz,dc=de",
+          searchFilter: "uid={{username}}",
+          rejectUnauthorized: false
       }
 
   }
