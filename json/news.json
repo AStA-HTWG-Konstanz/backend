@@ -1,0 +1,15 @@
+{
+  "page": 1,
+  "news": [
+    {
+      "title": "AStA goes Cloud",
+      "short_desc": "Sponsored by NSA",
+      "content": "Mauris turpis nunc, egestas non hendrerit quis, sagittis nec tortor. Duis nibh magna, rhoncus vitae metus sit amet, porttitor vestibulum nunc. Fusce facilisis consequat orci aliquam suscipit. Cras semper quam ut diam pellentesque suscipit. Ut nec semper odio, et dictum felis. Donec vitae dapibus felis. Sed at lectus mi. Nunc porta facilisis ipsum vitae facilisis. Ut in sem tristique, molestie nibh sed, feugiat justo. Vestibulum volutpat eget justo id iaculis. Donec vehicula leo vitae magna cursus, quis interdum orci imperdiet."
+    },
+    {
+      "title": "Hochschule brennt ab",
+      "short_desc": "Du wirst nicht glauben was Forscher heraus gefunden haben.",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec condimentum sem. Quisque id odio sapien. Sed efficitur libero quis sem consequat sollicitudin. Sed congue justo quis tortor lacinia pellentesque. Sed vitae magna id urna suscipit blandit eu ut nisi. Duis euismod sed dui eu sagittis. Sed imperdiet libero at tincidunt dictum. Ut fermentum dolor eget imperdiet ornare. Nam varius accumsan nunc, et pharetra turpis. Sed nec tortor eget odio ultricies rhoncus. Vivamus leo eros, faucibus in lacus in, tempus venenatis ligula. Donec eget hendrerit sem. Proin mollis nulla vel dui imperdiet egestas."
+    }
+  ]
+}
