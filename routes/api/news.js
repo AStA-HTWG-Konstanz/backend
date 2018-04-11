@@ -4,7 +4,6 @@ var router = express.Router();
 var newsData = require('../../json/news');
 var newsCategoriesData = require('../../json/newsCategories');
 
-/* GET users listing. */
 router.post('/:page/:elements', function (req, res, next) {
     res.json(newsData);
 });
