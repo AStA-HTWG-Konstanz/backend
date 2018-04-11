@@ -14,7 +14,7 @@ var auth = new LdapAuth(options);
 
 router.post('/auth', function (req, res, next) {
     var username = req.body.username;
-    var passwort = req.body.psw;
+    var password = req.body.psw;
 
     auth.on('error', function (err) {
         console.log(err);
