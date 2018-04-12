@@ -1,8 +1,7 @@
 /**
  * NewsController
  *
- * @description :: Server-side actions for handling incoming requests.
- * @help        :: See https://sailsjs.com/docs/concepts/actions
+ * @description :: Actions to deliver news data.
  */
 let newsData = require('../../json/news');
 let newsCategories = require('../../json/newsCategories');
