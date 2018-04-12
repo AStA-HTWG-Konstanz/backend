@@ -46,6 +46,14 @@ module.exports.routes = {
     'GET /api/canteen/:language/menu': {
         controller: 'CanteenController',
         action: 'menu'
+    },
+    'POST /api/news/:page/:elements': {
+        controller: 'NewsController',
+        action: 'news'
+    },
+    'GET /api/news/categories': {
+        controller: 'NewsController',
+        action: 'categories'
     }
 
 
