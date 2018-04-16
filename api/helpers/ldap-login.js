@@ -39,7 +39,7 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         let authService = new LdapAuth(sails.config.custom.ldap);
-        authService.authenticate(username, password, function (err, userObject) {
+        authService.authenticate(inputs.username, inputs.password, function (err, userObject) {
             if (err) {
                 authService.close(function (error) {
                     if (error) {
