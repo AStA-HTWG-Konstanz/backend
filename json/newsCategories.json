@@ -1,0 +1,16 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Endlicht"
+    },
+    {
+      "id": 2,
+      "name": "Hochschule"
+    },
+    {
+      "id": 3,
+      "name": "Party"
+    }
+  ]
+}

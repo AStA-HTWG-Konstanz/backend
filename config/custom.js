@@ -10,14 +10,21 @@
 
 module.exports.custom = {
 
-  /***************************************************************************
-  *                                                                          *
-  * Any other custom config this Sails app should use during development.    *
-  *                                                                          *
-  ***************************************************************************/
-  // mailgunDomain: 'transactional-mail.example.com',
-  // mailgunSecret: 'key-testkeyb183848139913858e8abd9a3',
-  // stripeSecret: 'sk_test_Zzd814nldl91104qor5911gjald',
-  // …
-
+    /***************************************************************************
+     *                                                                          *
+     * Any other custom config this Sails app should use during development.    *
+     *                                                                          *
+     ***************************************************************************/
+    ldap: {
+        url: 'ldaps://ldap.htwg-konstanz.de:636',
+        searchBase: 'ou=users,dc=fh-konstanz,dc=de',
+        searchFilter: 'uid={{username}}',
+        rejectUnauthorized: false
+    },
+    seezeit: {
+        canteen: {
+            deEndpoint: "http://www.max-manager.de/daten-extern/seezeit/xml/mensa_htwg/speiseplan.xml",
+            enEndpoint: "http://www.max-manager.de/daten-extern/seezeit/xml/mensa_htwg/speiseplan_en.xml"
+        }
+    }
 };

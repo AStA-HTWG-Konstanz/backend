@@ -1,0 +1,52 @@
+//
+// Themes
+// --------------------------------------------------
+
+// Default
+.text-default {
+    .text-emphasis-variant(@brand-primary);
+
+    &-dark {
+        .text-emphasis-variant(@brand-dark);
+    }
+
+    &-darker {
+        .text-emphasis-variant(@brand-darker);
+    }
+
+    &-light {
+        .text-emphasis-variant(@brand-light);
+    }
+
+    &-lighter {
+        .text-emphasis-variant(@brand-lighter);
+    }
+}
+
+.bg-default {
+    .bg-variant(@brand-primary);
+
+    &-op {
+        .bg-variant(fade(@brand-primary, 75%));
+    }
+
+    &-dark {
+        .bg-variant(@brand-dark);
+    }
+
+    &-dark-op {
+        .bg-variant(fade(@brand-dark, 83%));
+    }
+
+    &-darker {
+        .bg-variant(@brand-darker);
+    }
+
+    &-light {
+        .bg-variant(@brand-light);
+    }
+
+    &-lighter {
+        .bg-variant(@brand-lighter);
+    }
+}
