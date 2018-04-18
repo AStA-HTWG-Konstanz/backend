@@ -1,6 +1,5 @@
 module.exports = {
 
-
   friendlyName: 'LDAP Auth',
 
   description: 'LDAP-User authentication',
