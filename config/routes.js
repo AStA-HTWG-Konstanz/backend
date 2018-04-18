@@ -33,6 +33,9 @@ module.exports.routes = {
     'POST /login': {
         action: 'backend/user/login'
     },
+    'GET /logout': {
+        action: 'backend/user/logout'
+    },
     'GET /setup': {
         action: 'backend/user/setup-view'
     },
