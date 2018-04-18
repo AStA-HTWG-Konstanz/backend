@@ -1,0 +1,140 @@
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+    <% include ./modules/navigation.ejs %>
+    <% include ./modules/header.ejs %>
+    <!-- Main Container -->
+    <main id="main-container">
+        <!-- Page Content -->
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="block block-bordered">
+                        <div class="block-header bg-gray-lighter">
+                            <h3 class="block-title">Publish</h3>
+                        </div>
+                        <div class="block-content">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="category-select">Choose a category</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" id="category-select" name="category-select"
+                                                size="1">
+                                            <option value="0">Please select</option>
+                                            <option value="1">AStA</option>
+                                            <option value="2">Hochschule</option>
+                                            <option value="3">Party</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="short-description">Short description</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" id="short-description"
+                                               name="short-description" placeholder="Text..">
+                                        <div class="help-block">Enter a short description for your news.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="news-text">Text</label>
+                                    <div class="col-xs-12">
+                                        <textarea class="form-control" id="news-text" name="news-text" rows="6"
+                                                  placeholder="Content.."></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-sm btn-success" type="submit">Publish</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="block block-bordered">
+                        <div class="block-header bg-gray-lighter">
+                            <h3 class="block-title">Add a Category</h3>
+                        </div>
+                        <div class="block-content">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="category-name">Category Name</label>
+                                    <div class="col-xs-12">
+                                        <input class="form-control" type="text" id="category-name" name="category-name"
+                                               placeholder="Category..">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-sm btn-success" type="submit"><span
+                                                    class="fa fa-plus"></span> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="block block-bordered">
+                        <div class="block-header bg-gray-lighter">
+                            <h3 class="block-title">Categories</h3>
+                        </div>
+                        <div class="block-content">
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr>
+                                    <td class="text-center">1</td>
+                                    <td>AStA</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
+                                                    title="" data-original-title="Remove Category"><i
+                                                        class="fa fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">2</td>
+                                    <td>Hochschule</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
+                                                    title="" data-original-title="Remove Category"><i
+                                                        class="fa fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">3</td>
+                                    <td>Party</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
+                                                    title="" data-original-title="Remove Category"><i
+                                                        class="fa fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- My Block -->
+            <div class="block block-bordered">
+                <div class="block-header bg-gray-lighter">
+                    <h3 class="block-title">News</h3>
+                </div>
+                <div class="block-content">
+
+                </div>
+            </div>
+            <!-- END My Block -->
+        </div>
+        <!-- END Page Content -->
+    </main>
+    <!-- END Main Container -->
+    <% include ./modules/footer.ejs %>
+</div>
+<!-- END Page Container -->

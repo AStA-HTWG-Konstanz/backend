@@ -24,8 +24,8 @@ module.exports.routes = {
      *                                                                          *
      ***************************************************************************/
 
-    '/': {
-        view: 'pages/homepage'
+    'GET /': {
+        action: 'backend/dashboard/dashboard-view'
     },
     'GET /login': {
         action: 'backend/user/login-view'
@@ -38,6 +38,9 @@ module.exports.routes = {
     },
     'POST /setup': {
         action: 'backend/user/setup'
+    },
+    'GET /news': {
+        action: 'backend/news/news-view'
     },
 
     /***************************************************************************
