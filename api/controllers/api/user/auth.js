@@ -20,13 +20,13 @@ module.exports = {
   },
 
   exits: {
-      success: {
-        statusCode: 200,
-        responseType: ""
-      },
-      failure: {
+    success: {
+      statusCode: 200,
+      responseType: ''
+    },
+    failure: {
       statusCode: 400,
-      responseType: ""
+      responseType: ''
     }
   },
 
@@ -34,14 +34,12 @@ module.exports = {
     let username = inputs.username;
     let password = inputs.password;
 
-      sails.helpers.ldapLogin(username, password).then((user) => {
-        this.req.session.logged = true;
-        return exits.success();
-        }).catch(function (error){
-         return exits.failure();
-      });
-
-
+    sails.helpers.ldapLogin(username, password).then((user) => {
+      this.req.session.logged = true;
+      return exits.success();
+    }).catch(function (error) {
+      return exits.failure();
+    });
 
 
   }
