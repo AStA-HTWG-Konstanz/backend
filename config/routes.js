@@ -27,6 +27,18 @@ module.exports.routes = {
     '/': {
         view: 'pages/homepage'
     },
+    'GET /login': {
+        action: 'backend/user/login-view'
+    },
+    'POST /login': {
+        action: 'backend/user/login'
+    },
+    'GET /setup': {
+        action: 'backend/user/setup-view'
+    },
+    'POST /setup': {
+        action: 'backend/user/setup'
+    },
 
     /***************************************************************************
      *                                                                          *
@@ -44,16 +56,16 @@ module.exports.routes = {
     //  ╠═╣╠═╝║  ║╣ ║║║ ║║╠═╝║ ║║║║║ ║ ╚═╗
     //  ╩ ╩╩  ╩  ╚═╝╝╚╝═╩╝╩  ╚═╝╩╝╚╝ ╩ ╚═╝
     'GET /api/canteen/:language/menu': {
-        controller: 'CanteenController',
-        action: 'menu'
+        action: 'api/canteen/menu'
     },
     'POST /api/news/:page/:elements': {
-        controller: 'NewsController',
-        action: 'news'
+        action: 'api/news/news'
     },
     'GET /api/news/categories': {
-        controller: 'NewsController',
-        action: 'categories'
+        action: 'api/news/categories'
+    },
+    'POST /api/user/auth' :{
+        action: 'api/user/auth'
     }
 
 
