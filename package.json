@@ -31,7 +31,7 @@
     "type": "git",
     "url": "git://github.com/manuel/backend.git"
   },
-  "author": "manuel",
+  "author": "manuel und roman",
   "license": "",
   "engines": {
     "node": ">=9.11"
