@@ -21,6 +21,7 @@ module.exports.policies = {
     'backend/dashboard/dashboard-view': 'isLoggedIn',
     'backend/news/news-view': 'isLoggedIn',
     'backend/news/category-add': 'isLoggedIn',
-    'backend/news/category-delete': 'isLoggedIn'
+    'backend/news/category-delete': 'isLoggedIn',
+    'backend/news/news-add': 'isLoggedIn'
 
 };

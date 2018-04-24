@@ -51,6 +51,9 @@ module.exports.routes = {
     'GET /category/delete/:id': {
         action: 'backend/news/category-delete'
     },
+    'POST /news/add': {
+        action: 'backend/news/news-add'
+    },
 
 
     /***************************************************************************
