@@ -16,12 +16,12 @@
                                 <div class="form-group">
                                     <label class="col-xs-12" for="category-select">Choose a category</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" id="category-select" name="category-select"
+                                        <select class="form-control" id="category-select" name="categorySelect"
                                                 size="1">
                                             <option value="0">Please select</option>
-                                            <option value="1">AStA</option>
-                                            <option value="2">Hochschule</option>
-                                            <option value="3">Party</option>
+                                            <% categories.forEach(function (category){%>
+                                            <option value="<%= category.id %>"><%= category.name %></option>
+                                            <%})%>
                                         </select>
                                     </div>
                                 </div>
@@ -36,7 +36,7 @@
                                 <div class="form-group">
                                     <label class="col-xs-12" for="news-text">Text</label>
                                     <div class="col-xs-12">
-                                        <textarea class="form-control" id="news-text" name="news-text" rows="6"
+                                        <textarea class="form-control" id="news-text" name="newsText" rows="6"
                                                   placeholder="Content.."></textarea>
                                     </div>
                                 </div>
@@ -55,11 +55,12 @@
                             <h3 class="block-title">Add a Category</h3>
                         </div>
                         <div class="block-content">
-                            <form class="form-horizontal">
+                            <div id="category-add-error-message"></div>
+                            <form class="form-horizontal" method="post" action="/category/add" id="add-category">
                                 <div class="form-group">
                                     <label class="col-xs-12" for="category-name">Category Name</label>
                                     <div class="col-xs-12">
-                                        <input class="form-control" type="text" id="category-name" name="category-name"
+                                        <input class="form-control" type="text" id="category-name" name="categoryName"
                                                placeholder="Category..">
                                     </div>
                                 </div>
@@ -80,43 +81,37 @@
                             <h3 class="block-title">Categories</h3>
                         </div>
                         <div class="block-content">
+                            <div id="category-delete-error-message"></div>
+                            <% if(categories === null){%>
+                            <div class="alert alert-danger">
+                                <p>Could not get any categories.</p>
+                            </div>
+                            <%} else {%>
                             <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Action</th>
+                                </tr>
+                                </thead>
                                 <tbody>
+                                <% categories.forEach(function (category){%>
                                 <tr>
-                                    <td class="text-center">1</td>
-                                    <td>AStA</td>
+                                    <td class="text-center"><%= category.id %></td>
+                                    <td class="text-center"><%= category.name %></td>
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
+                                            <a href="javascript:removeCategory(<%= category.id %>)" class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
                                                     title="" data-original-title="Remove Category"><i
-                                                        class="fa fa-trash"></i></button>
+                                                        class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="text-center">2</td>
-                                    <td>Hochschule</td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
-                                                    title="" data-original-title="Remove Category"><i
-                                                        class="fa fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">3</td>
-                                    <td>Party</td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
-                                                    title="" data-original-title="Remove Category"><i
-                                                        class="fa fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <%});%>
                                 </tbody>
                             </table>
+                            <%}%>
                         </div>
                     </div>
                 </div>

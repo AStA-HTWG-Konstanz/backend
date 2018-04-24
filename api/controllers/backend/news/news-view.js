@@ -14,6 +14,13 @@ module.exports = {
     },
 
     fn: async function (inputs, exits) {
-        return exits.success({page: 'news'});
+        let categories = await Categories.find();
+        let categoryData;
+        if(!categories) {
+            categoryData = null;
+        } else {
+            categoryData = categories;
+        }
+        return exits.success({page: 'news', categories: categoryData});
     }
 };
