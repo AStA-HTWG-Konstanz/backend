@@ -27,7 +27,5 @@ module.exports = {
       model: 'CanteenDate'
     }
 
-
   }
-  fn
 };
