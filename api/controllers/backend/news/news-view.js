@@ -21,6 +21,16 @@ module.exports = {
         } else {
             categoryData = categories;
         }
-        return exits.success({page: 'news', categories: categoryData});
+
+        let news = await News.find();
+        let newsData;
+        if(!news) {
+            newsData = null;
+        } else {
+            newsData = news;
+        }
+
+        return exits.success({page: 'news', categories: categoryData, news: newsData});
+
     }
 };

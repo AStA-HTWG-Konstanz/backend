@@ -34,10 +34,10 @@ function removeCategory(id) {
 $('#add-news').submit(function (event) {
     event.preventDefault();
     let $form = $(this),
-        categorySelect = $form.find("input[name='categorySelect']").val(),
+        categorySelect = parseInt($form.find("#category-select option:selected").val(),10),
         title = $form.find("input[name='title']").val(),
         shortDescription = $form.find("input[name='shortDescription']").val(),
-        newsText = $form.find("input[name='newsText']").val(),
+        newsText = $form.find("textarea[name='newsText']").val(),
         url = $form.attr("action");
     let posting = $.post(url, {
         categorySelect: categorySelect,
@@ -59,3 +59,15 @@ $('#add-news').submit(function (event) {
         $('#news-add-error-message').empty().append('<div class="alert alert-danger"><p>' + errorMessage + '</p></div>');
     });
 });
+
+function removeNews(id) {
+    let url = '/news/delete/';
+    let deleteRequest = $.get(url + id);
+    deleteRequest.done(function () {
+        location.reload();
+    }).error(function (xhr, ajaxOptions, thrownError) {
+        if (xhr.status === 500) {
+            $('#news-delete-error-message').empty().append('<div class="alert alert-danger"><p>Failed to delete news. Please try again later.</p></div>');
+        }
+    });
+}

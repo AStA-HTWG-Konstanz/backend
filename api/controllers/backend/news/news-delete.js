@@ -18,6 +18,11 @@ module.exports = {
     },
 
     fn: async function (inputs, exits) {
-
+        News.destroy({id: this.req.params.id}).then(function () {
+            return exits.success();
+        }).catch(function (error) {
+            sails.log(error);
+            return exits.errorOccured();
+        });
     }
 };

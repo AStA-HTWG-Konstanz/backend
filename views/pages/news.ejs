@@ -131,7 +131,41 @@
                     <h3 class="block-title">News</h3>
                 </div>
                 <div class="block-content">
-
+                    <div id="news-delete-error-message"></div>
+                    <% if(news === null){%>
+                    <div class="alert alert-danger">
+                        <p>Could not get any news.</p>
+                    </div>
+                    <%} else {%>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Title</th>
+                            <th class="text-center">Short description</th>
+                            <th class="text-center">Category ID</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% news.forEach(function (singleNews){%>
+                        <tr>
+                            <td class="text-center"><%= singleNews.id %></td>
+                            <td class="text-center"><%= singleNews.title %></td>
+                            <td class="text-center"><%= singleNews.short_desc %></td>
+                            <td class="text-center"><%= singleNews.category %></td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a href="javascript:removeNews(<%= singleNews.id %>)" class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
+                                       title="" data-original-title="Remove News"><i
+                                                class="fa fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <%});%>
+                        </tbody>
+                    </table>
+                    <%}%>
                 </div>
             </div>
             <!-- END My Block -->

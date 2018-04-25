@@ -17,11 +17,14 @@ module.exports.policies = {
      *                                                                          *
      ***************************************************************************/
 
-    // '*': true,
+    // Backend policies
     'backend/dashboard/dashboard-view': 'isLoggedIn',
     'backend/news/news-view': 'isLoggedIn',
     'backend/news/category-add': 'isLoggedIn',
     'backend/news/category-delete': 'isLoggedIn',
-    'backend/news/news-add': 'isLoggedIn'
+    'backend/news/news-add': 'isLoggedIn',
+    'backend/news/news-delete': 'isLoggedIn'
+
+    // API policies
 
 };

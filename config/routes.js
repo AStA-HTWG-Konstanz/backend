@@ -54,6 +54,9 @@ module.exports.routes = {
     'POST /news/add': {
         action: 'backend/news/news-add'
     },
+    'GET /news/delete/:id' : {
+        action: 'backend/news/news-delete'
+    },
 
 
     /***************************************************************************
@@ -74,7 +77,7 @@ module.exports.routes = {
     'GET /api/canteen/:language/menu': {
         action: 'api/canteen/menu'
     },
-    'POST /api/news/:page/:elements': {
+    'GET /api/news/:page/:elements': {
         action: 'api/news/news'
     },
     'GET /api/news/categories': {
