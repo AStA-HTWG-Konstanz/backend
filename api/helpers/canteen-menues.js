@@ -15,15 +15,22 @@ module.exports = {
       required: true
     }
 
+
   },
-  fn: async function (req, exits) {
-    var result = req.language;
-    if (result === 'de') {
-      result = Sails.config.custom.seezeit.canteen.deEndpoint;
+
+  exits: {
+    success: {
+      outputFriendlyName: '',
+      outputDescription: ''
+    }
+  },
+  fn: async function (inputs, exits) {
+
+    if (inputs.languageCode === 'de') {
+      return exits.success( Sails.config.custom.seezeit.canteen.deEndpoint);
     } else {
       result = Sails.config.custom.seezeit.canteen.enEndpoint;
     }
-
     return exits.success(result);
 
 
