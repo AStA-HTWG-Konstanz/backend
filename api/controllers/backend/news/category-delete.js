@@ -1,14 +1,15 @@
 module.exports = {
 
-    friendlyName: 'Categories',
+    friendlyName: 'Delete a category',
 
-    description: 'Provide categories to the app.',
+    description: 'Provide action to delete a category.',
 
     inputs: {},
 
     exits: {
         success: {
-            statusCode: 200
+            statusCode: 200,
+            responseType: ''
         },
         errorOccured: {
             statusCode: 500,
@@ -17,8 +18,8 @@ module.exports = {
     },
 
     fn: async function (inputs, exits) {
-        Categories.find({select: ['id', 'name']}).then(function (data) {
-            return exits.success({categories: data});
+        Categories.destroy({id: this.req.params.id}).then(function () {
+            return exits.success();
         }).catch(function (error) {
             sails.log(error);
             return exits.errorOccured();
