@@ -24,8 +24,8 @@ module.exports.routes = {
      *                                                                          *
      ***************************************************************************/
 
-    '/': {
-        view: 'pages/homepage'
+    'GET /': {
+        action: 'backend/dashboard/dashboard-view'
     },
     'GET /login': {
         action: 'backend/user/login-view'
@@ -33,12 +33,31 @@ module.exports.routes = {
     'POST /login': {
         action: 'backend/user/login'
     },
+    'GET /logout': {
+        action: 'backend/user/logout'
+    },
     'GET /setup': {
         action: 'backend/user/setup-view'
     },
     'POST /setup': {
         action: 'backend/user/setup'
     },
+    'GET /news': {
+        action: 'backend/news/news-view'
+    },
+    'POST /category/add': {
+        action: 'backend/news/category-add'
+    },
+    'GET /category/delete/:id': {
+        action: 'backend/news/category-delete'
+    },
+    'POST /news/add': {
+        action: 'backend/news/news-add'
+    },
+    'GET /news/delete/:id' : {
+        action: 'backend/news/news-delete'
+    },
+
 
     /***************************************************************************
      *                                                                          *
@@ -58,7 +77,7 @@ module.exports.routes = {
     'GET /api/canteen/:language/menu': {
         action: 'api/canteen/menu'
     },
-    'POST /api/news/:page/:elements': {
+    'GET /api/news/:page/:elements': {
         action: 'api/news/news'
     },
     'GET /api/news/categories': {

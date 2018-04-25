@@ -1,0 +1,24 @@
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+    <% include ./modules/navigation.ejs %>
+    <% include ./modules/header.ejs %>
+    <!-- Main Container -->
+    <main id="main-container">
+        <!-- Page Content -->
+        <div class="content">
+            <!-- My Block -->
+            <div class="block">
+                <div class="block-header">
+                    <h3 class="block-title">Dashboard</h3>
+                </div>
+                <div class="block-content">
+                    <p>Welcome <%= session.name %>!</p>
+                </div>
+            </div>
+            <!-- END My Block -->
+        </div>
+        <!-- END Page Content -->
+    </main>
+    <!-- END Main Container -->
+    <% include ./modules/footer.ejs %>
+</div>
+<!-- END Page Container -->

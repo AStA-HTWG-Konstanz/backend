@@ -1,0 +1,43 @@
+<!-- Header -->
+<header id="header-navbar" class="content-mini content-mini-full">
+    <!-- Header Navigation Right -->
+    <ul class="nav-header pull-right">
+        <li>
+            <!-- Layout API, functionality initialized in App() -> uiLayoutApi() -->
+            <a href="/logout" class="btn btn-danger" type="button">
+                Logout
+            </a>
+        </li>
+    </ul>
+    <!-- END Header Navigation Right -->
+
+    <!-- Header Navigation Left -->
+    <ul class="nav-header pull-left">
+        <li class="hidden-md hidden-lg">
+            <!-- Layout API, functionality initialized in App() -> uiLayoutApi() -->
+            <button class="btn btn-default" data-toggle="layout" data-action="sidebar_toggle" type="button">
+                <i class="fa fa-navicon"></i>
+            </button>
+        </li>
+        <li class="hidden-xs">
+            <!-- Toggle class helper (for .js-header-search below), functionality initialized in App() -> uiToggleClass() -->
+            <button class="btn btn-default" data-toggle="class-toggle" data-target=".js-header-search" data-class="header-search-xs-visible" type="button">
+                Logged in: <%= session.username %>
+            </button>
+        </li>
+        <li class="hidden-xs">
+            <!-- Toggle class helper (for .js-header-search below), functionality initialized in App() -> uiToggleClass() -->
+            <%if(session.role === "admin"){%>
+            <button class="btn btn-warning" type="button">
+                Role: <%= session.role %>
+            </button>
+            <%} else {%>
+            <button class="btn btn-default" type="button">
+                Role: <%= session.role %>
+            </button>
+            <%}%>
+        </li>
+    </ul>
+    <!-- END Header Navigation Left -->
+</header>
+<!-- END Header -->
