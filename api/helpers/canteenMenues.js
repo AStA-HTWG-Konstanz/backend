@@ -16,11 +16,17 @@ module.exports = {
     }
 
   },
- fn: async function (req, exits) {
+  fn: async function (req, exits) {
     var result = req.language;
+    if (result === 'de') {
+      result = Sails.config.custom.seezeit.canteen.deEndpoint;
+    } else {
+      result = Sails.config.custom.seezeit.canteen.enEndpoint;
+    }
+
     return exits.success(result);
 
 
- }
-}
+  }
+};
 
