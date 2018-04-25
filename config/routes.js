@@ -83,8 +83,11 @@ module.exports.routes = {
     'GET /api/news/categories': {
         action: 'api/news/categories'
     },
-    'POST /api/user/auth' :{
+    'POST /api/user/auth' : {
         action: 'api/user/auth'
+    },
+    'POST /api/user/balance' :{
+        action: 'api/user/balance'
     }
 
 

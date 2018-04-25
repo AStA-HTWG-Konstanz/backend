@@ -26,5 +26,11 @@ module.exports.custom = {
             deEndpoint: "http://www.max-manager.de/daten-extern/seezeit/xml/mensa_htwg/speiseplan.xml",
             enEndpoint: "http://www.max-manager.de/daten-extern/seezeit/xml/mensa_htwg/speiseplan_en.xml"
         }
+    },
+    datacenter: {
+        printerBalance : {
+            loginEndpoint: "https://login.rz.htwg-konstanz.de/index.spy",
+            balanceEndpoint: "https://login.rz.htwg-konstanz.de/userprintacc.spy?activeMenu=Druckerkonto"
+        }
     }
 };
