@@ -28,9 +28,13 @@ module.exports.custom = {
         }
     },
     datacenter: {
-        printerBalance : {
+        printerBalance: {
             loginEndpoint: "https://login.rz.htwg-konstanz.de/index.spy",
             balanceEndpoint: "https://login.rz.htwg-konstanz.de/userprintacc.spy?activeMenu=Druckerkonto"
+        },
+        lsf: {
+            loginEndpoint: "https://lsf.htwg-konstanz.de/qisserver/rds?state=user&type=1&category=auth.login&startpage=portal.vm&breadCrumbSource=portal",
+            loginPage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=user&type=0&breadCrumbSource=portal&topitem=functions"
         }
     }
 };
