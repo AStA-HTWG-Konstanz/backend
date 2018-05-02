@@ -13,6 +13,10 @@ module.exports = {
         },
         lsfCookie: {
             type: 'string'
+        },
+        lectures: {
+            collection: 'lsflectures',
+            via: 'students'
         }
     }
 };
