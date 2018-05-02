@@ -17,6 +17,7 @@ module.exports = {
   },
 
   fn: async function (inputs, exits) {
-    sails.helpers.canteenData(this.req.params.language);
+    let v12 = await sails.helpers.canteenData(this.req.params.language);
+    return exits.success();
   }
 };

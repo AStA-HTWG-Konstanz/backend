@@ -27,13 +27,9 @@ module.exports = {
   fn: async function (inputs, exits) {
 
     if (inputs.languageCode === 'de') {
-      return exits.success( Sails.config.custom.seezeit.canteen.deEndpoint);
+      return exits.success( sails.config.custom.seezeit.canteen.deEndpoint);
     } else {
-      result = Sails.config.custom.seezeit.canteen.enEndpoint;
+      return exits.success( sails.config.custom.seezeit.canteen.enEndpoint);
     }
-    return exits.success(result);
-
-
   }
 };
-
