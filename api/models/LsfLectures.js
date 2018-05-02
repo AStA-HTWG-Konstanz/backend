@@ -33,11 +33,11 @@ module.exports = {
         },
         startDate: {
             type: 'ref',
-            columnType: 'datetime'
+            columnType: 'date'
         },
         endDate: {
             type: 'ref',
-            columnType: 'datetime'
+            columnType: 'date'
         },
         repeats: {
             type: 'boolean',
