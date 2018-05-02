@@ -8,7 +8,8 @@
  * For more information on bootstrapping your app, check out:
  * https://sailsjs.com/config/bootstrap
  */
-
+let scheduler = require('node-schedule');
+let lsfService = require('../api/services/LsfService');
 module.exports.bootstrap = async function(done) {
 
   // By convention, this is a good place to set up fake data during development.
@@ -29,6 +30,12 @@ module.exports.bootstrap = async function(done) {
 
   // Don't forget to trigger `done()` when this bootstrap function's logic is finished.
   // (otherwise your server will never lift, since it's waiting on the bootstrap)
+
+    let lsfJob  = scheduler.scheduleJob('* * * * *', function(){
+        lsfService.importLectures(function (err, result) {
+           sails.log.info("Job executed");
+        });
+    });
   return done();
 
 };
