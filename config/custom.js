@@ -34,7 +34,8 @@ module.exports.custom = {
         },
         lsf: {
             loginEndpoint: "https://lsf.htwg-konstanz.de/qisserver/rds?state=user&type=1&category=auth.login&startpage=portal.vm&breadCrumbSource=portal",
-            loginPage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=user&type=0&breadCrumbSource=portal&topitem=functions"
+            loginPage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=user&type=0&breadCrumbSource=portal&topitem=functions",
+            icalEndpoint: "https://lsf.htwg-konstanz.de/qisserver/rds?state=verpublish&status=transform&vmfile=no&termine=300036,300037,300038&moduleCall=iCalendarPlan&publishConfFile=reports&publishSubDir=veranstaltung"
         }
     }
 };

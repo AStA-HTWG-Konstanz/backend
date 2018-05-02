@@ -89,7 +89,7 @@ module.exports.routes = {
     'POST /api/user/balance': {
         action: 'api/user/balance'
     },
-    'POST /api/user/lectures': {
+    'GET /api/user/lectures': {
         action: 'api/user/lectures'
     }
 
