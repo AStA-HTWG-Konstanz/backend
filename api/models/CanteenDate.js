@@ -3,7 +3,7 @@ module.exports = {
   attributes: {
     date: {
       type: 'ref',
-      columnType: 'datetime'
+      columnType: 'date'
     },
 
 
