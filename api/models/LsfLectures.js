@@ -11,44 +11,43 @@ module.exports = {
             type: 'number',
             required: true
         },
+        lsfCourseID: {
+            type: 'number',
+            required: true
+        },
         name: {
             type: 'string',
             required: true
         },
         prof: {
             type: 'string',
-            required: true
+            required: false
         },
         startTime: {
-            type: 'number',
+            type: 'ref',
+            columnType: 'time',
             required: true
         },
         room: {
             type: 'string',
+            required: false
+        },
+        category: {
+            type: 'string',
             required: true
         },
         endTime: {
-            type: 'number',
-            required: true
-        },
-        startDate: {
             type: 'ref',
-            columnType: 'date'
-        },
-        endDate: {
-            type: 'ref',
-            columnType: 'date'
-        },
-        repeats: {
-            type: 'boolean',
+            columnType: 'time',
             required: true
-        },
-        repeatType: {
-            type: 'string'
         },
         students: {
             collection: 'user',
             via: 'lectures'
+        },
+        dates : {
+            collection: 'lsflecturedates',
+            via: 'lecture'
         }
     }
 };

@@ -46,7 +46,7 @@ module.exports = {
             url: sails.config.custom.datacenter.lsf.loginPage,
         }, function (err, result, bodyData) {
             if(err) {
-                sails.log(err);
+                sails.log.error(err);
                 return exits.errorOccured();
             }
             let setCookieData = result.headers['set-cookie'];
@@ -62,7 +62,7 @@ module.exports = {
                 form: {asdf: inputs.username, fdsa: inputs.password}
             }, function (err, httpResponse, body) {
                 if (err) {
-                    sails.log(err);
+                    sails.log.error(err);
                     return exits.errorOccured();
                 }
 

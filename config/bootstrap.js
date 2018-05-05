@@ -31,7 +31,7 @@ module.exports.bootstrap = async function(done) {
   // Don't forget to trigger `done()` when this bootstrap function's logic is finished.
   // (otherwise your server will never lift, since it's waiting on the bootstrap)
 
-    let lsfJob  = scheduler.scheduleJob('* * * * *', function(){
+    let lsfJob  = scheduler.scheduleJob('15 0 * * *', function(){
         lsfService.importLectures(function (err, result) {
            sails.log.info("Job executed");
         });
