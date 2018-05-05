@@ -29,20 +29,47 @@ module.exports = {
 
   }
 };
-let menuSQL = `
+let menuSQLAll = `
 SELECT date, category, title, studentPrice, employeePrice
 FROM canteenmeal cM INNER JOIN canteendate cD on cM.onDate = cD.ID
 WHERE
   language = $1
   
 `;
+let dateSQL = 'select date from canteendate';
 
 async function findData(lang,exits) {
 
-    let menuResult = await sails.sendNativeQuery(menuSQL,[lang]);
-    console.log(menuResult);
+  let menus = {
+    "menu" : await sails.sendNativeQuery(menuSQLAll,[lang])
+  }
 
-  return exits.success(menuResult);
+  let datedMenu = {
+    "menu" : [
+      {
+        "menudate" : await sails.sendNativeQuery(dateSQL),
+        "meals" :[
+          {}
+        ]
+      }
+    ]
+  }
+
+console.log(datedMenu["menu"]);
+/*
+
+for (let j = 0; j = datedMenu.menu.length; j++) {
+  for (let i = 0; i = menus.menu.length(); i++) {
+    if(datedMenu.menu[j].date == menus.menu[i].date){
+
+    }
+
+  }
+*/
+
+
+
+return exits.success(datedMenu);
   /* find({
      where:{language: lang },
      select: ['category', 'title', 'studentPrice', 'employeePrice']
@@ -53,3 +80,4 @@ async function findData(lang,exits) {
      return exits.errorOccured();
    });*/
 }
+

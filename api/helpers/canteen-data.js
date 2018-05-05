@@ -28,6 +28,7 @@ module.exports = {
     for (let i = 0; i < 2; i++) {
       request(endPoint, async (error, response, body) => {
         let json = JSON.parse(convert.xml2json(body, {compact: true, spaces: 4}));
+
         let tage = json['speiseplan']['tag'];
 
         for (let i = 0; i < tage.length; i++) {
