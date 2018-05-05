@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 /**
  * Bootstrap
  * (sails.config.bootstrap)
@@ -8,6 +9,9 @@
  * For more information on bootstrapping your app, check out:
  * https://sailsjs.com/config/bootstrap
  */
+let scheduler = require('node-schedule');
+let menuService = require('../api/services/canteenService');
+
 
 module.exports.bootstrap = async function(done) {
 
@@ -26,6 +30,14 @@ module.exports.bootstrap = async function(done) {
   //   // etc.
   // ]);
   // ```
+  let canteenJob = scheduler.scheduleJob('0 * * * * *',function() {
+    menuService.importMenus(function (err,result) {
+      sails.log.info("Menu job executed");
+
+    });
+
+
+  });
 
   // Don't forget to trigger `done()` when this bootstrap function's logic is finished.
   // (otherwise your server will never lift, since it's waiting on the bootstrap)

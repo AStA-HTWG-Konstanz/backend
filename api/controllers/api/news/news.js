@@ -28,7 +28,7 @@ module.exports = {
             skip: this.req.params.page * this.req.params.elements,
             select: ['title', 'short_desc', 'content', 'category']
         }).then(function (data) {
-            return exits.success({news: data});
+            return exits.success({menu: data});
         }).catch(function (error) {
             sails.log(error);
             return exits.errorOccured();

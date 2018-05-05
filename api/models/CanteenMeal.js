@@ -12,7 +12,7 @@ module.exports = {
     },
     title: {
       type: 'string',
-      required: true
+      required: true,
     },
     studentPrice: {
       type: 'string',
