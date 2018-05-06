@@ -45,7 +45,7 @@ module.exports = {
         request.get({
             url: sails.config.custom.datacenter.lsf.loginPage,
         }, function (err, result, bodyData) {
-            if(err) {
+            if (err) {
                 sails.log.error(err);
                 return exits.errorOccured();
             }
@@ -64,6 +64,10 @@ module.exports = {
                 if (err) {
                     sails.log.error(err);
                     return exits.errorOccured();
+                }
+
+                if(httpResponse.statusCode !== 302) {
+                    return exits.loginFailed();
                 }
 
                 let setCookie = httpResponse.headers['set-cookie'];

@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 let async = require('async');
 const fs = require('fs');
 let ical2json = require("ical2json");
+let https = require('https');
 
 
 let importLectures = function (callback) {
@@ -45,16 +46,16 @@ let importLectures = function (callback) {
                 /**
                  * Download the iCal file
                  */
-                request.get({
-                    url: icalURL
-                }).on('response', function (res) {
-
-                    res.pipe(fs.createWriteStream(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics'));
-
-                    res.on('end', function () {
+                let file = fs.createWriteStream(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics');
+                https.get(icalURL, function(response) {
+                    response.pipe(file);
+                    file.on('finish', function() {
                         sails.log.debug("Fetched ical for: " + course.name);
-                        clbk();
+                        file.close(clbk);  // close() is async, call cb after close completes.
                     });
+                }).on('error', function (err) { // Handle errors
+                    fs.unlink(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics'); // Delete the file async. (But we don't check the result)
+                    clbk(err);
                 });
             },
             function (clbk) {
@@ -98,7 +99,7 @@ let importLectures = function (callback) {
                              * Write dates for lecture to database
                              */
                             async.forEachOf(event.dates, function (date, ky, cb) {
-                                LsfLectureDates.create({date: date, lecture: lectureID}).then(() => {
+                                LsfLectureDates.create({lectureDate: date, lecture: lectureID}).then(() => {
                                     cb();
                                 }).catch(function (error) {
                                     cb(error);
@@ -130,6 +131,7 @@ let importLectures = function (callback) {
         ], function (error, result) {
             if (error) {
                 sails.log.error(error);
+                cb();
             } else {
                 //Execute callback of async.forEachOfSeries
                 cb();

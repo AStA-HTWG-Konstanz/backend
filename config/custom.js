@@ -36,6 +36,7 @@ module.exports.custom = {
             loginEndpoint: "https://lsf.htwg-konstanz.de/qisserver/rds?state=user&type=1&category=auth.login&startpage=portal.vm&breadCrumbSource=portal",
             loginPage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=user&type=0&breadCrumbSource=portal&topitem=functions",
             icalPage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=wplan&act=stg&pool=stg&show=plan&P.vx=kurz&missing=allTerms&k_parallel.parallelid=&k_abstgv.abstgvnr=${id}&r_zuordabstgv.phaseid=",
+            lecturePage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=wplan&act=show&show=plan&P.subc=plan&fil=plu&mtknr=&UserSignature=",
             ids: [
                 {
                     id: 4511,

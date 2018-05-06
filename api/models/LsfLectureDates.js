@@ -7,9 +7,9 @@
 module.exports = {
 
     attributes: {
-        date: {
+        lectureDate: {
             type: 'ref',
-            columnType: 'date'
+            columnType: 'DATE'
         },
         lecture: {
             model: 'lsflectures'
