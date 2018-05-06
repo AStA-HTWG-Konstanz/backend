@@ -13,7 +13,7 @@ let scheduler = require('node-schedule');
 let menuService = require('../api/services/canteenService');
 
 
-module.exports.bootstrap = async function(done) {
+module.exports.bootstrap = async function (done) {
 
   // By convention, this is a good place to set up fake data during development.
   //
@@ -30,10 +30,22 @@ module.exports.bootstrap = async function(done) {
   //   // etc.
   // ]);
   // ```
-  let canteenJob = scheduler.scheduleJob('0 * * * * *',function() {
-    menuService.importMenus(function (err,result) {
-      sails.log.info("Menu job executed");
+  let canteenJob = scheduler.scheduleJob('0 * * * * *', function () {
+    CanteenDate.destroy({}).then(function () {
+      CanteenMeal.destroy({}).then(function () {
 
+        menuService.importMenus(function (err, result) {
+        }).catch(function (err) {
+          sails.log.error(err);
+
+        });
+
+      }).catch(function (err) {
+        sails.log.error(err);
+      });
+
+    }).catch(function (err) {
+      sails.log.error(err);
     });
 
 

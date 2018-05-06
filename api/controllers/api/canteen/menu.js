@@ -55,7 +55,7 @@ async function findData(lang,exits) {
     ]
   }
 
-console.log(datedMenu["menu"]);
+console.log(datedMenu.menu(row));
 /*
 
 for (let j = 0; j = datedMenu.menu.length; j++) {
