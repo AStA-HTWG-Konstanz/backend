@@ -35,7 +35,8 @@ module.exports = {
     let password = inputs.password;
 
     sails.helpers.ldapLogin(username, password).then((user) => {
-      this.req.session.logged = true;
+      this.req.session.api.logged = true;
+      this.req.session.api.username = username;
       return exits.success();
     }).catch(function (error) {
       return exits.failure();
