@@ -119,7 +119,6 @@ module.exports = {
                 });
                 cb();
             } catch (e) {
-                sails.log.error("Fick dich: " + event["SUMMARY"]);
                 cb();
             }
         }, function (error) {
