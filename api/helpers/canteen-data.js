@@ -46,7 +46,7 @@ module.exports = {
           }, {
             date: datum
           }).then(function (data) {
-            dates[data.date] = data.id;
+            dates[datum] = data.id;
             cb();
           }).catch(function (error) {
             sails.log.error(error);
@@ -89,6 +89,7 @@ module.exports = {
       function (result, callback) {
         async.forEachOf(result.jsonData['speiseplan']['tag'], function (day, key, cb) {
           let parsedDate = moment.unix(day['_attributes']['timestamp']).format('YYYY-MM-DD');
+
           getMeals(day, result.dates, parsedDate, function (error, result) {
             cb();
           });
@@ -124,6 +125,7 @@ function getMeals(day, idList, parsedDate, callback) {
     if (typeof name === 'undefined') {
       name = 'Holiday';
     }
+
     CanteenMeal.create({
       language: languageCode,
       category: category,

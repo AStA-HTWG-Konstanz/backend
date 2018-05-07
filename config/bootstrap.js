@@ -30,14 +30,16 @@ module.exports.bootstrap = async function (done) {
   //   // etc.
   // ]);
   // ```
-  let canteenJob = scheduler.scheduleJob('0 * * * * *', function () {
+  let canteenJob = scheduler.scheduleJob('0 22 * * 7', function () {
+    sails.log.info('Canteen database cleanup');
     CanteenDate.destroy({}).then(function () {
       CanteenMeal.destroy({}).then(function () {
-
+        sails.log.info('Canteen import started');
         CanteenService.importMenus(function (err, result) {
-          if(err){
+          if (err) {
             sails.log.error(err);
           }
+          sails.log.info('Canteen import finished');
         });
 
       }).catch(function (err) {
