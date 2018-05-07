@@ -63,10 +63,10 @@ module.exports = {
       function (result, callback) {
         async.forEachOfSeries(result.jsonData['speiseplan']['tag'], function (day, key, cb) {
           let parsedDate = moment.unix(day['_attributes']['timestamp']).format('YYYY-MM-DD');
-          getMeals(day,result.dates, parsedDate,function (error,result) {
+          getMeals(day, result.dates, parsedDate, function (error, result) {
             cb();
           });
-          }, function (err) {
+        }, function (err) {
           if (err) {
             callback(err);
           } else {
@@ -75,7 +75,7 @@ module.exports = {
         });
 
       },
-      function (dates,callback) {
+      function (dates, callback) {
         request(sails.config.custom.seezeit.canteen.enEndpoint, function (error, response, body) {
           if (error) {
             callback(error);
@@ -89,7 +89,7 @@ module.exports = {
       function (result, callback) {
         async.forEachOf(result.jsonData['speiseplan']['tag'], function (day, key, cb) {
           let parsedDate = moment.unix(day['_attributes']['timestamp']).format('YYYY-MM-DD');
-          getMeals(day,result.dates, parsedDate,function (error,result) {
+          getMeals(day, result.dates, parsedDate, function (error, result) {
             cb();
           });
         }, function (err) {
@@ -114,17 +114,16 @@ module.exports = {
   }
 };
 
-function getMeals(day,idList,parsedDate, callback) {
+function getMeals(day, idList, parsedDate, callback) {
   async.forEachOfSeries(day['item'], function (meal, k, callb) {
     let languageCode = meal['_attributes']['language'];
     let category = meal['category']['_text'];
     let name = meal['title']['_text'];
     let studentPrice = meal['preis1']['_text'];
     let employeePrice = meal['preis2']['_text'];
-    if(typeof name === "undefined"){
-      name = "Holiday";
+    if (typeof name === 'undefined') {
+      name = 'Holiday';
     }
-    sails.log.debug(name);
     CanteenMeal.create({
       language: languageCode,
       category: category,
