@@ -3,23 +3,23 @@ module.exports = {
   attributes: {
 
     language: {
-      type: 'String',
+      type: 'string',
       required: true,
     },
     category: {
-      type: 'String',
+      type: 'string',
       required: true
     },
     title: {
-      type: 'String',
-      required: true
+      type: 'string',
+      required: true,
     },
     studentPrice: {
-      type: 'number',
+      type: 'string',
       required: true
     },
     employeePrice: {
-      type: 'number',
+      type: 'string',
       required: true
     },
 
