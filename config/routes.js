@@ -24,9 +24,40 @@ module.exports.routes = {
      *                                                                          *
      ***************************************************************************/
 
-    '/': {
-        view: 'pages/homepage'
+    'GET /': {
+        action: 'backend/dashboard/dashboard-view'
     },
+    'GET /login': {
+        action: 'backend/user/login-view'
+    },
+    'POST /login': {
+        action: 'backend/user/login'
+    },
+    'GET /logout': {
+        action: 'backend/user/logout'
+    },
+    'GET /setup': {
+        action: 'backend/user/setup-view'
+    },
+    'POST /setup': {
+        action: 'backend/user/setup'
+    },
+    'GET /news': {
+        action: 'backend/news/news-view'
+    },
+    'POST /category/add': {
+        action: 'backend/news/category-add'
+    },
+    'GET /category/delete/:id': {
+        action: 'backend/news/category-delete'
+    },
+    'POST /news/add': {
+        action: 'backend/news/news-add'
+    },
+    'GET /news/delete/:id' : {
+        action: 'backend/news/news-delete'
+    },
+
 
     /***************************************************************************
      *                                                                          *
@@ -44,16 +75,22 @@ module.exports.routes = {
     //  ╠═╣╠═╝║  ║╣ ║║║ ║║╠═╝║ ║║║║║ ║ ╚═╗
     //  ╩ ╩╩  ╩  ╚═╝╝╚╝═╩╝╩  ╚═╝╩╝╚╝ ╩ ╚═╝
     'GET /api/canteen/:language/menu': {
-        controller: 'CanteenController',
-        action: 'menu'
+        action: 'api/canteen/menu'
     },
-    'POST /api/news/:page/:elements': {
-        controller: 'NewsController',
-        action: 'news'
+    'GET /api/news/:page/:elements': {
+        action: 'api/news/news'
     },
     'GET /api/news/categories': {
-        controller: 'NewsController',
-        action: 'categories'
+        action: 'api/news/categories'
+    },
+    'POST /api/user/auth': {
+        action: 'api/user/auth'
+    },
+    'POST /api/user/balance': {
+        action: 'api/user/balance'
+    },
+    'POST /api/user/lectures': {
+        action: 'api/user/lectures'
     }
 
 

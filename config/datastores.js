@@ -49,7 +49,7 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
     adapter: 'sails-mysql',
-    url: 'mysql://' + process.env.DBUSER +':' + process.env.DBPASS +'@localhost:3306/' + process.env.DB,
+    url: 'mysql://' + process.env.DBUSER + ':' + process.env.DBPASS +'@localhost:3306/'+ process.env.DB,
 
   },
 

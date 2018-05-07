@@ -13,13 +13,13 @@ module.exports = {
         username: {
             type: 'string',
             example: 'user1',
-            description: 'Username for datacenter login at HTWG Konstanz',
+            description: 'Username for datacenter login at HTWG Konstanz.',
             required: true
         },
         password: {
             type: 'string',
             example: 'password1234',
-            description: 'Password for datacenter login at HTWG Konstanz',
+            description: 'Password for datacenter login at HTWG Konstanz.',
             required: true
         }
     },
@@ -28,11 +28,11 @@ module.exports = {
     exits: {
         success: {
             outputFriendlyName: 'User data',
-            outputDescription: 'Data about the user returned from the LDAP-Server'
+            outputDescription: 'Data about the user returned from the LDAP-Server.'
         },
-        error: {
+        errorOccured: {
             outputFriendlyName: 'LDAP error',
-            outputDescription: 'LDAP error authentication was not possible'
+            outputDescription: 'LDAP error authentication was not possible.'
         }
     },
 
@@ -45,7 +45,7 @@ module.exports = {
                     if (error) {
                         sails.log(error);
                     }
-                    throw 'error';
+                    return exits.errorOccured();
                 });
             } else {
                 authService.close(function (error) {
@@ -57,7 +57,4 @@ module.exports = {
             }
         });
     }
-
-
 };
-

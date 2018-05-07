@@ -1,0 +1,178 @@
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+    <% include ./modules/navigation.ejs %>
+    <% include ./modules/header.ejs %>
+    <!-- Main Container -->
+    <main id="main-container">
+        <!-- Page Content -->
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="block block-bordered">
+                        <div class="block-header bg-gray-lighter">
+                            <h3 class="block-title">Publish</h3>
+                        </div>
+                        <div class="block-content">
+                            <div id="news-add-error-message"></div>
+                            <form class="form-horizontal" action="/news/add" method="post" id="add-news">
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="category-select">Choose a category</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" id="category-select" name="categorySelect"
+                                                size="1">
+                                            <option value="0">Please select</option>
+                                            <% categories.forEach(function (category){%>
+                                            <option value="<%= category.id %>"><%= category.name %></option>
+                                            <%})%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="title">Title</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" id="title"
+                                               name="title" placeholder="Text..">
+                                        <div class="help-block">Enter a title for your news.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="short-description">Short description</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" id="short-description"
+                                               name="shortDescription" placeholder="Text..">
+                                        <div class="help-block">Enter a short description for your news.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="news-text">Text</label>
+                                    <div class="col-xs-12">
+                                        <textarea class="form-control" id="news-text" name="newsText" rows="6"
+                                                  placeholder="Content.."></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-sm btn-success" type="submit">Publish</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="block block-bordered">
+                        <div class="block-header bg-gray-lighter">
+                            <h3 class="block-title">Add a Category</h3>
+                        </div>
+                        <div class="block-content">
+                            <div id="category-add-error-message"></div>
+                            <form class="form-horizontal" method="post" action="/category/add" id="add-category">
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="category-name">Category Name</label>
+                                    <div class="col-xs-12">
+                                        <input class="form-control" type="text" id="category-name" name="categoryName"
+                                               placeholder="Category..">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-sm btn-success" type="submit"><span
+                                                    class="fa fa-plus"></span> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="block block-bordered">
+                        <div class="block-header bg-gray-lighter">
+                            <h3 class="block-title">Categories</h3>
+                        </div>
+                        <div class="block-content">
+                            <div id="category-delete-error-message"></div>
+                            <% if(categories === null){%>
+                            <div class="alert alert-danger">
+                                <p>Could not get any categories.</p>
+                            </div>
+                            <%} else {%>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% categories.forEach(function (category){%>
+                                <tr>
+                                    <td class="text-center"><%= category.id %></td>
+                                    <td class="text-center"><%= category.name %></td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <a href="javascript:removeCategory(<%= category.id %>)" class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
+                                                    title="" data-original-title="Remove Category"><i
+                                                        class="fa fa-trash"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <%});%>
+                                </tbody>
+                            </table>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- My Block -->
+            <div class="block block-bordered">
+                <div class="block-header bg-gray-lighter">
+                    <h3 class="block-title">News</h3>
+                </div>
+                <div class="block-content">
+                    <div id="news-delete-error-message"></div>
+                    <% if(news === null){%>
+                    <div class="alert alert-danger">
+                        <p>Could not get any news.</p>
+                    </div>
+                    <%} else {%>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Title</th>
+                            <th class="text-center">Short description</th>
+                            <th class="text-center">Category ID</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% news.forEach(function (singleNews){%>
+                        <tr>
+                            <td class="text-center"><%= singleNews.id %></td>
+                            <td class="text-center"><%= singleNews.title %></td>
+                            <td class="text-center"><%= singleNews.short_desc %></td>
+                            <td class="text-center"><%= singleNews.category %></td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a href="javascript:removeNews(<%= singleNews.id %>)" class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
+                                       title="" data-original-title="Remove News"><i
+                                                class="fa fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <%});%>
+                        </tbody>
+                    </table>
+                    <%}%>
+                </div>
+            </div>
+            <!-- END My Block -->
+        </div>
+        <!-- END Page Content -->
+    </main>
+    <!-- END Main Container -->
+    <% include ./modules/footer.ejs %>
+</div>
+<!-- END Page Container -->

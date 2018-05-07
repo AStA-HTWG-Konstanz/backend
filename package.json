@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
@@ -9,13 +9,22 @@
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
     "async": "2.0.1",
+    "cheerio": "^1.0.0-rc.2",
     "grunt": "1.0.1",
+    "ical-date-parser": "^4.0.0",
+    "ical2json": "^1.2.0",
     "ldapauth-fork": "^4.0.2",
+    "moment": "^2.22.1",
+    "moment-recur2": "^1.0.0",
+    "node-ical": "^0.6.1",
+    "node-schedule": "^1.3.0",
+    "request": "^2.85.0",
     "sails": "^1.0.1",
     "sails-hook-grunt": "^3.0.2",
     "sails-hook-orm": "^2.0.0-16",
     "sails-hook-sockets": "^1.4.0",
-    "sails-mysql": "^1.0.0"
+    "sails-mysql": "^1.0.0",
+    "xml-js": "^1.6.2"
   },
   "devDependencies": {
     "@sailshq/eslint": "^4.19.3"
@@ -29,9 +38,9 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/manuel/backend.git"
+    "url": "git://github.com/AStA-HTWG-Konstanz/backend.git"
   },
-  "author": "manuel",
+  "author": "Manuel Haug and Roman Leinweber",
   "license": "",
   "engines": {
     "node": ">=9.11"
