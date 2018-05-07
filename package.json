@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
@@ -38,9 +38,9 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/manuel/backend.git"
+    "url": "git://github.com/AStA-HTWG-Konstanz/backend.git"
   },
-  "author": "manuel und roman",
+  "author": "Manuel Haug and Roman Leinweber",
   "license": "",
   "engines": {
     "node": ">=9.11"
