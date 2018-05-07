@@ -99,7 +99,7 @@ let importLectures = function (callback) {
                              * Write dates for lecture to database
                              */
                             async.forEachOf(event.dates, function (date, ky, cb) {
-                                LsfLectureDates.create({lectureDate: date, lecture: lectureID}).then(() => {
+                                LsfLectureDates.create({lectureDate: date, lecture: lectureID}).then(function () {
                                     cb();
                                 }).catch(function (error) {
                                     cb(error);

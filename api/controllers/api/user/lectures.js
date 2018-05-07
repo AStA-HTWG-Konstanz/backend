@@ -57,7 +57,7 @@ module.exports = {
                     return exits.noLectures();
                 }
                 const url = new URL(icalURL);
-                let termine = url.searchParams.get('termine');
+                let termine = url.searchParams.get('termine').split(",");
                 let curr = new Date;
                 let first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
                 let last = first + 7; // last day is the first day + 7
@@ -70,20 +70,25 @@ module.exports = {
                     if(err) {
                         return exits.errorOccured(err);
                     } else {
-                        let output = {lectures: {}};
-                        async.forEachOfSeries(rawResult.rows, function (row, key, cb) {
-                            if(typeof output.lectures[new Date(row["lectureDate"]).toLocaleDateString()] === "undefined") {
-                                output.lectures[new Date(row["lectureDate"]).toLocaleDateString()] = [];
+                        let output = {lectures: []};
+                        let key;
+                        let index = 0;
+                        for (let row of rawResult.rows) {
+                            if(typeof key === "undefined") {
+                                key = new Date(row["lectureDate"]).toLocaleDateString();
+                                output.lectures.push({date: key, lectures: []});
                             }
-                            output.lectures[new Date(row["lectureDate"]).toLocaleDateString()].push({name: row["name"], startTime: row["startTime"], endTime: row["endTime"], room: row["room"], category: row["category"]});
-                            cb();
-                        }, function (err) {
-                            if(err) {
-                                return exits.errorOccured(err);
+
+                            if(key === new Date(row["lectureDate"]).toLocaleDateString()) {
+                                output.lectures[index].lectures.push({name: row["name"], startTime: row["startTime"], endTime: row["endTime"], room: row["room"], category: row["category"]});
                             } else {
-                               return exits.success(output);
+                                key = new Date(row["lectureDate"]).toLocaleDateString();
+                                index++;
+                                output.lectures.push({date: key, lectures: []});
+                                output.lectures[index].lectures.push({name: row["name"], startTime: row["startTime"], endTime: row["endTime"], room: row["room"], category: row["category"]});
                             }
-                        });
+                        }
+                        return exits.success(output);
                     }
                 });
             });
