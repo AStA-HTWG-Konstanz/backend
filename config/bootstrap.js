@@ -10,7 +10,7 @@
  * https://sailsjs.com/config/bootstrap
  */
 let scheduler = require('node-schedule');
-let menuService = require('../api/services/canteenService');
+let CanteenService = require('../api/services/canteenService');
 
 
 module.exports.bootstrap = async function (done) {
@@ -34,10 +34,10 @@ module.exports.bootstrap = async function (done) {
     CanteenDate.destroy({}).then(function () {
       CanteenMeal.destroy({}).then(function () {
 
-        menuService.importMenus(function (err, result) {
-        }).catch(function (err) {
-          sails.log.error(err);
-
+        CanteenService.importMenus(function (err, result) {
+          if(err){
+            sails.log.error(err);
+          }
         });
 
       }).catch(function (err) {

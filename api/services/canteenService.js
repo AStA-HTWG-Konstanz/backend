@@ -1,8 +1,11 @@
 
 
-let importMenus = async function (inputs, exits) {
-  await sails.helpers.canteenData();
-  return exits.success();
+let importMenus = function (callback) {
+  sails.helpers.canteenData().then(function () {
+    callback();
+  }).catch(function (error) {
+    callback(error);
+  });
 };
 
 module.exports = {
