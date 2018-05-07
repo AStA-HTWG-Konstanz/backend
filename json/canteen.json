@@ -1,12 +1,193 @@
-{ "menu": [
-  {"date" : "2.3.2018",
-    "meals" : [
-      {
-        "ctgry"     : "Seezeit-Teller",
-        "title"     : "Schnipo",
-        "priceStud" : "0.8",
-        "priceEmpl" : "4.9"
-      }
-    ]
-  }
-]}
+{
+  "menu": [
+    {
+      "date": "2.3.2018",
+      "meals": [
+        {
+          "ctgry": "Seezeit-Teller",
+          "title": "Tortelloni Mediterraneo (25a) | Petersilien-Mandelpesto (3,32a) | Riosalat | Balsamicodressing (34,36) | Frischobst Apfel | (Veg)"
+        },
+        {
+          "ctgry": "hin&weg",
+          "title": "Kartoffelpuffer Apfelmus (3,28,25a)"
+        },
+        {
+          "ctgry": "KombinierBar",
+          "title": "Rezept des Monats | Zitronenhähnchen (36) | Bratensauce | (G)"
+        },
+        {
+          "ctgry": "Beilagen",
+          "title": "Kartoffeln | Reis | Kaisergemüse | Salat | Dessert"
+        }
+      ]
+    },
+    {
+      "date": "3.3.2018",
+      "meals": [
+        {
+          "ctgry": "Seezeit-Teller",
+          "title": "Linsengemüse mit Wiener Würstchen (2,3,33,34,36) (G) | Spätzle (28,25a,25d) | Pudding mit Schokoladengeschmack (31)"
+        },
+        {
+          "ctgry": "hin&weg",
+          "title": "Patatas Bravas | Tomatensauce (33,34) | Mexikanisches Gemüse"
+        },
+        {
+          "ctgry": "KombinierBar",
+          "title": "Holzfällersteak mit Röstzwiebeln (34,25a)  | Kräuterbutter (31) | (Sch)"
+        },
+        {
+          "ctgry": "Beilagen",
+          "title": "Pommes frites | Spätzle (28,25a,25d) | Gemüsepfanne (3) | Salat | Dessert"
+        }
+      ]
+    },
+    {
+      "date": "4.3.2018",
+      "meals": [
+        {
+          "ctgry": "Seezeit-Teller",
+          "title": "Brokkoli-Nussecke (29,30,31,33,25a,25e,32c) | Paprikasauce (3,31) | Bärlauch-Kartoffelpüree (31) | Waldbeerquark (31) | (Veg)"
+        },
+        {
+          "ctgry": "hin&weg",
+          "title": "Schupfnudeln | Putenbruststreifen | Spinat (25a,32h) | (G)"
+        },
+        {
+          "ctgry": "KombinierBar",
+          "title": "Schweineschnitzel \"Jäger Art\" (3,28,31,25a) | (Sch)"
+        },
+        {
+          "ctgry": "Beilagen",
+          "title": "Pommes frites | Spätzle (28,25a,25d) | Rahmwirsing | Salat | Dessert"
+        }
+      ]
+    },
+    {
+      "date": "5.3.2018",
+      "meals": [
+        {
+          "ctgry": "Seezeit-Teller",
+          "title": "Backerbsensuppe (33,34,25a) | Seelachsfilet (aus nachhaltiger Fischerei) | Tomaten-Gurkentatar (26) | Petersilien-Kartoffeln | (F)"
+        },
+        {
+          "ctgry": "hin&weg",
+          "title": "Gebratene Maultaschen Ei (3,28,33,25a) | Bratensauce | Kartoffelsalat (2,34) | (Sch)"
+        },
+        {
+          "ctgry": "KombinierBar",
+          "title": "Gemüseschnitzel (33,25a,25d) | Frühlingszwiebel-Dip (2,28,31) | (Veg)"
+        },
+        {
+          "ctgry": "Beilagen",
+          "title": "Pommes frites | Kartoffeln | Kaisergemüse | Salat | Dessert"
+        }
+      ]
+    },
+    {
+      "date": "1.3.2018",
+      "meals": [
+        {
+          "ctgry": "Seezeit-Teller",
+          "title": "Currywurst (2,3,8,9) (Sch,R) | Pommes frites | Top-Fit Salat | Cocktaildressing (2,9,28,36) | Stracciatellajoghurt (31)"
+        },
+        {
+          "ctgry": "hin&weg",
+          "title": "Cevapcici (33,34) | Ajvarsauce (9) | Reis | (R)"
+        },
+        {
+          "ctgry": "KombinierBar",
+          "title": "Gemüsebagel | Avocadodip (3,33,25a,25d) | (Vegan)"
+        },
+        {
+          "ctgry": "Beilagen",
+          "title": "Pommes frites | Kartoffeln | Karotten | Salat | Dessert"
+        }
+      ]
+    },
+    {
+      "date": "2.3.2018",
+      "meals": [
+        {
+          "ctgry": "Seezeit-Teller",
+          "title": "Köfte (28,33,34,25a) (R) | Tzatziki-Dip (3,31) | Gemüsereis (33) | Blattsalat | Cocktaildressing (2,9,28,36) | Ananas-Joghurt (31)"
+        },
+        {
+          "ctgry": "hin&weg",
+          "title": "Risotto| Gorgonzola | Tomaten (2,28,31,33,34,36,32h) | (Veg)"
+        },
+        {
+          "ctgry": "KombinierBar",
+          "title": "Gebratene Hähnchenbrust Tandoori (30,31) | (G)"
+        },
+        {
+          "ctgry": "Beilagen",
+          "title": "Pommes frites | Reis | Brokkoli (33) | Salat | Dessert"
+        }
+      ]
+    },
+    {
+      "date": "3.3.2018",
+      "meals": [
+        {
+          "ctgry": "Seezeit-Teller",
+          "title": "Spargelcremesuppe (31,33,34) | Gnocchi Käse-Salbeisauce (28,31,33,34,25a) | Top-Fit Salat-Cocktaildressing (2,9,28,36) | (Veg)"
+        },
+        {
+          "ctgry": "hin&weg",
+          "title": "Kaiserschmarrn (28,31,25a,32a) | Apfelmus (3) (Veg)"
+        },
+        {
+          "ctgry": "KombinierBar",
+          "title": "Spanische Fleischbällchen \"Albondigas\" Tomatensauce (3,28,33,34,36,25a) | (G)"
+        },
+        {
+          "ctgry": "Beilagen",
+          "title": "Penne (25a) | Reis | Peperonata (3) | Salat | Dessert"
+        }
+      ]
+    },
+    {
+      "date": "4.3.2018",
+      "meals": [
+        {
+          "ctgry": "Seezeit-Teller",
+          "title": "Schweinegeschnetzeltes \"Züricher Art\" (3,31) | Spätzle (28,25a) | Blattsalat - Cocktaildressing (2,9,28,36) | Apfel | (Sch)"
+        },
+        {
+          "ctgry": "hin&weg",
+          "title": "Bulgur-Gemüse-Pilaw Cashewkerne (33,34,25a,32g) | Tomatensalsa (3) | (Veg)"
+        },
+        {
+          "ctgry": "KombinierBar",
+          "title": "Maultaschen (25a) | Selleriesauce (31) | (Veg)"
+        },
+        {
+          "ctgry": "Beilagen",
+          "title": "Spätzle (28,25a,25d) | Kartoffeln | Ratatouille (2) | Salat | Dessert"
+        }
+      ]
+    },
+    {
+      "date": "5.3.2018",
+      "meals": [
+        {
+          "ctgry": "Seezeit-Teller",
+          "title": "Gemüse-Kartoffelauflauf (28,30,31,33,34) | Blattsalat - Frenchdressing (2,28,31,34,36) | Banane | (Veg)"
+        },
+        {
+          "ctgry": "hin&weg",
+          "title": "Fischstäbchen (aus nachaltiger Fischerei) (26,25a) | Kartoffeln | Remouladensauce (2,9,28) | (F)"
+        },
+        {
+          "ctgry": "KombinierBar",
+          "title": "Bombay Curry-Schwein (3,31) | (Sch)"
+        },
+        {
+          "ctgry": "Beilagen",
+          "title": "Reis | Kartoffeln | Asia Gemüse (2,4,30,31,33,25a) | Salat | Dessert"
+        }
+      ]
+    }
+  ]
+}
