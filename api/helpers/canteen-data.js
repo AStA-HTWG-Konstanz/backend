@@ -22,15 +22,16 @@ module.exports = {
 
 
   fn: async function (inputs, exits) {
-    let dateMeal = createDate();
-    getMeals(sails.config.custom.seezeit.canteen.deEndpoint, dateMeal);
-    getMeals(sails.config.custom.seezeit.canteen.enEndpoint, dateMeal);
+
+    createDate();
+
   }
 };
 
 async function createDate() {
   request(sails.config.custom.seezeit.canteen.deEndpoint, async (error, response, body) => {
-    let days = parseXML(body);
+    let json = JSON.parse(convert.xml2json(body, {compact: true, spaces: 4}));
+    let days = json['speiseplan']['tag'];
     for (let i = 0; i < days.length; i++) {
       let datum = moment.unix(days[i]['_attributes']['timestamp']).format('YYYY-MM-DD');
       data[i] = {};
@@ -42,25 +43,29 @@ async function createDate() {
       }, {
         date: datum
       });
-      console.log(dateMeal);
-      return dateMeal;
+
+      getMeals(sails.config.custom.seezeit.canteen.deEndpoint, dateMeal,i);
+      getMeals(sails.config.custom.seezeit.canteen.enEndpoint, dateMeal,i);
 
     }
+
   });
 }
-
+/*
 async function parseXML(body) {
+  //console.log(body);
   let json = JSON.parse(convert.xml2json(body, {compact: true, spaces: 4}));
   let days = json['speiseplan']['tag'];
-  console.log(days);
+  console.log("XML" + json);
   return days;
-}
+}*/
 
-async function getMeals(endPoint, dateMeal) {
+async function getMeals(endPoint, dateMeal, i) {
   request(endPoint, async (error, response, body) => {
-    let days = parseXML(body);
+    let json = JSON.parse(convert.xml2json(body, {compact: true, spaces: 4}));
+    let days = json['speiseplan']['tag'];
 
-    for (let i = 0; i < days.length; i++) {
+
       let meals = days[i]['item'];
       for (let x = 0; x < meals.length; x++) {
         let languageCode = meals[x]['_attributes']['language'];
@@ -69,9 +74,6 @@ async function getMeals(endPoint, dateMeal) {
         let studentPrice = meals[x]['preis1']['_text'];
         let employeePrice = meals[x]['preis2']['_text'];
 
-        console.log("language" + languageCode);
-        console.log(name);
-        console.log(category);
 
         await CanteenMeal.create({
           language: languageCode,
@@ -83,7 +85,6 @@ async function getMeals(endPoint, dateMeal) {
         });
       }
 
-    }
   });
 
 
