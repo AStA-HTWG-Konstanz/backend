@@ -68,7 +68,8 @@ module.exports = {
                 //Prepare query
                 LsfLectures.getDatastore().sendNativeQuery(LSF_LECTURES_FOR_USER_SQL, [termine, firstday, lastday]).exec(function(err, rawResult) {
                     if(err) {
-                        return exits.errorOccured(err);
+                        sails.log.error(err);
+                        return exits.errorOccured();
                     } else {
                         let output = {lectures: []};
                         let key;
