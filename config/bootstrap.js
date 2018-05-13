@@ -65,12 +65,12 @@ module.exports.bootstrap = async function (done) {
                 lsfService.importLectures(function (err, result) {
                     sails.log.info("LSF import finished");
                     // Clean directory
-                    fs.readdir(directory, (err, files) => {
+                    fs.readdir(sails.config.appPath + '/.tmp/ical', (err, files) => {
                         if (err) {
                             sails.log.error(err);
                         } else {
                             for (const file of files) {
-                                fs.unlink(path.join(directory, file), err => {
+                                fs.unlink(path.join(sails.config.appPath + '/.tmp/ical', file), err => {
                                     if (err) {
                                         sails.log.error(err);
                                     }
