@@ -54,7 +54,7 @@ module.exports = {
                 const $ = cheerio.load(body);
                 let icalURL = $('#wrapper > div.divcontent > div.content_max > form > table:nth-child(3) > tbody > tr > td:nth-child(1) > a').attr('href');
                 if(typeof icalURL === "undefined") {
-                    return exits.noLectures();
+                    return exits.noLectures({lectures: []});
                 }
                 const url = new URL(icalURL);
                 let termine = url.searchParams.get('termine').split(",");
