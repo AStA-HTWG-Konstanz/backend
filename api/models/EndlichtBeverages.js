@@ -18,5 +18,12 @@ module.exports = {
             type: 'boolean',
             defaultsTo: false
         }
+    },
+    alreadyExists: async function (opts) {
+        let beverage = await EndlichtBeverages.findOne({name: opts.name});
+        if (!beverage) {
+            throw new Error("Cannot find Beverage.");
+        }
+        return true;
     }
 };

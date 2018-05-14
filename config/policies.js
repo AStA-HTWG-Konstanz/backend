@@ -23,7 +23,12 @@ module.exports.policies = {
     'backend/news/category-add': 'isLoggedIn',
     'backend/news/category-delete': 'isLoggedIn',
     'backend/news/news-add': 'isLoggedIn',
-    'backend/news/news-delete': 'isLoggedIn'
+    'backend/news/news-delete': 'isLoggedIn',
+    'backend/endlicht/endlicht-view': 'isLoggedIn',
+    'backend/endlicht/beverages-add': 'isLoggedIn',
+    'backend/endlicht/beverages-delete': 'isLoggedIn',
+    'backend/endlicht/hours-set': 'isLoggedIn',
+    'backend/endlicht/special-set': 'isLoggedIn'
 
     // API policies
 
