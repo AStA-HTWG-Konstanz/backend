@@ -30,8 +30,8 @@ module.exports = {
                 }
             }
 
-
             let special = await EndlichtBeverages.findOne({special: true}).catch(function (e) {
+                sails.log.error(e);
                 return exits.errorOccured()
             });
             output.endlicht["special"] = {};
@@ -41,6 +41,7 @@ module.exports = {
             }
 
             let beverages = await EndlichtBeverages.find({special: false}).catch(function (e) {
+                sails.log.error(e);
                 return exits.errorOccured();
             });
             output.endlicht["beverages"] = [];
