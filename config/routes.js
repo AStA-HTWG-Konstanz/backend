@@ -106,6 +106,9 @@ module.exports.routes = {
     },
     'POST /api/user/lectures': {
         action: 'api/user/lectures'
+    },
+    'GET /api/endlicht': {
+        action: 'api/endlicht/endlicht'
     }
 
 
