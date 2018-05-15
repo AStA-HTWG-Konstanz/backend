@@ -18,8 +18,8 @@ module.exports = {
     },
 
     fn: async function (inputs, exits) {
-        EndlichtBeverages.update({special: true}).set({special: false}).then(function () {
-            EndlichtBeverages.update({id: this.req.params.id}).set({special: true}).then(function () {
+        EndlichtBeverages.update({special: true}).set({special: false}).then(() => {
+            EndlichtBeverages.update({id: this.req.params.id}).set({special: true}).then(() => {
                 return exits.success();
             }).catch(function (err) {
                 sails.log.error(err);

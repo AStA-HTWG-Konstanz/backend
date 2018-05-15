@@ -12,8 +12,8 @@ module.exports = {
             required: true
         },
         beveragePrice: {
-            type: 'number',
-            example: 1.10,
+            type: 'string',
+            example: "1,10",
             description: 'Price of the beverage',
             required: true
         }

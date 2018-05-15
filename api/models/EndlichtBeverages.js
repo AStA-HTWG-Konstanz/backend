@@ -11,7 +11,7 @@ module.exports = {
             required: true
         },
         price: {
-            type: 'number',
+            type: 'string',
             required: true
         },
         special: {
