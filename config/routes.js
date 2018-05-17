@@ -91,6 +91,12 @@ module.exports.routes = {
     },
     'POST /api/user/lectures': {
         action: 'api/user/lectures'
+    },
+    'POST /api/user/grades': {
+        action: 'api/user/grades'
+    },
+    'POST /api/user/grades/refresh': {
+        action: 'api/user/grades-refresh'
     }
 
 
