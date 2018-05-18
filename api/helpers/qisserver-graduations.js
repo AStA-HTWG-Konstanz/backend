@@ -1,11 +1,13 @@
 let request = require('request');
+const cheerio = require('cheerio');
+const { URL } = require('url');
 module.exports = {
 
 
-    friendlyName: 'Get qisserver cookie',
+    friendlyName: 'Get qisserver graduations',
 
 
-    description: 'Fetches login cookie from qisserver and returns it',
+    description: 'Fetches graduations from qisserver and returns it',
 
 
     inputs: {
@@ -24,12 +26,12 @@ module.exports = {
 
     exits: {
         success: {
-            outputFriendlyName: 'Table data',
-            outputDescription: 'Grade table returned from qisserver.'
+            outputFriendlyName: 'graduation data',
+            outputDescription: 'Graduations returned from qisserver.'
         },
         errorOccured: {
             outputFriendlyName: 'Failed to fetch data',
-            outputDescription: 'Fetching the grade data was not possible.'
+            outputDescription: 'Fetching the graduation data was not possible.'
         }
     },
 
@@ -39,8 +41,8 @@ module.exports = {
             'cookie': inputs.cookie
         };
         request.get({
-            //TODO: set url over parameter to bachelor or master
-            url: sails.config.custom.datacenter.qisserver.gradesPage.replace("{asiToken}", inputs.asi),
+            //TODO: set url to graduate page
+            url: sails.config.custom.datacenter.qisserver.overviewPage,
             headers: headers
         }, function (err, result, bodyData) {
             if (err) {
@@ -48,10 +50,13 @@ module.exports = {
                 return exits.errorOccured();
             }
             try {
-                return exits.success(bodyData);
+                //TODO: check available graduations
+                const $ = cheerio.load(bodyData);
+                let qissUrl = $('#wrapper > div.divcontent > div.content_max_portal_qis > div > form > div > ul > li:nth-child(6) > a').attr("href");
+                return exits.success(asiCode);
             } catch(e) {
                 sails.log.error(e);
-                return exit.errorOccured();
+                return exits.errorOccured();
             }
         });
     }
