@@ -10,26 +10,28 @@
 
 module.exports.policies = {
 
-    /***************************************************************************
-     *                                                                          *
-     * Default policy for all controllers and actions, unless overridden.       *
-     * (`true` allows public access)                                            *
-     *                                                                          *
-     ***************************************************************************/
+  /***************************************************************************
+   *                                                                          *
+   * Default policy for all controllers and actions, unless overridden.       *
+   * (`true` allows public access)                                            *
+   *                                                                          *
+   ***************************************************************************/
 
-    // Backend policies
-    'backend/dashboard/dashboard-view': 'isLoggedIn',
-    'backend/news/news-view': 'isLoggedIn',
-    'backend/news/category-add': 'isLoggedIn',
-    'backend/news/category-delete': 'isLoggedIn',
-    'backend/news/news-add': 'isLoggedIn',
-    'backend/news/news-delete': 'isLoggedIn',
-    'backend/endlicht/endlicht-view': 'isLoggedIn',
-    'backend/endlicht/beverages-add': 'isLoggedIn',
-    'backend/endlicht/beverages-delete': 'isLoggedIn',
-    'backend/endlicht/hours-set': 'isLoggedIn',
-    'backend/endlicht/special-set': 'isLoggedIn'
-
-    // API policies
+  // Backend policies
+  'backend/dashboard/dashboard-view': 'isLoggedIn',
+  'backend/news/news-view': 'isLoggedIn',
+  'backend/news/category-add': 'isLoggedIn',
+  'backend/news/category-delete': 'isLoggedIn',
+  'backend/news/news-add': 'isLoggedIn',
+  'backend/news/news-delete': 'isLoggedIn',
+  'backend/endlicht/endlicht-view': 'isLoggedIn',
+  'backend/endlicht/beverages-add': 'isLoggedIn',
+  'backend/endlicht/beverages-delete': 'isLoggedIn',
+  'backend/endlicht/hours-set': 'isLoggedIn',
+  'backend/endlicht/special-set': 'isLoggedIn',
+  'backend/events/event-view': 'isLoggedIn',
+  'backend/events/event-add': 'isLoggedIn',
+  'backend/events/event-delete': 'isLoggedIn',
+  // API policies
 
 };

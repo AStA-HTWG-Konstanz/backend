@@ -1,28 +1,28 @@
 module.exports = {
 
-    friendlyName: 'Event View',
+  friendlyName: 'Event View',
 
-    description: 'Provide events page.',
+  description: 'Provide events page.',
 
-    inputs: {},
+  inputs: {},
 
-    exits: {
-        success: {
-            responseType: 'view',
-            viewTemplatePath: 'pages/events'
-        }
-    },
-
-    fn: async function (inputs, exits) {
-        let title = await Event.find();
-        let eventTitle;
-        if(!title) {
-          eventTitle = null;
-        } else {
-          eventTitle = title;
-        }
-
-        return exits.success({page: 'events',  event: eventTitle});
-
+  exits: {
+    success: {
+      responseType: 'view',
+      viewTemplatePath: 'pages/events'
     }
+  },
+
+  fn: async function (inputs, exits) {
+    let title = await Event.find();
+    let eventTitle;
+    if (!title) {
+      eventTitle = null;
+    } else {
+      eventTitle = title;
+    }
+
+    return exits.success({page: 'events', event: eventTitle});
+
+  }
 };
