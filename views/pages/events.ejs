@@ -12,7 +12,7 @@
                             <h3 class="block-title">Publish Event</h3>
                         </div>
                         <div class="block-content">
-                            <div id="news-add-error-message"></div>
+                            <div id="event-add-error-message"></div>
                             <form class="form-horizontal" action="/events/add" method="post" id="add-event">
                                 <div class="form-group">
                                     <label class="col-xs-12" for="title">Event Title</label>
@@ -39,10 +39,51 @@
                         </div>
                     </div>
                 </div>
-            <!-- My Block -->
-            <!-- END My Block -->
-        </div>
-        <!-- END Page Content -->
+
+            </div>
+                <div class="block block-bordered">
+                    <div class="block-header bg-gray-lighter">
+                        <h3 class="block-title">Events</h3>
+                    </div>
+                    <div class="block-content">
+                        <div id="events-delete-error-message"></div>
+                        <% if(event === null){ %>
+                        <div class="alert alert-danger">
+                            <p>Could not get any events.</p>
+                        </div>
+                        <% } else { %>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Title</th>
+                                <th class="text-center">Event Date</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% event.forEach(function (event){ %>
+                                <td class="text-center"><%= event.id %></td>
+                                <td class="text-center"><%= event.title %></td>
+                                <td class="text-center"><%= event.eventDate %></td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a href="javascript:removeEvent(<%= event.id %>)"
+                                           class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
+                                           title="" data-original-title="Remove event"><i
+                                                    class="fa fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            <tr>
+                            </tr>
+                            <% }); %>
+                            </tbody>
+                        </table>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <!-- END Page Content -->
     </main>
     <!-- END Main Container -->
     <% include ./modules/footer.ejs %>

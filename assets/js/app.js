@@ -142,3 +142,39 @@ function setSpecial(id) {
         }
     });
 }
+
+function removeEvent(id) {
+  let url = '/events/delete/';
+  let deleteRequest = $.get(url + id);
+  deleteRequest.done(function () {
+    location.reload();
+  }).error(function (xhr, ajaxOptions, thrownError) {
+    if (xhr.status === 500) {
+      $('#event-delete-error-message').empty().append('<div class="alert alert-danger"><p>Failed to delete category. Please try again later.</p></div>');
+    }
+  });
+}
+$('#add-event').submit(function (event) {
+  event.preventDefault();
+  let $form = $(this),
+    title = $form.find("input[name='title']").val(),
+    eventDate = $form.find("input[name='eventDate']").val(),
+    url = $form.attr("action");
+  let posting = $.post(url, {
+    title: title,
+    eventDate: eventDate,
+  });
+  posting.done(function (data) {
+    location.reload();
+  }).error(function (xhr, ajaxOptions, thrownError) {
+    let errorMessage = "";
+    if (xhr.status === 400) {
+      errorMessage = "All Fields are required."
+    } else if (xhr.status === 418) {
+      errorMessage = "Category must be chosen."
+    } else if (xhr.status === 500) {
+      errorMessage = "Failed to publish news. Please try again later."
+    }
+    $('#event-add-error-message').empty().append('<div class="alert alert-danger"><p>Invalid input. Please make sure all fields are correctly filled.</p></div>');
+  });
+});

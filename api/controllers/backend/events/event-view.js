@@ -22,7 +22,7 @@ module.exports = {
           eventTitle = title;
         }
 
-        return exits.success({page: 'events',  title: eventTitle});
+        return exits.success({page: 'events',  event: eventTitle});
 
     }
 };

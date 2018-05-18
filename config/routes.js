@@ -79,7 +79,7 @@ module.exports.routes = {
     action: 'backend/events/event-add'
   },
   'GET /events/delete/:id': {
-    action: 'backend/news/uniDates-delete'
+    action: 'backend/events/event-delete'
   },
 
 
@@ -118,6 +118,9 @@ module.exports.routes = {
   },
   'GET /api/endlicht': {
     action: 'api/endlicht/endlicht'
+  },
+  'GET /api/events': {
+    action: 'api/events/events'
   }
 
 
