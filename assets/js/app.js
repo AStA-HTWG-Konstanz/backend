@@ -71,3 +71,74 @@ function removeNews(id) {
         }
     });
 }
+
+$('#add-beverage').submit(function (event) {
+   event.preventDefault();
+    let $form = $(this),
+        beverageName = $form.find("input[name='beverageName']").val(),
+        beveragePrice = $form.find("input[name='beveragePrice']").val(),
+        url = $form.attr("action");
+    let posting = $.post(url, {beverageName: beverageName, beveragePrice: beveragePrice});
+    posting.done(function (data) {
+        location.reload();
+    }).error(function (xhr, ajaxOptions, thrownError) {
+        let errorMessage = "";
+        if (xhr.status === 400) {
+            errorMessage = "Invalid input."
+        } else if (xhr.status === 409) {
+            errorMessage = "Beverage already exists."
+        } else if (xhr.status === 500) {
+            errorMessage = "Failed to add beverage. Please try again later."
+        }
+        $('#beverage-add-error-message').empty().append('<div class="alert alert-danger"><p>' + errorMessage + '</p></div>');
+    });
+});
+
+function removeBeverage(id) {
+    let url = '/endlicht/beverages/delete/';
+    let deleteRequest = $.get(url + id);
+    deleteRequest.done(function () {
+        location.reload();
+    }).error(function (xhr, ajaxOptions, thrownError) {
+        if (xhr.status === 500) {
+            $('#beverage-delete-error-message').empty().append('<div class="alert alert-danger"><p>Failed to delete beverage. Please try again later.</p></div>');
+        }
+    });
+}
+
+$('#set-hours').submit(function (event) {
+    event.preventDefault();
+    let url = '/endlicht/hours/set?';
+    let data = {};
+    $('#set-hours input').each(function (idx, itm) {
+        if( typeof data[$(itm).data("day")] === "undefined") {
+            data[$(itm).data("day")] = {};
+        }
+       data[$(itm).data("day")][$(itm).attr("name")] = $(itm).val();
+    });
+    for(let day in data) {
+        url += day + "=" + data[day].startTime + "/" + data[day].endTime + '&';
+    }
+    let setRequest = $.get(url);
+    setRequest.done(function () {
+        location.reload();
+    }).error(function (xhr, ajaxOptions, thrownError) {
+        if (xhr.status === 500) {
+            $('#hours-set-error-message').empty().append('<div class="alert alert-danger"><p>Failed to set hours. Please try again later.</p></div>');
+        } else if (xhr.status === 400) {
+            $('#hours-set-error-message').empty().append('<div class="alert alert-danger"><p>Invalid input. Please make sure all fields are correctly filled.</p></div>');
+        }
+    });
+});
+
+function setSpecial(id) {
+    let url = '/endlicht/special/set/';
+    let setRequest = $.get(url + id);
+    setRequest.done(function () {
+        location.reload();
+    }).error(function (xhr, ajaxOptions, thrownError) {
+        if (xhr.status === 500) {
+            $('#special-set-error-message').empty().append('<div class="alert alert-danger"><p>Failed to set special. Please try again later.</p></div>');
+        }
+    });
+}

@@ -57,6 +57,21 @@ module.exports.routes = {
     'GET /news/delete/:id' : {
         action: 'backend/news/news-delete'
     },
+    'GET /endlicht' : {
+        action: 'backend/endlicht/endlicht-view'
+    },
+    'POST /endlicht/beverages/add' : {
+        action: 'backend/endlicht/beverages-add'
+    },
+    'GET /endlicht/beverages/delete/:id' : {
+        action: 'backend/endlicht/beverages-delete'
+    },
+    'GET /endlicht/special/set/:id' : {
+        action: 'backend/endlicht/special-set'
+    },
+    'GET /endlicht/hours/set' : {
+        action: 'backend/endlicht/hours-set'
+    },
 
 
     /***************************************************************************
@@ -91,6 +106,9 @@ module.exports.routes = {
     },
     'POST /api/user/lectures': {
         action: 'api/user/lectures'
+    },
+    'GET /api/endlicht': {
+        action: 'api/endlicht/endlicht'
     }
 
 

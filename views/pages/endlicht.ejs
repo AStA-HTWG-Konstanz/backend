@@ -1,0 +1,208 @@
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+    <% include ./modules/navigation.ejs %>
+    <% include ./modules/header.ejs %>
+    <!-- Main Container -->
+    <main id="main-container">
+        <!-- Page Content -->
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-4 col-lg-4">
+                    <div class="block block-bordered">
+                        <div class="block-header bg-gray-lighter">
+                            <h3 class="block-title">Add beverage</h3>
+                        </div>
+                        <div class="block-content">
+                            <div id="beverage-add-error-message"></div>
+                            <form class="form-horizontal" action="/endlicht/beverages/add" method="post"
+                                  id="add-beverage">
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="beverageName">Beverage name</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" id="beverageName"
+                                               name="beverageName" placeholder="Coffee..">
+                                        <div class="help-block">Enter the name of the beverage.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="beveragePrice">Price</label>
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" id="example-input3-group1"
+                                                   name="beveragePrice" placeholder="0,80">
+                                            <span class="input-group-addon"><i class="fa fa-euro"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-sm btn-success" type="submit"><span
+                                                    class="fa fa-plus"></span> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <div class="block block-bordered">
+                        <div class="block-header bg-gray-lighter">
+                            <h3 class="block-title">Set opening hours</h3>
+                        </div>
+                        <div class="block-content">
+                            <div id="hours-set-error-message"></div>
+                            <% if(openingHours === null){ %>
+                            <div class="alert alert-danger">
+                                <p>Could not get any hours.</p>
+                            </div>
+                            <% } else { %>
+                            <form class="form-horizontal" method="get" action="/endlicht/hours/set" id="set-hours">
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="monday">Monday</label>
+                                    <div class="col-md-3">
+                                        <input class="js-masked-time form-control" data-day="Monday" type="text"
+                                               name="startTime" placeholder="00:00"
+                                               value="<%= openingHours[0].startTime %>">
+                                        <div class="help-block">Opening time.</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input class="js-masked-time form-control" data-day="Monday" type="text"
+                                               name="endTime" placeholder="00:00"
+                                               value="<%= openingHours[0].endTime %>">
+                                        <div class="help-block">Closing time.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="tuesday">Tuesday</label>
+                                    <div class="col-md-3">
+                                        <input class="js-masked-time form-control" data-day="Tuesday" type="text"
+                                               name="startTime" placeholder="00:00"
+                                               value="<%= openingHours[1].startTime %>">
+                                        <div class="help-block">Opening time.</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input class="js-masked-time form-control" data-day="Tuesday" type="text"
+                                               name="endTime" placeholder="00:00"
+                                               value="<%= openingHours[1].endTime %>">
+                                        <div class="help-block">Closing time.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="wednesday">Wednesday</label>
+                                    <div class="col-md-3">
+                                        <input class="js-masked-time form-control" data-day="Wednesday" type="text"
+                                               name="startTime" placeholder="00:00"
+                                               value="<%= openingHours[2].startTime %>">
+                                        <div class="help-block">Opening time.</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input class="js-masked-time form-control" data-day="Wednesday" type="text"
+                                               name="endTime" placeholder="00:00"
+                                               value="<%= openingHours[2].endTime %>">
+                                        <div class="help-block">Closing time.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="thursday">Thursday</label>
+                                    <div class="col-md-3">
+                                        <input class="js-masked-time form-control" data-day="Thursday" type="text"
+                                               name="startTime" placeholder="00:00"
+                                               value="<%= openingHours[3].startTime %>">
+                                        <div class="help-block">Opening time.</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input class="js-masked-time form-control" data-day="Thursday" type="text"
+                                               name="endTime" placeholder="00:00"
+                                               value="<%= openingHours[3].endTime %>">
+                                        <div class="help-block">Closing time.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="friday">Friday</label>
+                                    <div class="col-md-3">
+                                        <input class="js-masked-time form-control" data-day="Friday" type="text"
+                                               name="startTime" placeholder="00:00"
+                                               value="<%= openingHours[4].startTime %>">
+                                        <div class="help-block">Opening time.</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input class="js-masked-time form-control" data-day="Friday" type="text"
+                                               name="endTime" placeholder="00:00"
+                                               value="<%= openingHours[4].endTime %>">
+                                        <div class="help-block">Closing time.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-sm btn-success" type="submit"><span
+                                                    class="fa fa-save"></span> Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <div class="block block-bordered">
+                        <div class="block-header bg-gray-lighter">
+                            <h3 class="block-title">Beverages</h3>
+                        </div>
+                        <div class="block-content">
+                            <div id="beverages-delete-error-message"></div>
+                            <div id="special-set-error-message"></div>
+                            <% if(beverages === null){ %>
+                            <div class="alert alert-danger">
+                                <p>Could not get any beverages.</p>
+                            </div>
+                            <% } else { %>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">ID</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Price</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% beverages.forEach(function (beverage){ %>
+                                <tr <% if(beverage.special){ %>class="warning"
+                                        <% } %>
+                                >
+                                    <td class="text-center"><%= beverage.id %></td>
+                                    <td class="text-center"><%= beverage.name %></td>
+                                    <td class="text-center"><%= beverage.price %> €</td>
+                                    <td class="text-center">
+                                        <% if(!beverage.special){ %>
+                                        <div class="btn-group">
+                                            <a href="javascript:setSpecial(<%= beverage.id %>)"
+                                               class="btn btn-xs btn-warning" type="button" data-toggle="tooltip"
+                                               title="" data-original-title="Set as special"><i
+                                                        class="fa fa-star"></i></a>
+                                        </div>
+                                        <% } %>
+                                        <div class="btn-group">
+                                            <a href="javascript:removeBeverage(<%= beverage.id %>)"
+                                               class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
+                                               title="" data-original-title="Remove beverage"><i
+                                                        class="fa fa-trash"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                                </tbody>
+                            </table>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Page Content -->
+    </main>
+    <!-- END Main Container -->
+    <% include ./modules/footer.ejs %>
+</div>
+<!-- END Page Container -->

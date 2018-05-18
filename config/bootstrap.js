@@ -17,47 +17,51 @@ let CanteenService = require('../api/services/canteenService');
 
 module.exports.bootstrap = async function (done) {
 
-  // By convention, this is a good place to set up fake data during development.
-  //
-  // For example:
-  // ```
-  // // Set up fake development data (or if we already have some, avast)
-  // if (await User.count() > 0) {
-  //   return done();
-  // }
-  //
-  // await User.createEach([
-  //   { emailAddress: 'ry@example.com', fullName: 'Ryan Dahl', },
-  //   { emailAddress: 'rachael@example.com', fullName: 'Rachael Shaw', },
-  //   // etc.
-  // ]);
-  // ```
-  let canteenJob = scheduler.scheduleJob('0 22 * * 7', function () {
-    sails.log.info('Canteen database cleanup');
-    CanteenDate.destroy({}).then(function () {
-      CanteenMeal.destroy({}).then(function () {
-        sails.log.info('Canteen import started');
-        CanteenService.importMenus(function (err, result) {
-          if (err) {
+    // By convention, this is a good place to set up fake data during development.
+    //
+    // For example:
+    // ```
+    // // Set up fake development data (or if we already have some, avast)
+    // if (await User.count() > 0) {
+    //   return done();
+    // }
+    //
+    // await User.createEach([
+    //   { emailAddress: 'ry@example.com', fullName: 'Ryan Dahl', },
+    //   { emailAddress: 'rachael@example.com', fullName: 'Rachael Shaw', },
+    //   // etc.
+    // ]);
+    // ```
+    if (await EndlichtHours.count() === 0) {
+        await  EndlichtHours.createEach([
+            {weekday: "Monday"},
+            {weekday: "Tuesday"},
+            {weekday: "Wednesday"},
+            {weekday: "Thursday"},
+            {weekday: "Friday"}
+        ]);
+    }
+
+    let canteenJob = scheduler.scheduleJob('0 22 * * 7', function () {
+        sails.log.info('Canteen database cleanup');
+        CanteenDate.destroy({}).then(function () {
+            CanteenMeal.destroy({}).then(function () {
+                sails.log.info('Canteen import started');
+                CanteenService.importMenus(function (err, result) {
+                    if (err) {
+                        sails.log.error(err);
+                    }
+                    sails.log.info('Canteen import finished');
+                });
+            }).catch(function (err) {
+                sails.log.error(err);
+            });
+        }).catch(function (err) {
             sails.log.error(err);
-          }
-          sails.log.info('Canteen import finished');
         });
-
-      }).catch(function (err) {
-        sails.log.error(err);
-      });
-
-    }).catch(function (err) {
-      sails.log.error(err);
     });
 
-
-  });
-
-  // Don't forget to trigger `done()` when this bootstrap function's logic is finished.
-  // (otherwise your server will never lift, since it's waiting on the bootstrap)
-    let lsfJob  = scheduler.scheduleJob('30 0 * * *', function(){
+    let lsfJob = scheduler.scheduleJob('30 0 * * *', function () {
         sails.log.info("LSF database cleanup");
         LsfLectures.destroy({}).then(function () {
             LsfLectureDates.destroy({}).then(function () {
@@ -86,6 +90,6 @@ module.exports.bootstrap = async function (done) {
             sails.log.error(err);
         });
     });
-  return done();
+    return done();
 
 };
