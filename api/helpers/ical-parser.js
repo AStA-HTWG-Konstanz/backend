@@ -84,6 +84,7 @@ module.exports = {
                 /**
                  * Get startTime
                  */
+                let startDate =  moment.tz(event["DTSTART;TZID=Europe/Berlin"], 'YYYYMMDDTHHmmSS', 'Europe/Berlin').toDate();
                 startTime = moment.tz(event["DTSTART;TZID=Europe/Berlin"], 'YYYYMMDDTHHmmSS', 'Europe/Berlin').format('HH:mm');
                 /**
                  * Get endTime
