@@ -2,7 +2,7 @@ module.exports = {
 
     friendlyName: 'Endlicht',
 
-    description: 'Printer and canteen balance for user.',
+    description: 'Endlicht specials, opening hours and beverages.',
 
     inputs: {},
 

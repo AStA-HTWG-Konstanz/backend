@@ -1,7 +1,7 @@
 /**
  * EndlichtHours.js
  *
- * @description :: Endlich opening hours
+ * @description :: Endlicht opening hours
  */
 
 module.exports = {
