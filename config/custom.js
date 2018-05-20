@@ -212,7 +212,9 @@ module.exports.custom = {
             loginEndpoint: "https://qisserver.htwg-konstanz.de/qisserver/rds;jsessionid={sessionID}?state=user&type=1&category=auth.login&startpage=portal.vm",
             loginPage: "https://qisserver.htwg-konstanz.de/qisserver/rds?state=user&type=0",
             overviewPage: "https://qisserver.htwg-konstanz.de/qisserver/rds?state=change&type=1&moduleParameter=studyPOSMenu&nextdir=change&next=menu.vm&subdir=applications&xml=menu&purge=y&navigationPosition=functions%2CstudyPOSMenu&breadcrumb=studyPOSMenu&topitem=loggedin&subitem=studyPOSMenu",
-            gradesPage: "https://qisserver.htwg-konstanz.de/qisserver/rds?state=notenspiegelStudent&next=list.vm&nextdir=qispos/notenspiegel/student&createInfos=Y&struct=auswahlBaum&nodeID=auswahlBaum%7Cabschluss%3Aabschl%3D84&expand=0&asi={asiToken}#auswahlBaum%7Cabschluss%3Aabschl%3D84"
+            bachelorGradesPage: "https://qisserver.htwg-konstanz.de/qisserver/rds?state=notenspiegelStudent&next=list.vm&nextdir=qispos/notenspiegel/student&createInfos=Y&struct=auswahlBaum&nodeID=auswahlBaum%7Cabschluss%3Aabschl%3D84&expand=0&asi={asiToken}#auswahlBaum%7Cabschluss%3Aabschl%3D84",
+            masterGradesPage: "https://qisserver.htwg-konstanz.de/qisserver/rds?state=notenspiegelStudent&next=list.vm&nextdir=qispos/notenspiegel/student&createInfos=Y&struct=auswahlBaum&nodeID=auswahlBaum%7Cabschluss%3Aabschl%3D90&expand=0&asi={asiToken}#auswahlBaum%7Cabschluss%3Aabschl%3D90",
+            graduationOverview: "https://qisserver.htwg-konstanz.de/qisserver/rds?state=notenspiegelStudent&next=tree.vm&nextdir=qispos/notenspiegel/student&menuid=notenspiegelStudent&breadcrumb=notenspiegel&breadCrumbSource=menu&asi={asiToken}"
         }
     }
 };

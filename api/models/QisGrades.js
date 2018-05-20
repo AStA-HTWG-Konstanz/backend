@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-
+    //TODO: reflect combined courses with parent and sub nodes?
     attributes: {
         examID: {
             type: 'number',

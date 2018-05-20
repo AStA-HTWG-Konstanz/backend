@@ -41,23 +41,40 @@ module.exports = {
             'cookie': inputs.cookie
         };
         request.get({
-            //TODO: set url to graduate page
-            url: sails.config.custom.datacenter.qisserver.overviewPage,
+            url: sails.config.custom.datacenter.qisserver.graduationOverview.replace("{asiToken}", inputs.asi),
             headers: headers
         }, function (err, result, bodyData) {
             if (err) {
                 sails.log.error(err);
                 return exits.errorOccured();
             }
+            let bachelor = false;
+            let master = false;
+            const $ = cheerio.load(bodyData);
             try {
-                //TODO: check available graduations
-                const $ = cheerio.load(bodyData);
-                let qissUrl = $('#wrapper > div.divcontent > div.content_max_portal_qis > div > form > div > ul > li:nth-child(6) > a').attr("href");
-                return exits.success(asiCode);
+                //check first link for bachelor or master
+                let graduationURL = $('#wrapper > div.divcontent > div.content > form > ul > li > a:nth-child(3)').attr("href");
+                let graduationNumber = new URL(graduationURL).searchParams.get("nodeID").split("=")[1];
+                if(graduationNumber === "84") {
+                    bachelor = true;
+                } else if (graduationNumber === "90") {
+                    master = true;
+                }
             } catch(e) {
-                sails.log.error(e);
-                return exits.errorOccured();
+                sails.log.debug(e);
             }
+            try {
+                //check if second link exists and for master
+                //TODO: Get correct selector
+                let url = $('#wrapper > div.divcontent > div.content > form > ul > li > a:nth-child(3)').attr("href");
+                let number = new URL(url).searchParams.get("nodeID").split("=")[1];
+                if(number === "90") {
+                    master = true;
+                }
+            } catch(e) {
+                sails.log.debug(e);
+            }
+            return exits.success({bachelor: bachelor, master: master});
         });
     }
 };

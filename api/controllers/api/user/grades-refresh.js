@@ -52,6 +52,13 @@ module.exports = {
             return exits.errorOccured();
         });
 
+        let graduations = await sails.helpers.qisserverGraduations(cookie.cookieRequest + " " + cookie.cookieLogin, asi).catch((e) => {
+           sails.log.error(e);
+           return exits.errorOccured();
+        });
+
+        sails.log.debug(graduations);
+        //TODO: get data for bachelor and master
         let data = await sails.helpers.qisserverTable(cookie.cookieRequest + " " + cookie.cookieLogin, asi).catch((e) => {
             sails.log.error(e);
             return exits.errorOccured();
@@ -100,6 +107,7 @@ function insertData(grades, token, callback) {
                     } else {
                         examGrade = parseFloat(grade.grade.replace(",", "."));
                     }
+                    //TODO: insert if bachelor or master
                     QisGrades.findOrCreate({
                         examID: grade.id,
                         name: grade.name,
@@ -145,6 +153,7 @@ function insertData(grades, token, callback) {
 function parseData($, callback) {
     let output = [];
     try {
+        //TODO: change selector to include combined courses
         $('#wrapper > div.divcontent > div.content > form > table:nth-child(5) > tbody').children("tr").each(function (i) {
             let course = $(this).find("td:nth-child(1)");
             let id = $(this).find("td:nth-child(2)");

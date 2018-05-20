@@ -18,6 +18,11 @@ module.exports = {
             type: 'string',
             required: true,
             description: 'Qisserver asi code'
+        },
+        url: {
+            type: 'string',
+            required: true,
+            description: 'Qisserver link'
         }
     },
 
@@ -39,8 +44,7 @@ module.exports = {
             'cookie': inputs.cookie
         };
         request.get({
-            //TODO: set url over parameter to bachelor or master
-            url: sails.config.custom.datacenter.qisserver.gradesPage.replace("{asiToken}", inputs.asi),
+            url: inputs.url.replace("{asiToken}", inputs.asi),
             headers: headers
         }, function (err, result, bodyData) {
             if (err) {
