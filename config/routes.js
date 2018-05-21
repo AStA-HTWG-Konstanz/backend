@@ -81,6 +81,9 @@ module.exports.routes = {
   'GET /events/delete/:id': {
     action: 'backend/events/event-delete'
   },
+  'GET /policy': {
+    view: 'policy'
+  },
 
 
   /***************************************************************************
