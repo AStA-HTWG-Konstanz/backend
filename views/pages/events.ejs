@@ -1,0 +1,91 @@
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+    <% include ./modules/navigation.ejs %>
+    <% include ./modules/header.ejs %>
+    <!-- Main Container -->
+    <main id="main-container">
+        <!-- Page Content -->
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="block block-bordered">
+                        <div class="block-header bg-gray-lighter">
+                            <h3 class="block-title">Publish Event</h3>
+                        </div>
+                        <div class="block-content">
+                            <div id="event-add-error-message"></div>
+                            <form class="form-horizontal" action="/events/add" method="post" id="add-event">
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="title">Event Title</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" id="title"
+                                               name="title" placeholder="Text..">
+                                        <div class="help-block">Enter a title for your event.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="event-date">Event Date</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" id="event-date"
+                                               name="eventDate" placeholder="Text..">
+                                        <div class="help-block">Enter your dates here</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-sm btn-success" type="submit">Publish</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+                <div class="block block-bordered">
+                    <div class="block-header bg-gray-lighter">
+                        <h3 class="block-title">Events</h3>
+                    </div>
+                    <div class="block-content">
+                        <div id="events-delete-error-message"></div>
+                        <% if(event === null){ %>
+                        <div class="alert alert-danger">
+                            <p>Could not get any events.</p>
+                        </div>
+                        <% } else { %>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Title</th>
+                                <th class="text-center">Event Date</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% event.forEach(function (event){ %>
+                                <td class="text-center"><%= event.id %></td>
+                                <td class="text-center"><%= event.title %></td>
+                                <td class="text-center"><%= event.eventDate %></td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a href="javascript:removeEvent(<%= event.id %>)"
+                                           class="btn btn-xs btn-danger" type="button" data-toggle="tooltip"
+                                           title="" data-original-title="Remove event"><i
+                                                    class="fa fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            <tr>
+                            </tr>
+                            <% }); %>
+                            </tbody>
+                        </table>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <!-- END Page Content -->
+    </main>
+    <!-- END Main Container -->
+    <% include ./modules/footer.ejs %>
+</div>
+<!-- END Page Container -->

@@ -38,7 +38,7 @@ module.exports.policies = {
     'api/user/lectures': 'isAuthenticated',
     'api/endlicht/endlicht': 'isAuthenticated',
 
-    // Dummy policies
+  // Dummy policies
     'api/user/auth': 'dummy/user/dummyAuth',
     'api/user/balance': 'dummy/user/dummyBalance',
     'api/user/lectures': 'dummy/user/dummyLectures'
