@@ -1,7 +1,7 @@
 /**
  * EndlichtBeverages.js
  *
- * @description :: Endlich beverages
+ * @description :: Endlicht beverages
  */
 
 module.exports = {
