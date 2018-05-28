@@ -24,7 +24,7 @@ module.exports = {
     Event.find({
       select: ['title', 'eventDate']
     }).then(function (data) {
-      return exits.success({news: data});
+      return exits.success({events: data});
     }).catch(function (error) {
       sails.log(error);
       return exits.errorOccured();
