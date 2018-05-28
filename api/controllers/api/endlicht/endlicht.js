@@ -1,3 +1,5 @@
+let moment = require('moment');
+
 module.exports = {
 
     friendlyName: 'Endlicht',
@@ -21,12 +23,15 @@ module.exports = {
             let hours = await EndlichtHours.find().catch(function (e) {
                 return exits.errorOccured();
             });
+
             output.endlicht["openingHours"] = {};
             if (hours) {
                 for (let index in hours) {
-                    output.endlicht["openingHours"][hours[index].weekday] = {};
-                    output.endlicht["openingHours"][hours[index].weekday]["startTime"] = hours[index].startTime.substr(0, 5);
-                    output.endlicht["openingHours"][hours[index].weekday]["endTime"] = hours[index].endTime.substr(0, 5);
+                    let day = moment().isoWeekday(hours[index].weekday).format("YYYY-MM-DD");
+
+                    output.endlicht["openingHours"][day] = {};
+                    output.endlicht["openingHours"][day]["startTime"] = hours[index].startTime.substr(0, 5);
+                    output.endlicht["openingHours"][day]["endTime"] = hours[index].endTime.substr(0, 5);
                 }
             }
 
