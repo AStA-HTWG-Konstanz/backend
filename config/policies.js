@@ -23,8 +23,23 @@ module.exports.policies = {
     'backend/news/category-add': 'isLoggedIn',
     'backend/news/category-delete': 'isLoggedIn',
     'backend/news/news-add': 'isLoggedIn',
-    'backend/news/news-delete': 'isLoggedIn'
+    'backend/news/news-delete': 'isLoggedIn',
+    'backend/endlicht/endlicht-view': 'isLoggedIn',
+    'backend/endlicht/beverages-add': 'isLoggedIn',
+    'backend/endlicht/beverages-delete': 'isLoggedIn',
+    'backend/endlicht/hours-set': 'isLoggedIn',
+    'backend/endlicht/special-set': 'isLoggedIn',
 
     // API policies
+    'api/canteen/menu': 'isAuthenticated',
+    'api/news/news': 'isAuthenticated',
+    'api/news/categories': 'isAuthenticated',
+    'api/user/balance': 'isAuthenticated',
+    'api/user/lectures': 'isAuthenticated',
+    'api/endlicht/endlicht': 'isAuthenticated',
 
+  // Dummy policies
+    'api/user/auth': 'dummy/user/dummyAuth',
+    'api/user/balance': 'dummy/user/dummyBalance',
+    'api/user/lectures': 'dummy/user/dummyLectures'
 };

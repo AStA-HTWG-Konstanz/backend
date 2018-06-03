@@ -26,12 +26,18 @@
                         <a <% if(page === 'dashboard'){ %>class="active" <% } %>href="/"><i
                                     class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                     </li>
-                    <li class="nav-main-heading"><span class="sidebar-mini-hide">News management</span></li>
                     <li>
                         <a <% if(page === 'news'){ %>class="active" <% } %>href="/news"><i
                                     class="fa fa-bullhorn"></i><span class="sidebar-mini-hide">News</span></a>
                     </li>
-                    <li class="nav-main-heading"><span class="sidebar-mini-hide">User management</span></li>
+                    <li>
+                        <a <% if(page === 'events'){ %>class="active" <% } %>href="/events"><i
+                             class="fa fa-calendar"></i><span class="sidebar-mini-hide">Events</span></a>
+                    </li>
+                    <li>
+                        <a <% if(page === 'endlicht'){ %>class="active" <% } %>href="/endlicht"><i
+                                    class="fa fa-coffee"></i><span class="sidebar-mini-hide">Endlicht</span></a>
+                    </li>
                     <li>
                         <a href="/user"><i class="fa fa-user"></i><span class="sidebar-mini-hide">User</span></a>
                     </li>
