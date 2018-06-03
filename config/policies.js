@@ -29,6 +29,9 @@ module.exports.policies = {
     'backend/endlicht/beverages-delete': 'isLoggedIn',
     'backend/endlicht/hours-set': 'isLoggedIn',
     'backend/endlicht/special-set': 'isLoggedIn',
+    'backend/events/event-view': 'isLoggedIn',
+    'backend/events/event-add': 'isLoggedIn',
+    'backend/events/event-delete': 'isLoggedIn',
 
     // API policies
     'api/canteen/menu': 'isAuthenticated',
@@ -37,9 +40,13 @@ module.exports.policies = {
     'api/user/balance': 'isAuthenticated',
     'api/user/lectures': 'isAuthenticated',
     'api/endlicht/endlicht': 'isAuthenticated',
+    'api/user/grades': 'isAuthenticated',
+    'api/user/grades-refresh': 'isAuthenticated',
 
-  // Dummy policies
+    // Dummy policies
     'api/user/auth': 'dummy/user/dummyAuth',
     'api/user/balance': 'dummy/user/dummyBalance',
-    'api/user/lectures': 'dummy/user/dummyLectures'
+    'api/user/lectures': 'dummy/user/dummyLectures',
+    'api/user/grades': 'dummy/user/dummyGrades',
+    'api/user/grades-refresh': 'dummy/user/dummyGrades'
 };
