@@ -43,6 +43,8 @@ module.exports = {
                     grade: gradeData[i].grade.toString().replace(".", ","),
                     ects: gradeData[i].ects.toString().replace(".", ","),
                     passed: gradeData[i].passed,
+                    bachelor: gradeData[i].bachelor,
+                    master: gradeData[i].master
                 });
             }
             return exits.success(output);

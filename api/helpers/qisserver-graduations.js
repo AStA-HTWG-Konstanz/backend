@@ -1,6 +1,6 @@
 let request = require('request');
 const cheerio = require('cheerio');
-const { URL } = require('url');
+const {URL} = require('url');
 module.exports = {
 
 
@@ -53,26 +53,25 @@ module.exports = {
             const $ = cheerio.load(bodyData);
             try {
                 //check first link for bachelor or master
-                let graduationURL = $('#wrapper > div.divcontent > div.content > form > ul > li > a:nth-child(3)').attr("href");
+                let graduationURL = $('#wrapper > div.divcontent > div.content > form > ul > li:nth-child(1) > a:nth-child(3)').attr("href");
                 let graduationNumber = new URL(graduationURL).searchParams.get("nodeID").split("=")[1];
-                if(graduationNumber === "84") {
+                if (graduationNumber === "84") {
                     bachelor = true;
                 } else if (graduationNumber === "90") {
                     master = true;
                 }
-            } catch(e) {
-                sails.log.debug(e);
+            } catch (e) {
+                //ignore error
             }
             try {
                 //check if second link exists and for master
-                //TODO: Get correct selector
-                let url = $('#wrapper > div.divcontent > div.content > form > ul > li > a:nth-child(3)').attr("href");
+                let url = $('#wrapper > div.divcontent > div.content > form > ul > li:nth-child(2) > a:nth-child(3)').attr("href");
                 let number = new URL(url).searchParams.get("nodeID").split("=")[1];
-                if(number === "90") {
+                if (number === "90") {
                     master = true;
                 }
-            } catch(e) {
-                sails.log.debug(e);
+            } catch (e) {
+                //ignore error
             }
             return exits.success({bachelor: bachelor, master: master});
         });

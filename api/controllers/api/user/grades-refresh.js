@@ -53,35 +53,110 @@ module.exports = {
         });
 
         let graduations = await sails.helpers.qisserverGraduations(cookie.cookieRequest + " " + cookie.cookieLogin, asi).catch((e) => {
-           sails.log.error(e);
-           return exits.errorOccured();
-        });
-
-        sails.log.debug(graduations);
-        //TODO: get data for bachelor and master
-        let data = await sails.helpers.qisserverTable(cookie.cookieRequest + " " + cookie.cookieLogin, asi).catch((e) => {
             sails.log.error(e);
             return exits.errorOccured();
         });
-        let $ = cheerio.load(data);
-        parseData($, function (err, res) {
+
+        let bachelorData;
+        let masterData;
+        if (graduations.bachelor) {
+            let bData = await sails.helpers.qisserverTable(cookie.cookieRequest + " " + cookie.cookieLogin, asi, sails.config.custom.datacenter.qisserver.bachelorGradesPage).catch((e) => {
+                sails.log.error(e);
+                return exits.errorOccured();
+            });
+            bachelorData = cheerio.load(bData);
+        } else {
+            bachelorData = null;
+        }
+
+        if (graduations.master) {
+            let mData = await sails.helpers.qisserverTable(cookie.cookieRequest + " " + cookie.cookieLogin, asi, sails.config.custom.datacenter.qisserver.masterGradesPage).catch((e) => {
+                sails.log.error(e);
+                return exits.errorOccured();
+            });
+            masterData = cheerio.load(mData);
+        } else {
+            masterData = null;
+        }
+        handleData(graduations, bachelorData, masterData, inputs.token, function (err, res) {
             if (err) {
                 sails.log.error(err);
                 return exits.errorOccured();
             } else {
-                insertData(res, inputs.token, function (error, result) {
-                    if(error) {
-                        return exits.errorOccured();
-                    } else {
-                        return exits.success();
-                    }
-                });
+                return exits.success();
             }
         });
     }
 };
 
-function insertData(grades, token, callback) {
+function handleData(graduations, bachelorData, masterData, token, callback) {
+    async.waterfall([
+        function (cb) {
+            if (graduations.bachelor) {
+                parseData(bachelorData, function (err, res) {
+                    if (err) {
+                        sails.log.error(err);
+                        cb(null, {insert: false});
+                    } else {
+                        cb(null, {insert: true, data: res});
+                    }
+                });
+            } else {
+                cb(null, {insert: false});
+            }
+        },
+        function (res, cb) {
+            if (res.insert) {
+                insertData(res.data, token, true, false, function (error, result) {
+                    if (error) {
+                        sails.log.error(error);
+                        cb();
+                    } else {
+                        cb();
+                    }
+                });
+            } else {
+                cb();
+            }
+        },
+        function (cb) {
+            if (graduations.master) {
+                parseData(masterData, function (err, res) {
+                    if (err) {
+                        sails.log.error(err);
+                        cb(null, {insert: false});
+                    } else {
+                        cb(null, {insert: true, data: res});
+                    }
+                });
+            } else {
+                cb(null, {insert: false});
+            }
+        },
+        function (res, cb) {
+            if (res.insert) {
+                insertData(res.data, token, false, true, function (error, result) {
+                    if (error) {
+                        sails.log.error(error);
+                        cb();
+                    } else {
+                        cb();
+                    }
+                });
+            } else {
+                cb();
+            }
+        }
+    ], function (err, result) {
+        if (err) {
+            callback(err);
+        } else {
+            callback();
+        }
+    });
+}
+
+function insertData(grades, token, bachelor, master, callback) {
     async.forEachOfSeries(grades, function (grade, key, cb) {
         if (!isNaN(grade.id)) {
             async.waterfall([
@@ -107,7 +182,6 @@ function insertData(grades, token, callback) {
                     } else {
                         examGrade = parseFloat(grade.grade.replace(",", "."));
                     }
-                    //TODO: insert if bachelor or master
                     QisGrades.findOrCreate({
                         examID: grade.id,
                         name: grade.name,
@@ -116,7 +190,9 @@ function insertData(grades, token, callback) {
                         passed: grade.passed,
                         token: token,
                         semester: data.semester,
-                        course: data.course
+                        course: data.course,
+                        bachelor: bachelor,
+                        master: master
                     }, {
                         examID: grade.id,
                         name: grade.name,
@@ -125,7 +201,9 @@ function insertData(grades, token, callback) {
                         passed: grade.passed,
                         token: token,
                         semester: data.semester,
-                        course: data.course
+                        course: data.course,
+                        bachelor: bachelor,
+                        master: master
                     }).then(function () {
                         cbk();
                     }).catch(function (e) {
@@ -153,34 +231,27 @@ function insertData(grades, token, callback) {
 function parseData($, callback) {
     let output = [];
     try {
-        //TODO: change selector to include combined courses
         $('#wrapper > div.divcontent > div.content > form > table:nth-child(5) > tbody').children("tr").each(function (i) {
-            let course = $(this).find("td:nth-child(1)");
-            let id = $(this).find("td:nth-child(2)");
-            let names = $(this).find("td:nth-child(3)");
-            let semester = $(this).find("td:nth-child(4)");
-            let ects = $(this).find("td:nth-child(5)");
-            let grades = $(this).find("td:nth-child(6)");
-            let status = $(this).find("td:nth-child(7)");
-            names.each(function (i) {
-                let passed = $(status[i]).text().trim() === "bestanden";
+            if ($(this).find("td").eq(3).text().trim() !== "" && !isNaN($(this).find("td").eq(1).text().trim())) {
                 try {
+                    let passed = $(this).find("td").eq(6).text().trim() === "bestanden";
                     output.push({
-                        id: $(id[i]).text().trim(),
-                        course: $(course[i]).text().trim(),
-                        name: $(this).text().trim(),
-                        grade: $(grades[i]).text().trim(),
-                        semester: $(semester).text().trim(),
-                        ects: $(ects).text().trim(),
+                        id: $(this).find("td").eq(1).text().trim(),
+                        course: $(this).find("td").eq(0).text().trim(),
+                        name: $(this).find("td").eq(2).text().trim(),
+                        grade: $(this).find("td").eq(5).text().trim(),
+                        semester: $(this).find("td").eq(3).text().trim(),
+                        ects: $(this).find("td").eq(4).text().trim(),
                         passed: passed
                     });
                 } catch (error) {
                     sails.log.error(error);
                 }
-            });
+            }
         });
         callback(null, output)
     } catch (e) {
+        sails.log.error(e);
         callback(e);
     }
 }

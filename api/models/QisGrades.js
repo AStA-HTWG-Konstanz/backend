@@ -5,7 +5,6 @@
  */
 
 module.exports = {
-    //TODO: reflect combined courses with parent and sub nodes?
     attributes: {
         examID: {
             type: 'number',
@@ -29,6 +28,14 @@ module.exports = {
         },
         token: {
             type: 'string',
+            required: true
+        },
+        bachelor: {
+            type: 'boolean',
+            required: true
+        },
+        master: {
+            type: 'boolean',
             required: true
         },
         semester: {

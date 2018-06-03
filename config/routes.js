@@ -11,91 +11,91 @@
 module.exports.routes = {
 
 
-  //  ╦ ╦╔═╗╔╗ ╔═╗╔═╗╔═╗╔═╗╔═╗
-  //  ║║║║╣ ╠╩╗╠═╝╠═╣║ ╦║╣ ╚═╗
-  //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
+    //  ╦ ╦╔═╗╔╗ ╔═╗╔═╗╔═╗╔═╗╔═╗
+    //  ║║║║╣ ╠╩╗╠═╝╠═╣║ ╦║╣ ╚═╗
+    //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
 
-  /***************************************************************************
-   *                                                                          *
-   * Make the view located at `views/homepage.ejs` your home page.            *
-   *                                                                          *
-   * (Alternatively, remove this and add an `index.html` file in your         *
-   * `assets` directory)                                                      *
-   *                                                                          *
-   ***************************************************************************/
+    /***************************************************************************
+     *                                                                          *
+     * Make the view located at `views/homepage.ejs` your home page.            *
+     *                                                                          *
+     * (Alternatively, remove this and add an `index.html` file in your         *
+     * `assets` directory)                                                      *
+     *                                                                          *
+     ***************************************************************************/
 
-  'GET /': {
-    action: 'backend/dashboard/dashboard-view'
-  },
-  'GET /login': {
-    action: 'backend/user/login-view'
-  },
-  'POST /login': {
-    action: 'backend/user/login'
-  },
-  'GET /logout': {
-    action: 'backend/user/logout'
-  },
-  'GET /setup': {
-    action: 'backend/user/setup-view'
-  },
-  'POST /setup': {
-    action: 'backend/user/setup'
-  },
-  'GET /news': {
-    action: 'backend/news/news-view'
-  },
-  'POST /category/add': {
-    action: 'backend/news/category-add'
-  },
-  'GET /category/delete/:id': {
-    action: 'backend/news/category-delete'
-  },
-  'POST /news/add': {
-    action: 'backend/news/news-add'
-  },
-  'GET /news/delete/:id': {
-    action: 'backend/news/news-delete'
-  },
-  'GET /endlicht': {
-    action: 'backend/endlicht/endlicht-view'
-  },
-  'POST /endlicht/beverages/add': {
-    action: 'backend/endlicht/beverages-add'
-  },
-  'GET /endlicht/beverages/delete/:id': {
-    action: 'backend/endlicht/beverages-delete'
-  },
-  'GET /endlicht/special/set/:id': {
-    action: 'backend/endlicht/special-set'
-  },
-  'GET /endlicht/hours/set': {
-    action: 'backend/endlicht/hours-set'
-  },
-  'GET /events': {
-    action: 'backend/events/event-view'
-  },
-  'POST /events/add': {
-    action: 'backend/events/event-add'
-  },
-  'GET /events/delete/:id': {
-    action: 'backend/events/event-delete'
-  },
-  'GET /policy': {
-    view: 'policy'
-  },
+    'GET /': {
+        action: 'backend/dashboard/dashboard-view'
+    },
+    'GET /login': {
+        action: 'backend/user/login-view'
+    },
+    'POST /login': {
+        action: 'backend/user/login'
+    },
+    'GET /logout': {
+        action: 'backend/user/logout'
+    },
+    'GET /setup': {
+        action: 'backend/user/setup-view'
+    },
+    'POST /setup': {
+        action: 'backend/user/setup'
+    },
+    'GET /news': {
+        action: 'backend/news/news-view'
+    },
+    'POST /category/add': {
+        action: 'backend/news/category-add'
+    },
+    'GET /category/delete/:id': {
+        action: 'backend/news/category-delete'
+    },
+    'POST /news/add': {
+        action: 'backend/news/news-add'
+    },
+    'GET /news/delete/:id': {
+        action: 'backend/news/news-delete'
+    },
+    'GET /endlicht': {
+        action: 'backend/endlicht/endlicht-view'
+    },
+    'POST /endlicht/beverages/add': {
+        action: 'backend/endlicht/beverages-add'
+    },
+    'GET /endlicht/beverages/delete/:id': {
+        action: 'backend/endlicht/beverages-delete'
+    },
+    'GET /endlicht/special/set/:id': {
+        action: 'backend/endlicht/special-set'
+    },
+    'GET /endlicht/hours/set': {
+        action: 'backend/endlicht/hours-set'
+    },
+    'GET /events': {
+        action: 'backend/events/event-view'
+    },
+    'POST /events/add': {
+        action: 'backend/events/event-add'
+    },
+    'GET /events/delete/:id': {
+        action: 'backend/events/event-delete'
+    },
+    'GET /policy': {
+        view: 'policy'
+    },
 
 
-  /***************************************************************************
-   *                                                                          *
-   * More custom routes here...                                               *
-   * (See https://sailsjs.com/config/routes for examples.)                    *
-   *                                                                          *
-   * If a request to a URL doesn't match any of the routes in this file, it   *
-   * is matched against "shadow routes" (e.g. blueprint routes).  If it does  *
-   * not match any of those, it is matched against static assets.             *
-   *                                                                          *
-   ***************************************************************************/
+    /***************************************************************************
+     *                                                                          *
+     * More custom routes here...                                               *
+     * (See https://sailsjs.com/config/routes for examples.)                    *
+     *                                                                          *
+     * If a request to a URL doesn't match any of the routes in this file, it   *
+     * is matched against "shadow routes" (e.g. blueprint routes).  If it does  *
+     * not match any of those, it is matched against static assets.             *
+     *                                                                          *
+     ***************************************************************************/
 
 
     //  ╔═╗╔═╗╦  ╔═╗╔╗╔╔╦╗╔═╗╔═╗╦╔╗╔╔╦╗╔═╗
@@ -125,22 +125,22 @@ module.exports.routes = {
     'POST /api/user/grades/refresh': {
         action: 'api/user/grades-refresh'
     },
-  'GET /api/endlicht': {
-    action: 'api/endlicht/endlicht'
-  },
-  'GET /api/events': {
-    action: 'api/events/events'
-  }
+    'GET /api/endlicht': {
+        action: 'api/endlicht/endlicht'
+    },
+    'GET /api/events': {
+        action: 'api/events/events'
+    }
 
 
-  //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
-  //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
-  //  ╚╩╝╚═╝╚═╝╩ ╩╚═╝╚═╝╩ ╩╚═╝
+    //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
+    //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
+    //  ╚╩╝╚═╝╚═╝╩ ╩╚═╝╚═╝╩ ╩╚═╝
 
 
-  //  ╔╦╗╦╔═╗╔═╗
-  //  ║║║║╚═╗║
-  //  ╩ ╩╩╚═╝╚═╝
+    //  ╔╦╗╦╔═╗╔═╗
+    //  ║║║║╚═╗║
+    //  ╩ ╩╩╚═╝╚═╝
 
 
 };
