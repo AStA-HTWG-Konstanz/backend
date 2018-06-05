@@ -40,6 +40,7 @@ module.exports = {
     fn: async function (inputs, exits) {
         let authService = new LdapAuth(sails.config.custom.ldap);
         authService.authenticate(inputs.username, inputs.password, function (err, userObject) {
+            let studentRole = false;
             if (err) {
                 authService.close(function (error) {
                     if (error) {
@@ -49,15 +50,17 @@ module.exports = {
                 });
             } else {
                 for(let i = 0;i <= userObject.objectClass.length; i++){
-		  if (userObject.objectClass[i] === 'FHKNEMPLOYEE'){
-		    console.log("True");
+		  if (userObject.objectClass[i] === 'FHKNSTUDENT'){
+		    studentRole = true;
+		    console.log(studentRole);
+		    break;
 		  }
                 }
                 authService.close(function (error) {
                     if (error) {
                         sails.log(error);
                     }
-                    return exits.success();
+                    return exits.success(studentRole);
                 });
             }
         });
