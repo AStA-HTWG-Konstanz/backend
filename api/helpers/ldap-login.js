@@ -48,11 +48,16 @@ module.exports = {
                     return exits.errorOccured();
                 });
             } else {
+                for(let i = 0;i <= userObject.objectClass.length; i++){
+		  if (userObject.objectClass[i] === 'FHKNEMPLOYEE'){
+		    console.log("True");
+		  }
+                }
                 authService.close(function (error) {
                     if (error) {
                         sails.log(error);
                     }
-                    return exits.success(userObject);
+                    return exits.success();
                 });
             }
         });
