@@ -38,21 +38,15 @@ module.exports = {
       this.req.session.APIlogged = true;
       this.req.session.APIusername = username;
       if(checkForUserroleStudent(user)){
-        return exits.success({
-          "Student" : "true"
-        })
+        return exits.success({"student" : "true"});
+      } else {
+        return exits.success({"student" : "false"});
       }
-      return exits.success({
-	"Student" : "false"
-      });
     }).catch(function (error) {
       sails.log.error(error);
       return exits.failure();
     });
-
-
   }
-
 };
 
 function checkForUserroleStudent(user){
