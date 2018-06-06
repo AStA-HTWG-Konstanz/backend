@@ -49,18 +49,11 @@ module.exports = {
                     return exits.errorOccured();
                 });
             } else {
-                for(let i = 0;i <= userObject.objectClass.length; i++){
-		  if (userObject.objectClass[i] === 'FHKNSTUDENT'){
-		    studentRole = true;
-		    console.log(studentRole);
-		    break;
-		  }
-                }
                 authService.close(function (error) {
                     if (error) {
                         sails.log(error);
                     }
-                    return exits.success(studentRole);
+                    return exits.success(userObject);
                 });
             }
         });
