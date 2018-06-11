@@ -54,8 +54,35 @@ module.exports.routes = {
     'POST /news/add': {
         action: 'backend/news/news-add'
     },
-    'GET /news/delete/:id' : {
+    'GET /news/delete/:id': {
         action: 'backend/news/news-delete'
+    },
+    'GET /endlicht': {
+        action: 'backend/endlicht/endlicht-view'
+    },
+    'POST /endlicht/beverages/add': {
+        action: 'backend/endlicht/beverages-add'
+    },
+    'GET /endlicht/beverages/delete/:id': {
+        action: 'backend/endlicht/beverages-delete'
+    },
+    'GET /endlicht/special/set/:id': {
+        action: 'backend/endlicht/special-set'
+    },
+    'GET /endlicht/hours/set': {
+        action: 'backend/endlicht/hours-set'
+    },
+    'GET /events': {
+        action: 'backend/events/event-view'
+    },
+    'POST /events/add': {
+        action: 'backend/events/event-add'
+    },
+    'GET /events/delete/:id': {
+        action: 'backend/events/event-delete'
+    },
+    'GET /policy': {
+        view: 'policy'
     },
 
 
@@ -91,6 +118,18 @@ module.exports.routes = {
     },
     'POST /api/user/lectures': {
         action: 'api/user/lectures'
+    },
+    'POST /api/user/grades': {
+        action: 'api/user/grades'
+    },
+    'POST /api/user/grades/refresh': {
+        action: 'api/user/grades-refresh'
+    },
+    'GET /api/endlicht': {
+        action: 'api/endlicht/endlicht'
+    },
+    'GET /api/events': {
+        action: 'api/events/events'
     }
 
 

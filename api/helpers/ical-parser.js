@@ -1,6 +1,7 @@
 const iCalDateParser = require('ical-date-parser');
 const moment = require('moment');
 require('moment-recur2');
+require('moment-timezone');
 const days = {
     MO: "Monday",
     TU: "Tuesday",
@@ -83,13 +84,12 @@ module.exports = {
                 /**
                  * Get startTime
                  */
-                let startDate = iCalDateParser(event["DTSTART;TZID=Europe/Berlin"] + "Z");
-                startTime = startDate.toLocaleTimeString();
+                let startDate =  moment.tz(event["DTSTART;TZID=Europe/Berlin"], 'YYYYMMDDTHHmmSS', 'Europe/Berlin').toDate();
+                startTime = moment.tz(event["DTSTART;TZID=Europe/Berlin"], 'YYYYMMDDTHHmmSS', 'Europe/Berlin').format('HH:mm');
                 /**
                  * Get endTime
                  */
-                let endDate = iCalDateParser(event["DTEND;TZID=Europe/Berlin"] + "Z");
-                endTime = endDate.toLocaleTimeString();
+                endTime = moment.tz(event["DTEND;TZID=Europe/Berlin"], 'YYYYMMDDTHHmmSS', 'Europe/Berlin').format('HH:mm');
                 /**
                  * Get dates
                  */
