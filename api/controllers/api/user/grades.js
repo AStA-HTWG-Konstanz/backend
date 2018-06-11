@@ -28,24 +28,38 @@ module.exports = {
     fn: async function (inputs, exits) {
         let token = inputs.token;
         let output = {gradesReport: {}};
-        let gradeData = await QisGrades.find({token: token}).populate("semester").populate("course").sort("id ASC").catch((e) => {
+        let gradeData = await QisGrades.find({token: token}).populate('semester').populate('course').sort('id ASC').catch((e) => {
             sails.log.error(e);
             return exits.errorOccured();
         });
         if (gradeData) {
-            for (let i in gradeData) {
-                if (typeof output.gradesReport[gradeData[i].semester.semester] === "undefined") {
-                    output.gradesReport[gradeData[i].semester.semester] = [];
+            let sorted = gradeData.sort(function (a, b) {
+                let firstYear = a.semester.semester.split(' ');
+                let secondYear = b.semester.semester.split(' ');
+
+                if (firstYear[1] < secondYear[1]) {
+                    return -1;
+                } else if (firstYear[1] > secondYear[1]) {
+                    return 1;
+                } else {
+                    return 0;
                 }
-                output.gradesReport[gradeData[i].semester.semester].push({
-                    course: gradeData[i].course.course,
-                    name: gradeData[i].name,
-                    grade: gradeData[i].grade.toString().replace(".", ","),
-                    ects: gradeData[i].ects.toString().replace(".", ","),
-                    passed: gradeData[i].passed,
-                    bachelor: gradeData[i].bachelor,
-                    master: gradeData[i].master
+            });
+            for (let i in sorted) {
+                if (typeof output[sorted[i].semester.semester] === 'undefined') {
+                    output[sorted[i].semester.semester] = [];
+                }
+
+                output[sorted[i].semester.semester].push({
+                    course: sorted[i].course.course,
+                    name: sorted[i].name,
+                    grade: sorted[i].grade.toString().replace('.', ','),
+                    ects: sorted[i].ects.toString().replace('.', ','),
+                    passed: sorted[i].passed,
+                    bachelor: sorted[i].bachelor,
+                    master: sorted[i].master
                 });
+
             }
             return exits.success(output);
         } else {
