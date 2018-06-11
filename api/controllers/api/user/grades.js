@@ -1,3 +1,29 @@
+function getSemesterCounter(a) {
+  let semester = [];
+  for (let i in a) {
+    let counter = 0;
+    let id = a[i].semester.id;
+
+    if (semester.length === 0) {
+      semester.push(id);
+      counter++;
+    } else {
+      for (let j = 0; j < semester.length; j++) {
+	if (id === semester[j]) {
+	  counter++;
+	  break;
+	}
+      }
+    }
+
+    if (counter === 0) {
+      semester.push(id);
+    }
+  }
+  console.log(semester.length);
+
+}
+
 module.exports = {
 
   friendlyName: 'User grades',
@@ -27,7 +53,7 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     let token = inputs.token;
-    let output = {};
+    let output = {gradesReport: {}};
     let gradeData = await QisGrades.find({token: token}).populate('semester').populate('course').sort('id ASC').catch((e) => {
       sails.log.error(e);
       return exits.errorOccured();
@@ -37,14 +63,9 @@ module.exports = {
     if (gradeData) {
 
       for (let i in gradeData) {
-	if (typeof output[gradeData[i].semester.semester] === 'undefined') {
-	  output[gradeData[i].semester.semester] = [];
-	}
 	unsorted.push(gradeData[i]);
-
       }
-      for (let i = 0; i <= unsorted.length-1; i++) {
-        console.log(sorted);
+      for (let i = 0; i <= unsorted.length - 1; i++) {
 	if (i === 0) {
 	  sorted.push(unsorted[i]);
 	} else {
@@ -55,21 +76,20 @@ module.exports = {
 	    sorted.push(unsorted[i]);
 	  } else {
 	    sorted.push(unsorted[i]);
-	    for (let j = sorted.length -1; j >= 0; j--) {
-	      let sortedCompareValue = compare(sorted[j].semester.semester, sorted[j-1].semester.semester);
+	    for (let j = sorted.length - 1; j >= 0; j--) {
+	      let sortedCompareValue = compare(sorted[j].semester.semester, sorted[j - 1].semester.semester);
 	      if (sortedCompareValue === -1) {
 		let temp = sorted[j - 1];
-		sorted[j- 1] = sorted[j];
+		sorted[j - 1] = sorted[j];
 		sorted[j] = temp;
 	      }
-	      else{
-	      break;
+	      else {
+		break;
+	      }
 	    }
 	  }
 	}
       }
-      }
-
       for (let i in sorted) {
 	if (typeof output[sorted[i].semester.semester] === 'undefined') {
 	  output[sorted[i].semester.semester] = [];
@@ -95,41 +115,16 @@ module.exports = {
 };
 
 function compare(a, b) {
-  let test = a.split(' ');
-  let test2 = b.split(' ');
+  let firstYear = a.split(' ');
+  let secondYear = b.split(' ');
 
-  if (test[1] < test2[1]) {
+  if (firstYear[1] < secondYear[1]) {
     return -1;
-  } else if (test[1] > test2[1]) {
+  } else if (firstYear[1] > secondYear[1]) {
     return 1;
   } else {
     return 0;
   }
 
 
-}
-
-function getSemesterCounter(a) {
-  let semester = [];
-  for (let i in a) {
-    let counter = 0;
-    let id = a[i].semester.id;
-
-    if (semester.length === 0) {
-      semester.push(id);
-      counter++;
-    } else {
-      for (let j = 0; j < semester.length; j++) {
-	if (id === semester[j]) {
-	  counter++;
-	  break;
-	}
-      }
-    }
-
-    if (counter === 0) {
-      semester.push(id);
-    }
-  }
-  console.log(semester.length);
 }
