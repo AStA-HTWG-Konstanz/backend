@@ -45,7 +45,7 @@ module.exports = {
             }
             try {
                 const $ = cheerio.load(bodyData);
-                let qissUrl = $('#wrapper > div.divcontent > div.content_max_portal_qis > div > form > div > ul > li:nth-child(6) > a').attr("href");
+                let qissUrl = $('#wrapper > div.divcontent > div.content_max_portal_qis > div > form > div > ul > li:nth-child(4) > a').attr("href");
                 let asiCode = new URL(qissUrl).searchParams.get("asi");
                 return exits.success(asiCode);
             } catch(e) {
