@@ -131,7 +131,7 @@ module.exports = {
 
 function getURL(cookie, isStudent, callback) {
     if (!isStudent) {
-        sails.helpers.lsfPid(data.cookieLogin + ' ' + data.cookieRequest).then(function (pidData) {
+        sails.helpers.lsfPid(cookie).then(function (pidData) {
             callback(null, sails.config.custom.datacenter.lsf.lectureProfPage.replace("${pid}", pidData.pid));
         }).catch(function (err) {
             callback(err, null)
