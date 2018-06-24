@@ -1,6 +1,6 @@
 <h1 align="center">
   <img src="./assets/images/icon_square.png" height="192" width="192"/><br>
-  HTWG Campus App backend
+  HTWG Campus backend
 </h1>
 
 ### How  to run
