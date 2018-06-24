@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="./assets/images/icon_square.png"/><br>
+  <img src="./assets/images/icon_square.png" height="192" width="192"/><br>
   HTWG Campus App backend
 </h1>
 
