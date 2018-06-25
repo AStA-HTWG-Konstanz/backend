@@ -4,7 +4,7 @@ module.exports = async function (req, res, proceed) {
         if (req.body.password === "testPass1") {
             req.session.APIlogged = true;
             req.session.APIusername = req.body.username;
-            return res.ok();
+            return res.ok({student: true});
         } else {
             return res.badRequest();
         }

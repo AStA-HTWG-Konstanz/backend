@@ -37,6 +37,8 @@ module.exports.custom = {
             loginPage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=user&type=0&breadCrumbSource=portal&topitem=functions",
             icalPage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=wplan&act=stg&pool=stg&show=plan&P.vx=kurz&missing=allTerms&k_parallel.parallelid=&k_abstgv.abstgvnr=${id}&r_zuordabstgv.phaseid=",
             lecturePage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=wplan&act=show&show=plan&P.subc=plan&fil=plu&mtknr=&UserSignature=",
+            lectureProfPage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=wplan&act=Dozent&show=plan&P.subc=plan&personal.pid=${pid}&navigationPosition=functions%2CscheduleDozent&breadcrumb=schedule&topitem=functions&subitem=scheduleDozent",
+            pidPage: "https://lsf.htwg-konstanz.de/qisserver/rds?state=user&type=0&category=menu.browse&breadCrumbSource=portal&startpage=portal.vm&chco=y",
             ids: [
                 {
                     id: 4511,

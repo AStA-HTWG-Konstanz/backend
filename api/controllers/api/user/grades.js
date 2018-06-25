@@ -27,7 +27,7 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         let token = inputs.token;
-        let output = {gradesReport: {}};
+        let output = {};
         let gradeData = await QisGrades.find({token: token}).populate('semester').populate('course').sort('id ASC').catch((e) => {
             sails.log.error(e);
             return exits.errorOccured();
@@ -63,7 +63,7 @@ module.exports = {
             }
             return exits.success(output);
         } else {
-            return exits.noData({gradesReport: []});
+            return exits.noData({});
         }
 
     }
