@@ -25,6 +25,9 @@ module.exports.routes = {
      ***************************************************************************/
 
     'GET /': {
+        action: 'frontend/download-view'
+    },
+    'GET /dashboard': {
         action: 'backend/dashboard/dashboard-view'
     },
     'GET /login': {

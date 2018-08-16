@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HTWG Campus App - Backend</title>
+    <title>HTWG Campus</title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -27,6 +27,10 @@
             + Import stylesheets from other directories
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
 
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/bootstrap.min.css">
@@ -34,7 +38,7 @@
     <!--STYLES END-->
   </head>
 
-  <body>
+  <body <% if (page === 'download') {%>style="background-color: #334152;" <%}%>>
     <%- body %>
 
 
