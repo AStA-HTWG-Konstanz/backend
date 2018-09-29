@@ -185,7 +185,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     adapter: '@sailshq/connect-redis',
-    url: 'redis://'+ process.env.REDIS_USER +':'+ process.env.REDIS_PASS +'@localhost:6379/sessions',
+    url: 'redis://:'+ process.env.REDIS_PASS +'@localhost:6379/0',
     //--------------------------------------------------------------------------
     // /\   OR, to avoid checking it in to version control, you might opt to
     // ||   set sensitive credentials like this using an environment variable.
@@ -221,7 +221,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cookie: {
-      // secure: true,
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000,  // 24 hours
     },
 
@@ -250,10 +250,10 @@ module.exports = {
     * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
     *                                                                          *
     ***************************************************************************/
-    // onlyAllowOrigins: [
-    //   'https://example.com',
+    onlyAllowOrigins: [
+       'https://app.asta.htwg-konstanz.de',
     //   'https://staging.example.com',
-    // ],
+    ],
 
 
     /***************************************************************************
