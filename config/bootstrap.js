@@ -33,7 +33,7 @@ module.exports.bootstrap = async function (done) {
     // ]);
     // ```
     if (await EndlichtHours.count() === 0) {
-        await  EndlichtHours.createEach([
+        await EndlichtHours.createEach([
             {weekday: "Monday"},
             {weekday: "Tuesday"},
             {weekday: "Wednesday"},
@@ -41,55 +41,59 @@ module.exports.bootstrap = async function (done) {
             {weekday: "Friday"}
         ]);
     }
-
-    let canteenJob = scheduler.scheduleJob('0 22 * * 7', function () {
-        sails.log.info('Canteen database cleanup');
-        CanteenDate.destroy({}).then(function () {
-            CanteenMeal.destroy({}).then(function () {
-                sails.log.info('Canteen import started');
-                CanteenService.importMenus(function (err, result) {
-                    if (err) {
-                        sails.log.error(err);
-                    }
-                    sails.log.info('Canteen import finished');
-                });
-            }).catch(function (err) {
-                sails.log.error(err);
-            });
-        }).catch(function (err) {
-            sails.log.error(err);
-        });
-    });
-
-    let lsfJob = scheduler.scheduleJob('30 0 * * *', function () {
-        sails.log.info("LSF database cleanup");
-        LsfLectures.destroy({}).then(function () {
-            LsfLectureDates.destroy({}).then(function () {
-                sails.log.info("LSF import started");
-                lsfService.importLectures(function (err, result) {
-                    sails.log.info("LSF import finished");
-                    // Clean directory
-                    fs.readdir(sails.config.appPath + '/.tmp/ical', (err, files) => {
+    if (process.env.SCHEDULE === "yes") {
+        sails.log.info("Scheduling is enabled!");
+        let canteenJob = scheduler.scheduleJob('0 22 * * 7', function () {
+            sails.log.info('Canteen database cleanup');
+            CanteenDate.destroy({}).then(function () {
+                CanteenMeal.destroy({}).then(function () {
+                    sails.log.info('Canteen import started');
+                    CanteenService.importMenus(function (err, result) {
                         if (err) {
                             sails.log.error(err);
-                        } else {
-                            for (const file of files) {
-                                fs.unlink(path.join(sails.config.appPath + '/.tmp/ical', file), err => {
-                                    if (err) {
-                                        sails.log.error(err);
-                                    }
-                                });
-                            }
                         }
+                        sails.log.info('Canteen import finished');
                     });
+                }).catch(function (err) {
+                    sails.log.error(err);
                 });
             }).catch(function (err) {
                 sails.log.error(err);
             });
-        }).catch(function (err) {
-            sails.log.error(err);
         });
-    });
+
+        let lsfJob = scheduler.scheduleJob('30 0 * * *', function () {
+            sails.log.info("LSF database cleanup");
+            LsfLectures.destroy({}).then(function () {
+                LsfLectureDates.destroy({}).then(function () {
+                    sails.log.info("LSF import started");
+                    lsfService.importLectures(function (err, result) {
+                        sails.log.info("LSF import finished");
+                        // Clean directory
+                        fs.readdir(sails.config.appPath + '/.tmp/ical', (err, files) => {
+                            if (err) {
+                                sails.log.error(err);
+                            } else {
+                                for (const file of files) {
+                                    fs.unlink(path.join(sails.config.appPath + '/.tmp/ical', file), err => {
+                                        if (err) {
+                                            sails.log.error(err);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    });
+                }).catch(function (err) {
+                    sails.log.error(err);
+                });
+            }).catch(function (err) {
+                sails.log.error(err);
+            });
+        });
+    } else {
+        sails.log.info("Scheduling is disabled!");
+    }
     return done();
 
 };
