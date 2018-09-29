@@ -47,7 +47,7 @@ module.exports = {
         } else {
           this.req.session.role = 'editor';
         }
-        return exits.success('/');
+        return exits.success('/dashboard');
       }).catch(function (error) {
         sails.log(error);
         return exits.errorOccured({errorMessage: 'You don\'t have enough rights to login.'});
