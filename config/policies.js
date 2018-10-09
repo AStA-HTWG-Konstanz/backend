@@ -41,7 +41,7 @@ module.exports.policies = {
     'api/user/lectures': 'isAuthenticated',
     'api/endlicht/endlicht': 'isAuthenticated',
     'api/user/grades': 'isAuthenticated',
-    'api/user/grades-refresh': 'isAuthenticated',
+    'api/user/grades-refresh': ['isAuthenticated','isAllowedToRefresh'],
 
     // Dummy policies
     'api/user/auth': 'dummy/user/dummyAuth',
