@@ -11,7 +11,7 @@ module.exports = async function (req, res, proceed) {
             return res.serverError();
         });
 
-        let dateToday = new Date().toLocaleDateString('ko-KR', options).replace(/\s/g, '').split(".").join("-").slice(0, -1);
+        let dateToday = new Date().toJSON().slice(0, 10);
 
         if (latestAccess) {
             //if latestAccess is found check if older than 7 days
