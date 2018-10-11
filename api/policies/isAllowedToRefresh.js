@@ -8,11 +8,13 @@ module.exports = async function (req, res, proceed) {
         if ((now - lastAccess) > oneWeek) {
             req.session.APIlastRefresh = new Date().toUTCString();
             return proceed();
+        } else {
+            //else
+            return res.ok();
         }
-        //else
-        return res.ok();
+    } else {
+        //set to today
+        req.session.APIlastRefresh = new Date().toUTCString();
+        return proceed();
     }
-    //set to today
-    req.session.APIlastRefresh = new Date().toUTCString();
-    return proceed();
 };
