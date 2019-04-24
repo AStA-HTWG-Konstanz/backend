@@ -31,11 +31,16 @@ module.exports = {
         const response = JSON.parse(HTTP.responseText);
         if (response.collection.description.includes("Geöffnet")) {
           return exits.success({open: true});
+        } else if (response.collection.description.includes("Geschlossen")) {
+          return exits.success({open: false});
         }
       }
-    }
+    }.catch(function (error) {
+      sails.log(error);
+      return exits.failure();
+
+    })
 
   }
-
 
 };
