@@ -27,6 +27,11 @@ module.exports.custom = {
             enEndpoint: "http://www.max-manager.de/daten-extern/seezeit/xml/mensa_htwg/speiseplan_en.xml"
         }
     },
+
+    strandbar: {
+      urlopen : "http://www.strandbar-konstanz.de/?format=json"
+    },
+
     datacenter: {
         printerBalance: {
             loginEndpoint: "https://login.rz.htwg-konstanz.de/index.spy",
