@@ -26,20 +26,22 @@ module.exports = {
     const HTTP = new XMLHttpRequest();
     HTTP.open("GET", sails.config.custom.strandbar.urlopen);
     HTTP.send();
-    HTTP.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        const response = JSON.parse(HTTP.responseText);
-        if (response.collection.description.includes("Geöffnet")) {
-          return exits.success({open: true});
-        } else if (response.collection.description.includes("Geschlossen")) {
-          return exits.success({open: false});
+    try {
+      HTTP.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          const response = JSON.parse(HTTP.responseText);
+          if (response.collection.description.includes("Geöffnet")) {
+            return exits.success({open: true});
+          } else if (response.collection.description.includes("Geschlossen")) {
+            return exits.success({open: false});
+          }
         }
       }
-    }.catch(function (error) {
+    } catch (error) {
       sails.log(error);
       return exits.failure();
 
-    })
+    }
 
   }
 
