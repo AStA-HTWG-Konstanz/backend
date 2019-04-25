@@ -28,7 +28,7 @@ module.exports = {
     HTTP.send();
     try {
       HTTP.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
           const response = JSON.parse(HTTP.responseText);
           if (response.collection.description.includes("Geöffnet")) {
             return exits.success({open: true});
@@ -38,7 +38,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      sails.log(error);
+      sails.log.error(error);
       return exits.failure();
 
     }
