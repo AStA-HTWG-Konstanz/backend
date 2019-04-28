@@ -1,4 +1,5 @@
 let request = require('request');
+var fs = require('fs');
 
 module.exports = {
 
@@ -42,6 +43,7 @@ module.exports = {
 
 
     fn: async function (inputs, exits) {
+        process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
         request.get({
             url: sails.config.custom.datacenter.qisserver.loginPage,
         }, function (err, result, bodyData) {
@@ -54,7 +56,7 @@ module.exports = {
             let headers = {
                 'cookie': cookieData
             };
-
+            
             request.post({
                 url: sails.config.custom.datacenter.qisserver.loginEndpoint.replace("{sessionID}", cookieData.split("=")[1]),
                 headers: headers,
