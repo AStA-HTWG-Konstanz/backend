@@ -1,5 +1,4 @@
 let request = require('request');
-var fs = require('fs');
 
 module.exports = {
 
@@ -43,7 +42,6 @@ module.exports = {
 
 
     fn: async function (inputs, exits) {
-        process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
         request.get({
             url: sails.config.custom.datacenter.qisserver.loginPage,
         }, function (err, result, bodyData) {
@@ -56,18 +54,18 @@ module.exports = {
             let headers = {
                 'cookie': cookieData
             };
-            
+
             request.post({
                 url: sails.config.custom.datacenter.qisserver.loginEndpoint.replace("{sessionID}", cookieData.split("=")[1]),
                 headers: headers,
-                form: {username: inputs.username, password: inputs.password}
+                form: { username: inputs.username, password: inputs.password }
             }, function (err, httpResponse, body) {
                 if (err) {
                     sails.log.error(err);
                     return exits.errorOccured();
                 }
 
-                if(httpResponse.statusCode !== 302) {
+                if (httpResponse.statusCode !== 302) {
                     return exits.loginFailed();
                 }
 
@@ -78,7 +76,7 @@ module.exports = {
                 }
 
                 let cookie = setCookie[0].split(' ')[0];
-                return exits.success({cookieLogin: cookie, cookieRequest: cookieData});
+                return exits.success({ cookieLogin: cookie, cookieRequest: cookieData });
             });
         });
     }
