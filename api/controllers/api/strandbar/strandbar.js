@@ -38,7 +38,7 @@ module.exports = {
                 } else if (open === "Geöffnet") {
                     return exits.success({open: true});
                 } else {
-                    sails.log.error("Strandbar - elemnt not found");
+                    sails.log.error("Strandbar - element not found");
                     return exits.failure();
                 }
             } catch (error) {
