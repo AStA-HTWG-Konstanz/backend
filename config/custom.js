@@ -27,6 +27,9 @@ module.exports.custom = {
             enEndpoint: "http://www.max-manager.de/daten-extern/seezeit/xml/mensa_htwg/speiseplan_en.xml"
         }
     },
+    events: {
+      urlopen: "https://www.htwg-konstanz.de/studium/pruefungsangelegenheiten/terminefristen/"
+    },
     datacenter: {
         printerBalance: {
             loginEndpoint: "https://login.rz.htwg-konstanz.de/index.spy",
