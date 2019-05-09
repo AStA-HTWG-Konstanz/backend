@@ -42,6 +42,7 @@ module.exports.policies = {
     'api/endlicht/endlicht': 'isAuthenticated',
     'api/user/grades': 'isAuthenticated',
     'api/user/grades-refresh': ['isAuthenticated','isAllowedToRefresh'],
+    'api/strandbar/strandbar': 'isAuthenticated',
 
     // Dummy policies
     'api/user/auth': 'dummy/user/dummyAuth',
