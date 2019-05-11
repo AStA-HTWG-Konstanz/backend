@@ -26,7 +26,7 @@ module.exports = {
     }).then(function (data) {
       return exits.success({events: data});
     }).catch(function (error) {
-      sails.log(error);
+      sails.log.error(error);
       return exits.errorOccured();
     });
   }

@@ -49,10 +49,11 @@ module.exports = {
         }
         return exits.success('/dashboard');
       }).catch(function (error) {
-        sails.log(error);
+        sails.log.error(error);
         return exits.errorOccured({errorMessage: 'You don\'t have enough rights to login.'});
       });
     }).catch(function (error) {
+      sails.log.error(error);
       return exits.errorOccured({errorMessage: 'Login failed. Please check your Username/Password or try again later.'});
     });
   }

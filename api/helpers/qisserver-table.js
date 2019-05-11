@@ -55,7 +55,7 @@ module.exports = {
                 return exits.success(bodyData);
             } catch(e) {
                 sails.log.error(e);
-                return exit.errorOccured();
+                return exits.errorOccured();
             }
         });
     }

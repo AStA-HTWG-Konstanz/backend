@@ -38,7 +38,7 @@ module.exports = {
         sails.helpers.printerBalance(username, password).then((data) => {
             return exits.success({balance:{print: data.balance}});
         }).catch(function (err) {
-            sails.log(err);
+            sails.log.error(err);
             if (err.code === "loginFailed") {
                 return exits.wrongCredentials();
             } else {

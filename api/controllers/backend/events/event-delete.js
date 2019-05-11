@@ -21,7 +21,7 @@ module.exports = {
         Event.destroy({id: this.req.params.id}).then(function () {
             return exits.success();
         }).catch(function (error) {
-            sails.log.delete(error);
+            sails.log.error(error);
             return exits.errorOccured();
         });
     }
