@@ -27,6 +27,7 @@ module.exports.routes = {
     'GET /': {
         action: 'frontend/download-view'
     },
+
     'GET /impressum': {
         action: 'frontend/impressum-view'
     },
@@ -133,6 +134,9 @@ module.exports.routes = {
     },
     'GET /api/endlicht': {
         action: 'api/endlicht/endlicht'
+    },
+    'GET /api/strandbar': {
+      action: 'api/strandbar/strandbar'
     },
     'GET /api/events': {
         action: 'api/events/events'

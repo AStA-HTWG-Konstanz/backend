@@ -30,6 +30,9 @@ module.exports.custom = {
     events: {
       urlopen: "https://www.htwg-konstanz.de/studium/pruefungsangelegenheiten/terminefristen/"
     },
+    strandbar: {
+      urlopen: "http://www.strandbar-konstanz.de/?format=json"
+    },
     datacenter: {
         printerBalance: {
             loginEndpoint: "https://login.rz.htwg-konstanz.de/index.spy",
