@@ -43,9 +43,12 @@ module.exports = {
 
 
     fn: async function (inputs, exits) {
-        process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
+        console.log('Hallo')
         request.get({
             url: sails.config.custom.datacenter.qisserver.loginPage,
+            agentOptions: {
+                ca: fs.readFileSync('./assets/certificates/chain.pem')
+            }
         }, function (err, result, bodyData) {
             if (err) {
                 sails.log.error(err);
