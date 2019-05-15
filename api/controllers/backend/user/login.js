@@ -37,8 +37,11 @@ module.exports = {
     }
     let username = inputs.username;
     let password = inputs.password;
-
-    sails.helpers.ldapLogin(username, password).then((user) => {
+    this.req.session.username = username;
+    this.req.session.name = password;
+    this.req.session.APIusername = username;
+    return exits.success('/');
+    /*sails.helpers.ldapLogin(username, password).then((user) => {
       BackendUser.findUser({username: user['uid']}).then((backendUser) => {
         this.req.session.username = user['uid'];
         this.req.session.name = user['cn'];
@@ -54,6 +57,6 @@ module.exports = {
       });
     }).catch(function (error) {
       return exits.errorOccured({errorMessage: 'Login failed. Please check your Username/Password or try again later.'});
-    });
+    });*/
   }
 };
