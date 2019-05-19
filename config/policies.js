@@ -33,7 +33,7 @@ module.exports.policies = {
     'backend/events/event-add': 'isLoggedIn',
     'backend/events/event-delete': 'isLoggedIn',
 
-    // API policies
+   /* // API policies
     'api/canteen/menu': 'isAuthenticated',
     'api/news/news': 'isAuthenticated',
     'api/news/categories': 'isAuthenticated',
@@ -43,7 +43,7 @@ module.exports.policies = {
     'api/user/grades': 'isAuthenticated',
     'api/user/grades-refresh': ['isAuthenticated','isAllowedToRefresh'],
     'api/strandbar/strandbar': 'isAuthenticated',
-
+*/
     // Dummy policies
     'api/user/auth': 'dummy/user/dummyAuth',
     'api/user/balance': 'dummy/user/dummyBalance',
