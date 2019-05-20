@@ -24,7 +24,7 @@ module.exports = {
         }
     },
     strandbarJob: async function () {
-        sails.log("starting strandbar job");
+        sails.log.info("starting strandbar job");
 
         request.get({
             url: sails.config.custom.strandbar.urlopen,
