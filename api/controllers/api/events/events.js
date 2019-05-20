@@ -1,4 +1,5 @@
 let request = require('request');
+const cheerio = require('cheerio');
 
 module.exports = {
 
@@ -32,75 +33,45 @@ module.exports = {
       }
 
       try {
-        const response = body;
+        const $ = cheerio.load(body);
         let output = {events: []};
 
-        // Zeichenlängen für:
-        // "Prüfungsanmeldezeitraum Sommersemester 20XX"
-        // "Prüfungszeitraum Sommersemester 20XX"
-        // "Zweiter Prüfungszeitraum Sommersemester 20XX"
-        // "Vorlesungsbeginn"
-        // "Vorlesungsende"
-        const summerSemesterLengths = [43, 36, 44, 16, 14];
+        let examRegistrationPeriod = $("strong:contains(Prüfungsanmeldezeitraum)").text().replace(":", "");
+        let examPeriods = $("strong:contains(Prüfungszeitraum)").text().split(":");
+        let lectureStart = $("strong:contains(Vorlesungsbeginn)").text();
+        let lectureEnd = $("strong:contains(Vorlesungsende)").text();
 
-        // Zeichenlängen für:
-        // "Prüfungsanmeldezeitraum Wintersemester 20XX/XX"
-        // "Prüfungszeitraum Wintersemester 20XX/XX"
-        // "Zweiter Prüfungszeitraum Wintersemester 20XX/XX"
-        // "Vorlesungsbeginn"
-        // "Vorlesungsende"
-        const winterSemesterLengths = [46, 39, 47, 16, 14];
+        let values = [examRegistrationPeriod, examPeriods[0], examPeriods[1], lectureStart, lectureEnd];
 
-        // Suchbegriffe im HTML-Code
-        const values = ["Prüfungsanmeldezeitraum", "Prüfungszeitraum", "Zweiter Prüfungszeitraum", "Vorlesungsbeginn", "Vorlesungsende"];
-
-        // Jahr des Sommersemesters zwischenspeichern
         let summerSemesterYear;
-
-        // Jahre des Wintersemesters in der richtigen Reihenfolge zwischenspeichern (siehe unten für mehr Details)
         let winterSemesterYears = [];
 
-        // Positionsindex von "Prüfungsanmeldezeitraum" im HTML-Code
-        const indexOfFirstValue = response.indexOf(values[0]);
+        if (examRegistrationPeriod.includes("Sommersemester")) {
+          summerSemesterYear = examRegistrationPeriod.substring(39, 43);
 
-        if (response.substring(indexOfFirstValue, indexOfFirstValue + 38).endsWith("Sommersemester")) {
+          let dates = $("p:contains('" + summerSemesterYear + "')").text().split(":");
+
           let i = 0;
-          for (i; i < values.length; i++) {
-            let index = response.indexOf(values[i]); // Positionsindex des jeweiligen Suchbegriffs
-
-            if (i === 0) {
-              summerSemesterYear = response.substring(index + 39, index + 43); // z.B. "2019"
-            }
-
-            let text = response.substring(index, index + summerSemesterLengths[i]); // z.B. "Prüfungsanmeldezeitraum Sommersemester 2019"
-            let yearIndex = response.indexOf(summerSemesterYear, index + summerSemesterLengths[i]); // Positionsindex vom aktuellen Jahr im Datum
-            let date = response.substring(index + summerSemesterLengths[i], yearIndex + 4); // Zeitraum bzw. Datum
-            date = removeHtmlTags(date);
-            output.events.push({title: text, eventDate: date});
+          for (i; i < 5; i++) {
+            let currentDate = dates[i + 1].trim();
+            let index = currentDate.indexOf(summerSemesterYear) + 4;
+            currentDate = currentDate.substring(0, index);
+            output.events.push({title: values[i], eventDate: currentDate});
           }
           return exits.success(output);
-        } else if (response.substring(indexOfFirstValue, indexOfFirstValue + 38).endsWith("Wintersemester")) {
+        } else if (examRegistrationPeriod.includes("Wintersemester")) {
+          let firstWinterSemesterYear = examRegistrationPeriod.substring(39, 43);
+          let secondWinterSemesterYear = firstWinterSemesterYear.substring(0, 2) + examRegistrationPeriod.substring(44, 46);
+          winterSemesterYears.push(firstWinterSemesterYear, secondWinterSemesterYear, secondWinterSemesterYear, firstWinterSemesterYear, secondWinterSemesterYear);
+
+          let dates = $("p:contains('" + firstWinterSemesterYear + "')").text().split(":");
+
           let i = 0;
-          for (i; i < values.length; i++) {
-            let index = response.indexOf(values[i]); // Positionsindex des jeweiligen Suchbegriffs
-
-            if (i === 0) {
-              let firstWinterSemesterYear = response.substring(index + 39, index + 43); // z.B. "2019"
-              let secondWinterSemesterYear = firstWinterSemesterYear.substring(0, 2) + response.substring(index + 44, index + 46); // z.B. "2020"
-
-              // Der Prüfungsanmeldezeitraum ist immer im ersten Wintersemesterjahr, z.B. 2019
-              // Der Prüfungszeitraum ist immer im zweiten Wintersemesterjahr, z.B. 2020
-              // Der zweite Prüfungszeitraum ist immer im zweiten Wintersemesterjahr, z.B. 2020
-              // Der Vorlesungsbeginn ist immer im ersten Wintersemesterjahr, z.B. 2019
-              // Das Vorlesungsende ist immer im zweiten Wintersemesterjahr, z.B. 2020
-              winterSemesterYears.push(firstWinterSemesterYear, secondWinterSemesterYear, secondWinterSemesterYear, firstWinterSemesterYear, secondWinterSemesterYear);
-            }
-
-            let text = response.substring(index, index + winterSemesterLengths[i]); // z.B. "Prüfungsanmeldezeitraum Wintersemester 2019/20"
-            let yearIndex = response.indexOf(winterSemesterYears[i], index + winterSemesterLengths[i]); // Positionsindex vom jeweiligen Jahr im Datum
-            let date = response.substring(index + winterSemesterLengths[i], yearIndex + 4); // Zeitraum bzw. Datum
-            date = removeHtmlTags(date);
-            output.events.push({title: text, eventDate: date});
+          for (i; i < 5; i++) {
+            let currentDate = dates[i + 1].trim();
+            let index = currentDate.indexOf(winterSemesterYears[i]) + 4;
+            currentDate = currentDate.substring(0, index);
+            output.events.push({title: values[i], eventDate: currentDate});
           }
           return exits.success(output);
         } else {
@@ -114,8 +85,3 @@ module.exports = {
     });
   }
 };
-
-// HTML-Tags entfernen, nur den relevanten Text behalten
-function removeHtmlTags(htmlCode) {
-  return htmlCode.replace(/<[^>]*>/g, "").replace("&nbsp;", "").replace(": ", "");
-}
