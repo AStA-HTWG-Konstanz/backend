@@ -66,7 +66,7 @@ module.exports.bootstrap = async function (done) {
 
         let strandbarJob = scheduler.scheduleJob('0 * * * * ', function () {
             sails.log.info('get strandbar status');
-            strandbarservice.fn(_, _);
+            strandbarservice.strandbarJob();
 
 
         });
