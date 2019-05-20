@@ -1,9 +1,11 @@
 const util = require('util');
+const redis = require('redis');
+client = redis.createClient(6379 / 1, 'localhost');
 
 module.exports = {
     friendlyName: 'strandbar',
 
-    description: 'checks if the strandbar is open',
+    description: 'gets the open status of the strandbar from redis',
 
     inputs: {},
 
@@ -19,20 +21,38 @@ module.exports = {
             responseType: ''
         }
     },
+
+
     fn: async function (inputs, exits) {
+        try {
+            client.get('strandbar', function (error, value) {
+                if (error) {
+                    sails.log.error(error);
+                    return exits.failure;
+                } else {
+                    return exits.success({open: value});
+                }
+            })
+        } catch (error) {
+            sails.log.error(error);
+            return exits.failure;
+        }
+
+
+        /*
 
         try {
             let value = await sails.getDatastore('redisCache').leaseConnection(async (db) => {
                 let found = await (util.promisify(db.get).bind(db))('strandbar');
                 if (found === null) {
-                    return exits.failure();
+                    return exits.failure;
                 } else {
                     return exits.success({open: value})
                 }
             })
         } catch (error) {
             sails.log.error(error);
-            return exits.failure();
+            return exits.failure;
         }
 
         /*

@@ -1,11 +1,13 @@
 let request = require('request');
 const cheerio = require('cheerio');
-var util = require('util');
+const util = require('util');
+const redis = require('redis');
+    client = redis.createClient(6379/1,'localhost');
 
 module.exports = {
     friendlyName: 'strandbar',
 
-    description: 'checks if the strandbar is open',
+    description: 'checks if the strandbar is open and saves it to redis',
 
     inputs: {},
 
@@ -22,6 +24,7 @@ module.exports = {
         }
     },
     fn: async function (inputs, exits) {
+        sails.log("starting strandbar job");
 
         request.get({
             url: sails.config.custom.strandbar.urlopen,
@@ -35,22 +38,18 @@ module.exports = {
                 const $ = cheerio.load(body);
                 let open = $("strong:nth-child(1)").text();
                 if (open === "Geschlossen") {
-                    sails.getDatastore('redisCache').leaseConnection(async (db) => {
-                        await (util.promisify(db.setex).bind(db))('strandbar', ttlInSeconds, 'false')
-                    });
-                    return exits.success();//({open: false});
+                    client.set('strandbar', false);
+                    return exits.success;
                 } else if (open === "Geöffnet") {
-                    sails.getDatastore('redisCache').leaseConnection(async (db) => {
-                        await (util.promisify(db.setex).bind(db))('strandbar', ttlInSeconds, 'true')
-                    });
-                    return exits.success();//({open: true});
+                    client.set('strandbar', true);
+                    return exits.success;
                 } else {
                     sails.log.error("Strandbar - element not found");
-                    return exits.failure();
+                    return exits.failure;
                 }
             } catch (error) {
                 sails.log.error(error);
-                return exits.failure();
+                return exits.failure;
             }
 
         });
