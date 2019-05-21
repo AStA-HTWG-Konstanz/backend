@@ -49,7 +49,7 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
     adapter: 'sails-mysql',
-    url: 'mysql://' + 'htwg_app' + ':' + 'triDD32wo&&.!!' +'@localhost:3306/'+ 'htwg_app',
+    url: 'mysql://' + process.env.DBUSER + ':' + process.env.DBPASS +'@localhost:3306/'+ process.env.DB,
 
   },
 
