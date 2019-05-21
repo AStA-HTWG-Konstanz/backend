@@ -46,7 +46,6 @@ module.exports = {
             sails.log.error(e);
             return exits.errorOccured();
         });
-
         let asi = await sails.helpers.qisserverAsi(cookie.cookieRequest + " " + cookie.cookieLogin).catch((e) => {
             sails.log.error(e);
             return exits.errorOccured();

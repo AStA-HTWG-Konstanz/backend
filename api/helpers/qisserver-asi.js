@@ -1,5 +1,6 @@
 let request = require('request');
 const cheerio = require('cheerio');
+var fs = require('fs');
 const { URL } = require('url');
 module.exports = {
 
@@ -37,7 +38,10 @@ module.exports = {
         };
         request.get({
             url: sails.config.custom.datacenter.qisserver.overviewPage,
-            headers: headers
+            headers: headers,
+            agentOptions: {
+                ca: fs.readFileSync('./assets/certificates/chain.pem')
+            }
         }, function (err, result, bodyData) {
             if (err) {
                 sails.log.error(err);
