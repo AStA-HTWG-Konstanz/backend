@@ -136,12 +136,12 @@ function getMeals(day, idList, parsedDate, callback) {
     }).then(function (data) {
       callb();
     }).catch(function (error) {
-      sails.log(error);
+      sails.log.error(error);
       callb();
     });
   }, function (err) {
     if (err) {
-      sails.log(err);
+      sails.log.error(err);
       callback(null);
     } else {
       callback(null);

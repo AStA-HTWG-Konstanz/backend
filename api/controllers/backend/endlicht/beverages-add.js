@@ -41,7 +41,7 @@ module.exports = {
             EndlichtBeverages.create({name: inputs.beverageName, price: inputs.beveragePrice}).then(function () {
                 return exits.success();
             }).catch(function (error) {
-                sails.log(error);
+                sails.log.error(error);
                 return exits.errorOccured()
             });
         });

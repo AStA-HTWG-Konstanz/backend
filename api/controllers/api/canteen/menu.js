@@ -36,7 +36,7 @@ module.exports = {
     }
     CanteenMeal.getDatastore().sendNativeQuery(menuSQLAll, [lang]).exec(function (err, rawResult) {
       if (err) {
-        sails.debug.log(err);
+        sails.log.error(err);
         return exits.errorOccured();
       } else {
         let output = {menu: []};
