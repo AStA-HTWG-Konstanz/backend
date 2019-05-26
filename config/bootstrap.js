@@ -14,6 +14,7 @@ let strandbarservice = require('../api/services/strandbarService');
 const fs = require('fs');
 const path = require('path');
 let CanteenService = require('../api/services/canteenService');
+let datesService = require('../api/services/datesService');
 
 
 module.exports.bootstrap = async function (done) {
@@ -68,6 +69,12 @@ module.exports.bootstrap = async function (done) {
             sails.log.info('get strandbar status');
             strandbarservice.strandbarJob();
 
+
+        });
+
+        let datesJob = scheduler.scheduleJob('* * * * 0', function () {
+            sails.log.info('get dates');
+            datesService.datesJob();
 
         });
 
