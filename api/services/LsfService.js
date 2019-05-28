@@ -22,6 +22,9 @@ let importLectures = function (callback) {
                  */
                 request.get({
                     url: url,
+                    agentOptions: {
+                        ca: fs.readFileSync('./assets/certificates/chain.pem')
+                    }
                 }, function (err, res, body) {
                     if (err) {
                         clbk(err, null);
@@ -46,16 +49,35 @@ let importLectures = function (callback) {
                 /**
                  * Download the iCal file
                  */
-                let file = fs.createWriteStream(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics');
-                https.get(icalURL, function(response) {
-                    response.pipe(file);
-                    file.on('finish', function() {
+                var dir = sails.config.appPath + '/.tmp/ical/';
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir);
+                }
+                //let file = fs.createWriteStream(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics');
+
+                request.get({
+                    url: icalURL,
+                    agentOptions: {
+                        ca: fs.readFileSync('./assets/certificates/chain.pem')
+                    }
+                }, function (err, response, body) {
+                    if (err) {
+                        fs.unlink(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics'); // Delete the file async. (But we don't check the result)
+                        clbk(err);
+                    }
+                    fs.writeFile(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics', JSON.stringify(response), function (err) {
+                        if (err) {
+                            return sails.log(err);
+                        }
+
+                        sails.log("The file was saved!");
+                        clbk();
+                    });
+                    //var stream = response.pipe(file);
+                    /*file.on('finish', function () {
                         sails.log.debug("Fetched ical for: " + course.name);
                         file.close(clbk);  // close() is async, call cb after close completes.
-                    });
-                }).on('error', function (err) { // Handle errors
-                    fs.unlink(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics'); // Delete the file async. (But we don't check the result)
-                    clbk(err);
+                    });*/
                 });
             },
             function (clbk) {
@@ -99,7 +121,7 @@ let importLectures = function (callback) {
                              * Write dates for lecture to database
                              */
                             async.forEachOf(event.dates, function (date, ky, cb) {
-                                LsfLectureDates.create({lectureDate: date, lecture: lectureID}).then(function () {
+                                LsfLectureDates.create({ lectureDate: date, lecture: lectureID }).then(function () {
                                     cb();
                                 }).catch(function (error) {
                                     cb(error);
