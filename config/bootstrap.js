@@ -65,6 +65,7 @@ module.exports.bootstrap = async function (done) {
             });
         });
 
+        // update strandbar open status every hour
         let strandbarJob = scheduler.scheduleJob('0 * * * * ', function () {
             sails.log.info('get strandbar status');
             strandbarservice.strandbarJob();
@@ -72,6 +73,7 @@ module.exports.bootstrap = async function (done) {
 
         });
 
+        // update dates once a week
         let datesJob = scheduler.scheduleJob('* * * * 0', function () {
             sails.log.info('get dates');
             datesService.datesJob();
