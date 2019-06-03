@@ -53,7 +53,6 @@ let importLectures = function (callback) {
                 if (!fs.existsSync(dir)) {
                     fs.mkdirSync(dir);
                 }
-                //let file = fs.createWriteStream(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics');
 
                 request.get({
                     url: icalURL,
@@ -65,7 +64,7 @@ let importLectures = function (callback) {
                         fs.unlink(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics'); // Delete the file async. (But we don't check the result)
                         clbk(err);
                     }
-                    fs.writeFile(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics', JSON.stringify(response), function (err) {
+                    fs.writeFile(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics', body, function (err) {
                         if (err) {
                             return sails.log(err);
                         }
@@ -73,11 +72,6 @@ let importLectures = function (callback) {
                         sails.log("The file was saved!");
                         clbk();
                     });
-                    //var stream = response.pipe(file);
-                    /*file.on('finish', function () {
-                        sails.log.debug("Fetched ical for: " + course.name);
-                        file.close(clbk);  // close() is async, call cb after close completes.
-                    });*/
                 });
             },
             function (clbk) {
@@ -85,8 +79,8 @@ let importLectures = function (callback) {
                  * Read iCal file from disk an pass it to the parser
                  */
                 const ics = fs.readFileSync(sails.config.appPath + '/.tmp/ical/' + course.id + '.ics', 'utf-8');
-                let output = ical2json.convert(ics);
-                sails.helpers.icalParser(JSON.stringify(output)).then((parsedEvents) => {
+                var input = ics.replace(/\r\n/g, ",");
+                sails.helpers.icalParser(input).then((parsedEvents) => {
                     clbk(null, parsedEvents);
                 }).catch(function (error) {
                     clbk(error);

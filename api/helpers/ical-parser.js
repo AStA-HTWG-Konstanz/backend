@@ -45,11 +45,9 @@ module.exports = {
     fn: async function (input, exits) {
         let output = { events: [] };
         let icsData = input.icsData;
-        sails.log(icsData);
-        var events = icsData.split("END:VEVENT\\\\r\\\\n");
+        var events = icsData.split("END:VEVENT");
         if (events.length == 1) {
-            sails.log('Hallo');
-            //sails.log.info(icsData);
+            sails.log.info(icsData);
             return exits.errorOccured();
         }
         events.forEach(function (event) {
@@ -73,21 +71,22 @@ module.exports = {
                 /**
                  * Get LSF ID, CourseID, category and room
                  */
-                lsfID = event.substring(event.search("UID:") + 4, event.search("DESCRIPTION:"));
-                lsfID = lsfID.replace("\\\\r\\\\n", "");
+                lsfID = event.substring(event.search("UID:") + 4, event.search(",DESCRIPTION:"));
+
                 lsfCourseID = lsfID.substr(1, 6);
                 lsfID = lsfID.substr(-6);
+                if (lsfID.search(/[0-9]+/) == -1) {
+                    return;
+                }
+
                 if (lsfCourseID.length == 6) {
-                    room = event.substring(event.search("[^-]LOCATION:") + 10, event.search("DTSTAMP:"));
-                    room = room.replace("\\\\r\\\\n", "");
+                    room = event.substring(event.search("[^-]LOCATION:") + 10, event.search(",DTSTAMP:"));
                     category = event.slice(event.search("CATEGORIES:") + 11, -1);
-                    category = category.replace("\\\\r\\\\\\\\r\\\\n", "");
                     /**
                      * Get Name
                      */
                     //Remove id if present
-                    summary = event.substring(event.search("SUMMARY:") + 8, event.search("COMMENT:"));
-                    summary = summary.replace("\\\\r\\\\n", "");
+                    summary = event.substring(event.search("SUMMARY:") + 8, event.search(",COMMENT:"));
                     let tmpName;
                     if (typeof summary.split(" - ")[1] === "undefined") {
                         tmpName = summary;
@@ -101,24 +100,22 @@ module.exports = {
                     /**
                      * Get startTime
                      */
-                    dateFormatStart = event.substring(event.search("DTSTART;TZID=Europe/Berlin:") + 27, event.search("DTEND;TZID=Europe/Berlin:"));
-                    dateFormatStart = dateFormatStart.replace("\\\\r\\\\n", "");
+                    dateFormatStart = event.substring(event.search("DTSTART;TZID=Europe/Berlin:") + 27, event.search(",DTEND;TZID=Europe/Berlin:"));
                     let startDate = moment.tz(dateFormatStart, 'YYYYMMDDTHHmmSS', 'Europe/Berlin').toDate();
                     startTime = moment.tz(dateFormatStart, 'YYYYMMDDTHHmmSS', 'Europe/Berlin').format('HH:mm');
+
                     /**
-                     * Get endTime
+                     * Get endTime and dates
                      */
-                    dateFormatEnd = event.substring(event.search("DTEND;TZID=Europe/Berlin:") + 25, event.search("RRULE:"));
-                    dateFormatEnd = dateFormatEnd.replace("\\\\r\\\\n", "");
-                    endTime = moment.tz(dateFormatEnd, 'YYYYMMDDTHHmmSS', 'Europe/Berlin').format('HH:mm');
-                    /**
-                     * Get dates
-                     */
+
                     if (event.search("RRULE:") == -1) {
+                        dateFormatEnd = event.substring(event.search("DTEND;TZID=Europe/Berlin:") + 25, event.search(",EXDATE:"));
+                        endTime = moment.tz(dateFormatEnd, 'YYYYMMDDTHHmmSS', 'Europe/Berlin').format('HH:mm');
                         dates.push(startDate.toLocaleDateString());
                     } else {
-                        rRule = event.substring(event.search("RRULE:") + 6, event.search("EXDATE:"));
-                        rRule = rRule.replace("\\\\r\\\\n", "");
+                        dateFormatEnd = event.substring(event.search("DTEND;TZID=Europe/Berlin:") + 25, event.search(",RRULE:"));
+                        endTime = moment.tz(dateFormatEnd, 'YYYYMMDDTHHmmSS', 'Europe/Berlin').format('HH:mm');
+                        rRule = event.substring(event.search("RRULE:") + 6, event.search(",EXDATE:"));
                         let rruleParams = rRule.split(";");
 
                         let untilDate = iCalDateParser(rruleParams[1].split("=")[1]);
@@ -143,7 +140,8 @@ module.exports = {
                     });
 
                 }
-            } catch (e) { }
+            } catch (error) {
+                return exits.errorOccured(error);}
         });
         return exits.success(output);
     }
