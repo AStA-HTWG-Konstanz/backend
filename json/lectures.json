@@ -1,99 +1,54 @@
 {
-  "lectures": [
-    {
-      "date": "6.5.2019",
-      "lectures": [
+    "lectures": [
         {
-          "name": "Stochastik",
-          "startTime": "8:00",
-          "endTime": "9:30",
-          "room": "O007",
-          "category": "Vorlesung"
+            "date": "2019-6-3",
+            "lectures": [
+                {
+                    "name": "AIN SE5 IT-Sicherheit",
+                    "startTime": "09:45:00",
+                    "endTime": "11:15:00",
+                    "room": "O - 002",
+                    "category": "Einzelveranstaltung"
+                }
+            ]
         },
         {
-          "name": "Programmiertechnik 1",
-          "startTime": "9:45",
-          "endTime": "11:15",
-          "room": "F033",
-          "category": "Übung"
-        }
-      ]
-    },
-    {
-      "date": "7.5.2019",
-      "lectures": [
-        {
-          "name": "Englisch",
-          "startTime": "11:30",
-          "endTime": "13:00",
-          "room": "C109",
-          "category": "Vorlesung"
-        }
-      ]
-    },
-    {
-      "date": "8.5.2019",
-      "lectures": [
-        {
-          "name": "Systemsoftware",
-          "startTime": "8:00",
-          "endTime": "9:30",
-          "room": "O108",
-          "category": "Vorlesung"
+            "date": "2019-6-5",
+            "lectures": [
+                {
+                    "name": "AIN SE4 Software-Archtekturen",
+                    "startTime": "08:00:00",
+                    "endTime": "09:30:00",
+                    "room": "F - 033",
+                    "category": "Vorlesung/Übung"
+                },
+                {
+                    "name": "AIN SE4 Software-Archtekturen",
+                    "startTime": "09:45:00",
+                    "endTime": "11:15:00",
+                    "room": "F - 033",
+                    "category": "Vorlesung/Übung"
+                }
+            ]
         },
         {
-          "name": "Rechnerarchitektur",
-          "startTime": "9:45",
-          "endTime": "11:15",
-          "room": "O303",
-          "category": "Übung"
-        },
-        {
-          "name": "Rechnerarchitektur",
-          "startTime": "11:30",
-          "endTime": "13:00",
-          "room": "O303",
-          "category": "Vorlesung"
+            "date": "2019-6-6",
+            "lectures": [
+                {
+                    "name": "AIN SE5 IT-Sicherheit",
+                    "startTime": "08:00:00",
+                    "endTime": "09:30:00",
+                    "room": "O - 008",
+                    "category": "Einzelveranstaltung"
+                },
+                {
+                    "name": "AIN SE5 IT-Sicherheit",
+                    "startTime": "08:00:00",
+                    "endTime": "09:30:00",
+                    "room": "F - 223",
+                    "category": "Einzelveranstaltung"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "date": "9.5.2019",
-      "lectures": [
-        {
-          "name": "Stochastik",
-          "startTime": "14:00",
-          "endTime": "15:30",
-          "room": "F023",
-          "category": "Vorlesung"
-        },
-        {
-          "name": "Programmiertechnik 1",
-          "startTime": "9:45",
-          "endTime": "11:15",
-          "room": "F033",
-          "category": "Vorlesung"
-        }
-      ]
-    },
-    {
-      "date": "10.5.2019",
-      "lectures": [
-        {
-          "name": "Englisch",
-          "startTime": "15:45",
-          "endTime": "17:15",
-          "room": "C109",
-          "category": "Übung"
-        },
-        {
-          "name": "Programmiertechnik 1",
-          "startTime": "9:45",
-          "endTime": "11:15",
-          "room": "F033",
-          "category": "Vorlesung"
-        }
-      ]
-    }
-  ]
+    ]
 }
