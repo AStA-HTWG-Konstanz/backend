@@ -67,21 +67,5 @@ module.exports = {
 
         }).on('completed', () => {
         })
-
-
-        /*function (err, result, bodyData) {
-            if (err) {
-                sails.log.error(err);
-                return exits.errorOccured();
-            }
-            try {
-                return exits.success(bodyData);
-            } catch (e) {
-                sails.log.error(e);
-                return exits.errorOccured();
-            }
-        }*/
-
-
     }
 };
