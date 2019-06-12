@@ -1,6 +1,7 @@
 let request = require('request');
 var fs = require('fs');
 const RequestQueue = require('node-request-queue');
+let rq = new RequestQueue(10);
 module.exports = {
 
 
@@ -45,25 +46,27 @@ module.exports = {
         let headers = {
             'cookie': inputs.cookie
         };
-        let rq = new RequestQueue(10);
-        let request = request.get({
-                url: inputs.url.replace("{asiToken}", inputs.asi),
-                headers: headers,
-                agentOptions: {
-                    ca: fs.readFileSync('./assets/certificates/chain.pem')
-                }
-            }, rq.push(request),
 
-            rq.on('resolved', res => {
-                return exits.success(res);
+        let request = {
+            mathod: 'GET',
+            url: inputs.url.replace("{asiToken}", inputs.asi),
+            headers: headers,
+            agentOptions: {
+                ca: fs.readFileSync('./assets/certificates/chain.pem')
+            }
+        };
+        rq.push(request);
+
+        rq.on('resolved', res => {
+            return exits.success(res);
 
 
-            }).on('rejected', err => {
-                sails.log.error(err);
-                return exits.errorOccured();
+        }).on('rejected', err => {
+            sails.log.error(err);
+            return exits.errorOccured();
 
-            }).on('completed', () => {
-            }))
+        }).on('completed', () => {
+        })
 
 
         /*function (err, result, bodyData) {
