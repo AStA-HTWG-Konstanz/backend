@@ -121,6 +121,15 @@ module.exports = {
                         let untilDate = iCalDateParser(rruleParams[1].split("=")[1]);
                         let freq = rruleParams[0].split("=")[1];
                         let day = rruleParams[3].split("=")[1];
+                        lectureDates = [];
+                        if (day.length > 2) {
+                            dayArray = day.split(",");
+                            dayArray.forEach(function(element) {
+                                lectureDates.push(days[element]);
+                            })
+                        } else {
+                            lectureDates = days[day];
+                        }
                         let interval = rruleParams[2].split("=")[1];
                         let recurrence = moment().recur(startDate.toLocaleString(), untilDate.toLocaleString()).every(days[day]).daysOfWeek().every(interval).weeks();
                         dates = recurrence.all("YYYY-MM-DD");
