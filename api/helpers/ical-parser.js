@@ -141,7 +141,8 @@ module.exports = {
 
                 }
             } catch (error) {
-                return exits.errorOccured(error);}
+                return exits.errorOccured(error);
+            }
         });
         return exits.success(output);
     }
