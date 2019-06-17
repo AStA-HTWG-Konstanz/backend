@@ -1,7 +1,17 @@
 let request = require('request');
-var fs = require('fs');
-const RequestQueue = require('node-request-queue');
-let rq = new RequestQueue(10);
+const fs = require('fs');
+
+var RateLimiter = require('request-rate-limiter');
+
+
+
+var limiter = new RateLimiter({
+    rate: 10,
+    interval: 60,
+    backoffCode: 429,
+    backoffTime: 10,
+    maxWaitingTime: 10
+});
 module.exports = {
 
 
@@ -47,25 +57,33 @@ module.exports = {
             'cookie': inputs.cookie
         };
 
-        let request = {
-            mathod: 'GET',
-            url: inputs.url.replace("{asiToken}", inputs.asi),
-            headers: headers,
-            agentOptions: {
-                ca: fs.readFileSync('./assets/certificates/chain.pem')
-            }
-        };
-        rq.push(request);
+        limiter.request().then(function (backoff) {
+            request({
+                method: 'GET',
+                url: inputs.url.replace("{asiToken}", inputs.asi),
+                headers: headers,
+                agentOptions: {
+                    ca: fs.readFileSync('./assets/certificates/chain.pem')
 
-        rq.on('resolved', res => {
-            return exits.success(res);
+                }
 
+            }, function (err, respose, body) {
+                if (err) {
+                    callback(err);
+                } else if (respose.statusCode === 429) {
+                    backoff();
+                } else {
+                    return exits.success(body);
+                }
 
-        }).on('rejected', err => {
+            });
+
+        }).catch(function (err) {
             sails.log.error(err);
-            return exits.errorOccured();
+            return exits.error();
 
-        }).on('completed', () => {
         })
+
     }
 };
+

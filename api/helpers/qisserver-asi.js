@@ -1,7 +1,18 @@
 let request = require('request');
 const cheerio = require('cheerio');
 var fs = require('fs');
-const { URL } = require('url');
+const {URL} = require('url');
+var RateLimiter = require('request-rate-limiter');
+
+
+
+var limiter = new RateLimiter({
+    rate: 10,
+    interval: 60,
+    backoffCode: 429,
+    backoffTime: 10,
+    maxWaitingTime: 10
+});
 module.exports = {
 
 
@@ -36,26 +47,39 @@ module.exports = {
         let headers = {
             'cookie': inputs.cookie
         };
-        request.get({
-            url: sails.config.custom.datacenter.qisserver.overviewPage,
-            headers: headers,
-            agentOptions: {
-                ca: fs.readFileSync('./assets/certificates/chain.pem')
-            }
-        }, function (err, result, bodyData) {
-            if (err) {
-                sails.log.error(err);
-                return exits.errorOccured();
-            }
-            try {
-                const $ = cheerio.load(bodyData);
-                let qissUrl = $('#wrapper > div.divcontent > div.content_max_portal_qis > div > form > div > ul > li:nth-child(4) > a').attr("href");
-                let asiCode = new URL(qissUrl).searchParams.get("asi");
-                return exits.success(asiCode);
-            } catch(e) {
-                sails.log.error(e);
-                return exits.errorOccured();
-            }
-        });
+
+        limiter.request().then(function (backoff) {
+            request({
+                method: 'GET',
+                url: sails.config.custom.datacenter.qisserver.overviewPage,
+                headers: headers,
+                agentOptions: {
+                    ca: fs.readFileSync('./assets/certificates/chain.pem')
+                }
+
+            }, function (err, response, body) {
+                if (err) {
+                    callback(err);
+                } else if (response.statusCode === 429) {
+                    backoff();
+                } else {
+                    try {
+                        const $ = cheerio.load(body);
+                        let qissUrl = $('#wrapper > div.divcontent > div.content_max_portal_qis > div > form > div > ul > li:nth-child(4) > a').attr("href");
+                        let asiCode = new URL(qissUrl).searchParams.get("asi");
+                        return exits.success(asiCode);
+                    } catch (e) {
+                        sails.log.error(e);
+                        return exits.errorOccured();
+                    }
+                }
+            });
+
+        }).catch(function (err) {
+            sails.log.error(err);
+            return exits.error();
+
+        })
+
     }
 };

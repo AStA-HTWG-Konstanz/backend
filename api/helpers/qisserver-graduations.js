@@ -2,6 +2,14 @@ let request = require('request');
 const cheerio = require('cheerio');
 var fs = require('fs');
 const {URL} = require('url');
+var RateLimiter = require('request-rate-limiter');
+var limiter = new RateLimiter({
+    rate: 10,
+    interval: 60,
+    backoffCode: 429,
+    backoffTime: 10,
+    maxWaitingTime: 10
+});
 module.exports = {
 
 
@@ -41,43 +49,54 @@ module.exports = {
         let headers = {
             'cookie': inputs.cookie
         };
-        request.get({
-            url: sails.config.custom.datacenter.qisserver.graduationOverview.replace("{asiToken}", inputs.asi),
-            headers: headers,
-            agentOptions: {
-                ca: fs.readFileSync('./assets/certificates/chain.pem')
-            }
-        }, function (err, result, bodyData) {
-            if (err) {
+        limiter.request().then(function (backoff) {
+            request({
+                method: 'GET',
+                url: sails.config.custom.datacenter.qisserver.graduationOverview.replace("{asiToken}", inputs.asi),
+                headers: headers,
+                agentOptions: {
+                    ca: fs.readFileSync('./assets/certificates/chain.pem')
+                }
+            }, function (err, result, bodyData) {
+                if (err) {
+                    callback(err)
+                } else if (result.statusCode === 429) {
+                    backoff();
+                } else {
+
+                    let bachelor = false;
+                    let master = false;
+                    const $ = cheerio.load(bodyData);
+                    try {
+                        //check first link for bachelor or master
+                        let graduationURL = $('#wrapper > div.divcontent > div.content > form > ul > li:nth-child(1) > a:nth-child(3)').attr("href");
+                        let graduationNumber = new URL(graduationURL).searchParams.get("nodeID").split("=")[1];
+                        if (graduationNumber === "84") {
+                            bachelor = true;
+                        } else if (graduationNumber === "90") {
+                            master = true;
+                        }
+                    } catch (e) {
+                        //ignore error
+                    }
+                    try {
+                        //check if second link exists and for master
+                        let url = $('#wrapper > div.divcontent > div.content > form > ul > li:nth-child(2) > a:nth-child(3)').attr("href");
+                        let number = new URL(url).searchParams.get("nodeID").split("=")[1];
+                        if (number === "90") {
+                            master = true;
+                        }
+                    } catch (e) {
+                        //ignore error
+                    }
+                    return exits.success({bachelor: bachelor, master: master});
+                }
+            });
+        }).catch(function (err) {
                 sails.log.error(err);
                 return exits.errorOccured();
+
             }
-            let bachelor = false;
-            let master = false;
-            const $ = cheerio.load(bodyData);
-            try {
-                //check first link for bachelor or master
-                let graduationURL = $('#wrapper > div.divcontent > div.content > form > ul > li:nth-child(1) > a:nth-child(3)').attr("href");
-                let graduationNumber = new URL(graduationURL).searchParams.get("nodeID").split("=")[1];
-                if (graduationNumber === "84") {
-                    bachelor = true;
-                } else if (graduationNumber === "90") {
-                    master = true;
-                }
-            } catch (e) {
-                //ignore error
-            }
-            try {
-                //check if second link exists and for master
-                let url = $('#wrapper > div.divcontent > div.content > form > ul > li:nth-child(2) > a:nth-child(3)').attr("href");
-                let number = new URL(url).searchParams.get("nodeID").split("=")[1];
-                if (number === "90") {
-                    master = true;
-                }
-            } catch (e) {
-                //ignore error
-            }
-            return exits.success({bachelor: bachelor, master: master});
-        });
+        );
     }
 };

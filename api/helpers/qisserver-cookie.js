@@ -1,5 +1,13 @@
 let request = require('request');
 var fs = require('fs');
+var RateLimiter = require('request-rate-limiter');
+var limiter = new RateLimiter({
+    rate: 10,
+    interval: 60,
+    backoffCode: 429,
+    backoffTime: 10,
+    maxWaitingTime: 10
+});
 
 module.exports = {
 
@@ -43,48 +51,64 @@ module.exports = {
 
 
     fn: async function (inputs, exits) {
-        request.get({
-            url: sails.config.custom.datacenter.qisserver.loginPage,
-            agentOptions: {
-                ca: fs.readFileSync('./assets/certificates/chain.pem')
-            }
-        }, function (err, result, bodyData) {
-            if (err) {
-                sails.log.error(err);
-                return exits.errorOccured();
-            }
-            let setCookieData = result.headers['set-cookie'];
-            let cookieData = setCookieData[0].split(' ')[0];
-            let headers = {
-                'cookie': cookieData
-            };
 
-            request.post({
-                url: sails.config.custom.datacenter.qisserver.loginEndpoint.replace("{sessionID}", cookieData.split("=")[1]),
-                headers: headers,
-                form: { username: inputs.username, password: inputs.password },
+        limiter.request().then(function (backoff) {
+            request({
+                method: 'GET',
+                url: sails.config.custom.datacenter.qisserver.loginPage,
                 agentOptions: {
                     ca: fs.readFileSync('./assets/certificates/chain.pem')
                 }
-            }, function (err, httpResponse, body) {
+            }, function (err, response, body) {
                 if (err) {
-                    sails.log.error(err);
-                    return exits.errorOccured();
+                    callback(err);
+                } else if (response.statusCode === 429) {
+                    backoff();
+                } else {
+                    let setCookieData = response.headers['set-cookie'];
+                    let cookieData = setCookieData[0].split(' ')[0];
+                    let headers = {
+                        'cookie': cookieData
+                    };
+
+                    limiter.request().then(function (backoff) {
+                        request.post({
+                            url: sails.config.custom.datacenter.qisserver.loginEndpoint.replace("{sessionID}", cookieData.split("=")[1]),
+                            headers: headers,
+                            form: {username: inputs.username, password: inputs.password},
+                            agentOptions: {
+                                ca: fs.readFileSync('./assets/certificates/chain.pem')
+                            }
+                        }, function (error, res, bodyData) {
+                            if (error) {
+                                callback(error);
+                            } else if (res.statusCode === 429) {
+                                backoff();
+                            } else if (res.statusCode !== 302) {
+                                return exits.loginFailed();
+
+                            } else {
+                                let setCookie = res.headers['set-cookie'];
+
+                                if (typeof setCookie === "undefined") {
+                                    return exits.loginFailed();
+
+                                }
+
+                                let cookie = setCookie[0].split(' ')[0];
+                                return exits.success({cookieLogin: cookie, cookieRequest: cookieData});
+                            }
+                        })
+                    }).catch(function (error) {
+                        sails.log.error(error);
+                        return exits.errorOccured();
+                    })
                 }
+            })
+        }).catch(function (err) {
+            sails.log.error(err);
+            return exits.errorOccured();
 
-                if (httpResponse.statusCode !== 302) {
-                    return exits.loginFailed();
-                }
-
-                let setCookie = httpResponse.headers['set-cookie'];
-
-                if (typeof setCookie === "undefined") {
-                    return exits.loginFailed();
-                }
-
-                let cookie = setCookie[0].split(' ')[0];
-                return exits.success({ cookieLogin: cookie, cookieRequest: cookieData });
-            });
         });
     }
 };
