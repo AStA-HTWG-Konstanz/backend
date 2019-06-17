@@ -1,4 +1,3 @@
-const util = require('util');
 const redis = require('redis');
 client = redis.createClient(6379 / 1, 'localhost');
 
