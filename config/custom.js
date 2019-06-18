@@ -61,7 +61,7 @@ module.exports.custom = {
                     name: "Automotive System Engineering (Master)"
                 },
                 {
-                    id: 4477,
+                    id: 4526,
                     name: "Bauingenieur Master"
                 },
                 {
@@ -109,10 +109,6 @@ module.exports.custom = {
                     name: "Kommunikationsdesign (Master)"
                 },
                 {
-                    id: 4524,
-                    name: "Kooperatives Promotionskolleg"
-                },
-                {
                     id: 4520,
                     name: "Legal Management (WRM)"
                 },
@@ -131,10 +127,6 @@ module.exports.custom = {
                 {
                     id: 4480,
                     name: "Mechatronik (Master)"
-                },
-                {
-                    id: 4486,
-                    name: "Software Engineering (Bachelor)"
                 },
                 {
                     id: 4461,
