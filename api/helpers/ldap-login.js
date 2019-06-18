@@ -43,14 +43,14 @@ module.exports = {
             if (err) {
                 authService.close(function (error) {
                     if (error) {
-                        sails.log(error);
+                        sails.log.error(error);
                     }
                     return exits.errorOccured();
                 });
             } else {
                 authService.close(function (error) {
                     if (error) {
-                        sails.log(error);
+                        sails.log.error(error);
                     }
                     return exits.success(userObject);
                 });

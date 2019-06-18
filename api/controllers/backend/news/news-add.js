@@ -54,7 +54,7 @@ module.exports = {
             }).then(function () {
                 return exits.success();
             }).catch(function (error) {
-                sails.log(error);
+                sails.log.error(error);
                 return exits.errorOccured()
             });
         }

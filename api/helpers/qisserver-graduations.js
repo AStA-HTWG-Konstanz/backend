@@ -65,6 +65,7 @@ module.exports = {
                     master = true;
                 }
             } catch (e) {
+                sails.log.error(e);
                 //ignore error
             }
             try {
@@ -75,6 +76,7 @@ module.exports = {
                     master = true;
                 }
             } catch (e) {
+                sails.log.error(e);
                 //ignore error
             }
             return exits.success({bachelor: bachelor, master: master});

@@ -2,10 +2,9 @@ const redis = require('redis');
 client = redis.createClient(6379 / 1, 'localhost');
 
 module.exports = {
+    friendlyName: 'strandbar',
 
-    friendlyName: 'Events',
-
-    description: 'Load events to the app from redis',
+    description: 'gets the open status of the strandbar from redis',
 
     inputs: {},
 
@@ -22,20 +21,21 @@ module.exports = {
         }
     },
 
+
     fn: async function (inputs, exits) {
         try {
-            client.get('dates', function (error, value) {
+            client.get('strandbar', function (error, value) {
                 if (error) {
                     sails.log.error(error);
                     return exits.failure;
                 } else {
-                    return exits.success(value);
+                    return exits.success({open: value});
                 }
             })
         } catch (error) {
             sails.log.error(error);
             return exits.failure;
         }
-
     }
+
 };

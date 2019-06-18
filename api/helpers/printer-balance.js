@@ -48,7 +48,7 @@ module.exports = {
             form: {username: inputs.username, password: inputs.password, login: "Anmelden"}
         }, function (err, httpResponse, body) {
             if (err) {
-                sails.log(err);
+                sails.log.error(err);
                 return exits.errorOccured();
             }
 
@@ -68,7 +68,7 @@ module.exports = {
                 headers: headers
             }, function (err, res, body) {
                 if (err) {
-                    sails.log(err);
+                    sails.log.error(err);
                     return exits.errorOccured();
                 }
 

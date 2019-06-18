@@ -123,6 +123,7 @@ module.exports = {
             }
         }, function (error) {
             if (error) {
+                sails.log.error(error);
                 return exits.errorOccured(error);
             }
             return exits.success(output);

@@ -10,9 +10,11 @@
  */
 let scheduler = require('node-schedule');
 let lsfService = require('../api/services/LsfService');
+let strandbarservice = require('../api/services/strandbarService');
 const fs = require('fs');
 const path = require('path');
 let CanteenService = require('../api/services/canteenService');
+let datesService = require('../api/services/datesService');
 
 
 module.exports.bootstrap = async function (done) {
@@ -41,6 +43,7 @@ module.exports.bootstrap = async function (done) {
             {weekday: "Friday"}
         ]);
     }
+
     if (process.env.SCHEDULE === "yes") {
         sails.log.info("Scheduling is enabled!");
         let canteenJob = scheduler.scheduleJob('0 22 * * 7', function () {
@@ -60,6 +63,21 @@ module.exports.bootstrap = async function (done) {
             }).catch(function (err) {
                 sails.log.error(err);
             });
+        });
+
+        // update strandbar open status every hour
+        let strandbarJob = scheduler.scheduleJob('0 * * * * ', function () {
+            sails.log.info('get strandbar status');
+            strandbarservice.strandbarJob();
+
+
+        });
+
+        // update dates once a week
+        let datesJob = scheduler.scheduleJob('* * * * 0', function () {
+            sails.log.info('get dates');
+            datesService.datesJob();
+
         });
 
         let lsfJob = scheduler.scheduleJob('30 0 * * *', function () {
