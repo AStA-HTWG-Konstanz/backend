@@ -1,0 +1,182 @@
+{
+  "grades": [
+      {
+          "semesterIdentifier": "Wintersemester 16/17",
+          "semesterPerformance": [
+              {
+                  "course": "AIN",
+                  "name": "Mathematik 1 und Konsolidierung",
+                  "grade": 2,
+                  "ects": 10,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Mathematik 1 Übungen",
+                  "grade": 0,
+                  "ects": 0,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Konsolidierung",
+                  "grade": 0,
+                  "ects": 0,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Digitaltechnik",
+                  "grade": 1.7,
+                  "ects": 8,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              }
+          ]
+      },
+      {
+          "semesterIdentifier": "Sommersemester 17",
+          "semesterPerformance": [
+              {
+                  "course": "AIN",
+                  "name": "Bachelorzwischenprüfung",
+                  "grade": 2.1,
+                  "ects": 60,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Softwaremodellierung",
+                  "grade": 3,
+                  "ects": 7,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Systemmodellierung Übungen",
+                  "grade": 0,
+                  "ects": 0,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Mathematik 2 und Stochastik",
+                  "grade": 1.7,
+                  "ects": 8,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              }
+          ]
+      },
+      {
+          "semesterIdentifier": "Wintersemester 17/18",
+          "semesterPerformance": [
+              {
+                  "course": "AIN",
+                  "name": "Signale, Systeme und Sensoren (Übungen)",
+                  "grade": 0,
+                  "ects": 0,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Theoretische Informatik Übungen",
+                  "grade": 0,
+                  "ects": 0,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Algorithmen und Datenstrukturen(Übungen)",
+                  "grade": 0,
+                  "ects": 0,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Softwaretechnik(Übungen)",
+                  "grade": 0,
+                  "ects": 0,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              }
+          ]
+      },
+      {
+          "semesterIdentifier": "Sommersemester 18",
+          "semesterPerformance": [
+              {
+                  "course": "AIN",
+                  "name": "Praktisches Studiensemester",
+                  "grade": 0,
+                  "ects": 27,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              }
+          ]
+      },
+      {
+          "semesterIdentifier": "Wintersemester 18 / 19",
+          "semesterPerformance": [
+              {
+                  "course": "AIN",
+                  "name": "Systemsoftware",
+                  "grade": 3.7,
+                  "ects": 6,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Systemsoftware Übungen",
+                  "grade": 0,
+                  "ects": 0,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Sprachkonzepte",
+                  "grade": 3,
+                  "ects": 6,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              },
+              {
+                  "course": "AIN",
+                  "name": "Sprachkonzepte Übungen",
+                  "grade": 0,
+                  "ects": 0,
+                  "passed": true,
+                  "bachelor": true,
+                  "master": false
+              }
+          ]
+      }
+  ]
+}
