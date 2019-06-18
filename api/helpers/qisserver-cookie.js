@@ -1,4 +1,5 @@
 let request = require('request');
+var fs = require('fs');
 
 module.exports = {
 
@@ -44,6 +45,9 @@ module.exports = {
     fn: async function (inputs, exits) {
         request.get({
             url: sails.config.custom.datacenter.qisserver.loginPage,
+            agentOptions: {
+                ca: fs.readFileSync('./assets/certificates/chain.pem')
+            }
         }, function (err, result, bodyData) {
             if (err) {
                 sails.log.error(err);
@@ -58,14 +62,17 @@ module.exports = {
             request.post({
                 url: sails.config.custom.datacenter.qisserver.loginEndpoint.replace("{sessionID}", cookieData.split("=")[1]),
                 headers: headers,
-                form: {username: inputs.username, password: inputs.password}
+                form: { username: inputs.username, password: inputs.password },
+                agentOptions: {
+                    ca: fs.readFileSync('./assets/certificates/chain.pem')
+                }
             }, function (err, httpResponse, body) {
                 if (err) {
                     sails.log.error(err);
                     return exits.errorOccured();
                 }
 
-                if(httpResponse.statusCode !== 302) {
+                if (httpResponse.statusCode !== 302) {
                     return exits.loginFailed();
                 }
 
@@ -76,7 +83,7 @@ module.exports = {
                 }
 
                 let cookie = setCookie[0].split(' ')[0];
-                return exits.success({cookieLogin: cookie, cookieRequest: cookieData});
+                return exits.success({ cookieLogin: cookie, cookieRequest: cookieData });
             });
         });
     }

@@ -45,12 +45,21 @@ module.exports = {
                     return 0;
                 }
             });
+            sails.log(sorted);
+            output["grades"] = [];
+            currSemester = "";
+            currIdx = -1;
             for (let i in sorted) {
-                if (typeof output[sorted[i].semester.semester] === 'undefined') {
-                    output[sorted[i].semester.semester] = [];
+                if (currSemester != sorted[i].semester.semester) {
+                    output["grades"].push({
+                        semesterIdentifier: sorted[i].semester.semester,
+                        semesterPerformance: []
+                    })
+                    currSemester = sorted[i].semester.semester;
+                    currIdx = currIdx + 1;
                 }
 
-                output[sorted[i].semester.semester].push({
+                output["grades"][currIdx]["semesterPerformance"].push({
                     course: sorted[i].course.course,
                     name: sorted[i].name,
                     grade: sorted[i].grade.toString().replace('.', ','),

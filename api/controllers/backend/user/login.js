@@ -37,7 +37,6 @@ module.exports = {
     }
     let username = inputs.username;
     let password = inputs.password;
-
     sails.helpers.ldapLogin(username, password).then((user) => {
       BackendUser.findUser({username: user['uid']}).then((backendUser) => {
         this.req.session.username = user['uid'];
