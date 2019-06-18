@@ -6,7 +6,7 @@ var limiter = new RateLimiter({
     interval: 60,
     backoffCode: 429,
     backoffTime: 10,
-    maxWaitingTime: 10
+    maxWaitingTime: 40
 });
 
 module.exports = {
@@ -83,6 +83,7 @@ module.exports = {
                             if (error) {
                                 callback(error);
                             } else if (res.statusCode === 429) {
+                                sails.log.info('Too many requests');
                                 backoff();
                             } else if (res.statusCode !== 302) {
                                 return exits.loginFailed();
