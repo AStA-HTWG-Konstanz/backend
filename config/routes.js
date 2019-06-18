@@ -25,6 +25,15 @@ module.exports.routes = {
      ***************************************************************************/
 
     'GET /': {
+        action: 'frontend/download-view'
+    },
+    'GET /impressum': {
+        action: 'frontend/impressum-view'
+    },
+    'GET /contact': {
+        action: 'frontend/contact-view'
+    },
+    'GET /dashboard': {
         action: 'backend/dashboard/dashboard-view'
     },
     'GET /login': {
@@ -80,9 +89,6 @@ module.exports.routes = {
     },
     'GET /events/delete/:id': {
         action: 'backend/events/event-delete'
-    },
-    'GET /policy': {
-        view: 'policy'
     },
 
 

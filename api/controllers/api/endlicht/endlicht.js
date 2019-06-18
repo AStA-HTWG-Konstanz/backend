@@ -30,8 +30,13 @@ module.exports = {
                     let day = moment().isoWeekday(hours[index].weekday).format("YYYY-MM-DD");
 
                     output.endlicht["openingHours"][day] = {};
-                    output.endlicht["openingHours"][day]["startTime"] = hours[index].startTime.substr(0, 5);
-                    output.endlicht["openingHours"][day]["endTime"] = hours[index].endTime.substr(0, 5);
+                    if (hours[index].startTime.substr(0, 5) === "00:00") {
+                        output.endlicht["openingHours"][day]["startTime"] = "0";
+                        output.endlicht["openingHours"][day]["endTime"] = "0";
+                    } else {
+                        output.endlicht["openingHours"][day]["startTime"] = hours[index].startTime.substr(0, 5);
+                        output.endlicht["openingHours"][day]["endTime"] = hours[index].endTime.substr(0, 5);
+                    }
                 }
             }
 

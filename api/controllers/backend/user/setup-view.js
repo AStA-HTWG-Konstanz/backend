@@ -22,6 +22,6 @@ module.exports = {
         if (backendUser > 0) {
             return exits.userExists("/login");
         }
-        return exits.success();
+        return exits.success({page: 'setup'});
     }
 };
