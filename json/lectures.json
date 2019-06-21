@@ -1,0 +1,54 @@
+{
+    "lectures": [
+        {
+            "date": "2019-6-3",
+            "lectures": [
+                {
+                    "name": "AIN SE5 IT-Sicherheit",
+                    "startTime": "09:45:00",
+                    "endTime": "11:15:00",
+                    "room": "O - 002",
+                    "category": "Einzelveranstaltung"
+                }
+            ]
+        },
+        {
+            "date": "2019-6-5",
+            "lectures": [
+                {
+                    "name": "AIN SE4 Software-Archtekturen",
+                    "startTime": "08:00:00",
+                    "endTime": "09:30:00",
+                    "room": "F - 033",
+                    "category": "Vorlesung/Übung"
+                },
+                {
+                    "name": "AIN SE4 Software-Archtekturen",
+                    "startTime": "09:45:00",
+                    "endTime": "11:15:00",
+                    "room": "F - 033",
+                    "category": "Vorlesung/Übung"
+                }
+            ]
+        },
+        {
+            "date": "2019-6-6",
+            "lectures": [
+                {
+                    "name": "AIN SE5 IT-Sicherheit",
+                    "startTime": "08:00:00",
+                    "endTime": "09:30:00",
+                    "room": "O - 008",
+                    "category": "Einzelveranstaltung"
+                },
+                {
+                    "name": "AIN SE5 IT-Sicherheit",
+                    "startTime": "08:00:00",
+                    "endTime": "09:30:00",
+                    "room": "F - 223",
+                    "category": "Einzelveranstaltung"
+                }
+            ]
+        }
+    ]
+}

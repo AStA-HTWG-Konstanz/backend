@@ -1,8 +1,8 @@
+const lectures = require('../../../../json/lectures');
 module.exports = async function (req, res, proceed) {
 
     if (req.session.APIusername === "testUser") {
-        res.status(204);
-        return res.end();
+        return res.ok(lectures);
     } else {
         return proceed();
     }
