@@ -19,45 +19,62 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         try {
-            let output = {endlicht: {}};
+            let output = {};
+            output["endlicht"] = [];
+            output["endlicht"].push({openingHours: [], specials: [], beverages: []});
+
             let hours = await EndlichtHours.find().catch(function (e) {
+                sails.log.error(e);
                 return exits.errorOccured();
             });
 
-            output.endlicht["openingHours"] = {};
             if (hours) {
                 for (let index in hours) {
-                    let day = moment().isoWeekday(hours[index].weekday).format("YYYY-MM-DD");
+                    let day = moment().isoWeekday(hours[index].weekday).format("DD-MM-YYYY");
 
-                    output.endlicht["openingHours"][day] = {};
+
                     if (hours[index].startTime.substr(0, 5) === "00:00") {
-                        output.endlicht["openingHours"][day]["startTime"] = "0";
-                        output.endlicht["openingHours"][day]["endTime"] = "0";
+                        output["endlicht"][0]["openingHours"].push({
+                            date: day,
+                            startTime: "0",
+                            endTime: "0",
+                        });
                     } else {
-                        output.endlicht["openingHours"][day]["startTime"] = hours[index].startTime.substr(0, 5);
-                        output.endlicht["openingHours"][day]["endTime"] = hours[index].endTime.substr(0, 5);
+                        output["endlicht"][0]["openingHours"].push({
+                            date: day,
+                            startTime: hours[index].startTime.substr(0, 5),
+                            endTime: hours[index].endTime.substr(0, 5),
+                        });
+
                     }
                 }
             }
 
-            let special = await EndlichtBeverages.findOne({special: true}).catch(function (e) {
+            let specials = await EndlichtBeverages.find({special: true}).catch(function (e) {
                 sails.log.error(e);
                 return exits.errorOccured()
             });
-            output.endlicht["special"] = {};
-            if (special) {
-                output.endlicht["special"]["name"] = special.name;
-                output.endlicht["special"]["price"] = special.price;
+            if (specials) {
+                for (let index in specials) {
+                    output["endlicht"][0]["specials"].push({
+                        name: specials[index].name,
+                        price: specials[index].price
+                    });
+                }
             }
 
             let beverages = await EndlichtBeverages.find({special: false}).catch(function (e) {
                 sails.log.error(e);
                 return exits.errorOccured();
             });
-            output.endlicht["beverages"] = [];
+
             if (beverages) {
                 for (let index in beverages) {
-                    output.endlicht["beverages"].push({name: beverages[index].name, price: beverages[index].price});
+                    output["endlicht"][0]["beverages"].push({
+                        name: beverages[index].name,
+                        price: beverages[index].price
+                    });
+
                 }
             }
             return exits.success(output);

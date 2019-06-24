@@ -20,7 +20,7 @@ module.exports = {
         Categories.find({select: ['id', 'name']}).then(function (data) {
             return exits.success({categories: data});
         }).catch(function (error) {
-            sails.log(error);
+            sails.log.error(error);
             return exits.errorOccured();
         });
     }

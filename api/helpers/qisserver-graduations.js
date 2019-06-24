@@ -1,5 +1,6 @@
 let request = require('request');
 const cheerio = require('cheerio');
+var fs = require('fs');
 const {URL} = require('url');
 module.exports = {
 
@@ -42,7 +43,10 @@ module.exports = {
         };
         request.get({
             url: sails.config.custom.datacenter.qisserver.graduationOverview.replace("{asiToken}", inputs.asi),
-            headers: headers
+            headers: headers,
+            agentOptions: {
+                ca: fs.readFileSync('./assets/certificates/chain.pem')
+            }
         }, function (err, result, bodyData) {
             if (err) {
                 sails.log.error(err);
@@ -61,6 +65,7 @@ module.exports = {
                     master = true;
                 }
             } catch (e) {
+                sails.log.error(e);
                 //ignore error
             }
             try {
@@ -71,6 +76,7 @@ module.exports = {
                     master = true;
                 }
             } catch (e) {
+                sails.log.error(e);
                 //ignore error
             }
             return exits.success({bachelor: bachelor, master: master});

@@ -29,3 +29,6 @@ sails lift
 - Create or take an issue
 - Create a feature branch with a correct name for the waffle bot: [issue number]-[your_branch_name]
 - Pull request + assign [Alesfatalis](https://github.com/Alesfatalis) as reviewer
+
+### API Documentation
+The backend API is documented <a href='https://asta-htwg-konstanz.github.io/api-docs/'> here</a>

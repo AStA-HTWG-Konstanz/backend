@@ -1,4 +1,5 @@
 let request = require('request');
+var fs = require('fs');
 module.exports = {
 
 
@@ -45,7 +46,10 @@ module.exports = {
         };
         request.get({
             url: inputs.url.replace("{asiToken}", inputs.asi),
-            headers: headers
+            headers: headers,
+            agentOptions: {
+                ca: fs.readFileSync('./assets/certificates/chain.pem')
+            }
         }, function (err, result, bodyData) {
             if (err) {
                 sails.log.error(err);
@@ -55,7 +59,7 @@ module.exports = {
                 return exits.success(bodyData);
             } catch(e) {
                 sails.log.error(e);
-                return exit.errorOccured();
+                return exits.errorOccured();
             }
         });
     }

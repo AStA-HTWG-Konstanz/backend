@@ -13,7 +13,13 @@ module.exports = {
     },
 
     fn: async function (inputs, exits) {
-        this.req.session.destroy();
-        exits.success('/login');
+        try {
+            this.req.session.destroy();
+            exits.success('/login');
+        } catch (error) {
+            sails.log.error(error);
+            exits.failure.errorOccured();
+
+        }
     }
 };
