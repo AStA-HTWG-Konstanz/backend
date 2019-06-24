@@ -1,6 +1,7 @@
 let request = require('request');
 const cheerio = require('cheerio');
-const {URL} = require('url');
+const { URL } = require('url');
+var fs = require('fs');
 
 module.exports = {
 
@@ -39,7 +40,10 @@ module.exports = {
 
         request.get({
             url: sails.config.custom.datacenter.lsf.pidPage,
-            headers: headers
+            headers: headers,
+            agentOptions: {
+                ca: fs.readFileSync('./assets/certificates/chain.pem')
+            }
         }, function (err, httpResponse, body) {
             if (err) {
                 sails.log.error(err);
@@ -52,7 +56,7 @@ module.exports = {
             }
             const url = new URL(pidURL);
             let pid = url.searchParams.get('personal.pid');
-            return exits.success({pid: pid});
+            return exits.success({ pid: pid });
         });
     }
 };

@@ -1,5 +1,5 @@
 let request = require('request');
-let fs = require('fs');
+var fs = require('fs');
 
 module.exports = {
 
@@ -42,7 +42,10 @@ module.exports = {
 
     request.get({
       url: sails.config.custom.datacenter.lsf.icalEndpoint,
-      headers: headers
+      headers: headers,
+      agentOptions: {
+        ca: fs.readFileSync('./assets/certificates/chain.pem')
+      }
     }).pipe(fs.createWriteStream('/home/manuel/test.txt'));
 
   }

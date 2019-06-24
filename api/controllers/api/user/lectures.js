@@ -1,4 +1,5 @@
 let request = require('request');
+var fs = require('fs');
 const cheerio = require('cheerio');
 const {URL} = require('url');
 const LSF_LECTURES_FOR_USER_SQL = "SELECT name, startTime, endTime, room, category, lectureDate FROM lsflectures INNER JOIN lsflecturedates ON lsflectures.id = lsflecturedates.lecture WHERE lsfID IN ($1) AND lectureDate BETWEEN  CAST($2 AS DATE) AND CAST($3 AS DATE) ORDER BY lectureDate, startTime;";
@@ -55,7 +56,10 @@ module.exports = {
                 } else {
                     request.get({
                         url: url,
-                        headers: headers
+                        headers: headers,
+                        agentOptions: {
+                            ca: fs.readFileSync('./assets/certificates/chain.pem')
+                        }
                     }, function (err, httpResponse, body) {
                         if (err) {
                             sails.log.error(err);
