@@ -1,12 +1,12 @@
 let request = require('request');
 const cheerio = require('cheerio');
-var fs = require('fs');
+const fs = require('fs');
 const {URL} = require('url');
-var RateLimiter = require('request-rate-limiter');
+const RateLimiter = require('request-rate-limiter');
 
 
 
-var limiter = new RateLimiter({
+const limiter = new RateLimiter({
     rate: 10,
     interval: 60,
     backoffCode: 429,

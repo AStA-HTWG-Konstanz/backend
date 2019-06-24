@@ -1,7 +1,7 @@
 let request = require('request');
-var fs = require('fs');
-var RateLimiter = require('request-rate-limiter');
-var limiter = new RateLimiter({
+const fs = require('fs');
+const RateLimiter = require('request-rate-limiter');
+const limiter = new RateLimiter({
     rate: 10,
     interval: 60,
     backoffCode: 429,

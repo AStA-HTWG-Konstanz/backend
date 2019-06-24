@@ -1,11 +1,11 @@
 let request = require('request');
 const fs = require('fs');
 
-var RateLimiter = require('request-rate-limiter');
+const RateLimiter = require('request-rate-limiter');
 
 
 
-var limiter = new RateLimiter({
+const limiter = new RateLimiter({
     rate: 10,
     interval: 60,
     backoffCode: 429,
