@@ -82,15 +82,7 @@ module.exports.routes = {
     'GET /endlicht/hours/set': {
         action: 'backend/endlicht/hours-set'
     },
-    'GET /events': {
-        action: 'backend/events/event-view'
-    },
-    'POST /events/add': {
-        action: 'backend/events/event-add'
-    },
-    'GET /events/delete/:id': {
-        action: 'backend/events/event-delete'
-    },
+
 
 
     /***************************************************************************

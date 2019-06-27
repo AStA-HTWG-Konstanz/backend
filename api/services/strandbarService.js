@@ -52,9 +52,6 @@ module.exports = {
                     sails.log.info("strandbar job successful");
 
                 } else if (open === "geöffnet" || open === "Geöffnet") {
-                    //await sails.getDatastore('cache').leaseConnection(async (db)=>{
-                      //  await (util.promisify(db.setex).bind(db))('test', ttlInSeconds, JSON.stringify({test: true}));
-
                         await sails.getDatastore('cache').leaseConnection(async (db)=>{
                             await (util.promisify(db.setex).bind(db))(key, ttlInSeconds, JSON.stringify({open: "true"}));
                     });
