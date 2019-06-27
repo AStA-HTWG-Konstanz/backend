@@ -29,9 +29,6 @@ module.exports.policies = {
     'backend/endlicht/beverages-delete': 'isLoggedIn',
     'backend/endlicht/hours-set': 'isLoggedIn',
     'backend/endlicht/special-set': 'isLoggedIn',
-    'backend/events/event-view': 'isLoggedIn',
-    'backend/events/event-add': 'isLoggedIn',
-    'backend/events/event-delete': 'isLoggedIn',
 
     // API policies
     'api/canteen/menu': 'isAuthenticated',

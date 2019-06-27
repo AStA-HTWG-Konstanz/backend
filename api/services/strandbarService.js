@@ -1,7 +1,10 @@
 let request = require('request');
+const util = require('util');
 const cheerio = require('cheerio');
-const redis = require('redis');
-client = redis.createClient(6379 / 1, 'localhost');
+
+
+let key = 'strandbar';
+
 
 module.exports = {
     friendlyName: 'strandbar',
@@ -28,24 +31,33 @@ module.exports = {
         request.get({
             url: sails.config.custom.strandbar.urlopen,
             headers: {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0'}
-        }, function (err, httpResponse, body) {
+        }, async function (err, httpResponse, body) {
             if (err) {
                 return sails.log.error(err);
             }
             try {
-                const $ = cheerio.load(body);
-                let open = $("strong:nth-child(1)").text();
-                if (open === "Geschlossen") {
-                    client.set('strandbar', false);
+                let data = JSON.parse(body);
+                const $ = cheerio.load(data["collection"]["description"]);
+
+                let open = $("strong").text();
+                if (open === "geschlossen" || open === "Geschlossen") {
+                    await sails.getDatastore('cache').leaseConnection(async (db, proceed) => {
+                        await (util.promisify(db.set).bind(db))(key, JSON.stringify({open: "false"}));
+                        return proceed();
+                    });
                     sails.log.info("strandbar job successful");
 
-                } else if (open === "Geöffnet") {
-                    client.set('strandbar', true);
+                } else if (open === "geöffnet" || open === "Geöffnet") {
+                    await sails.getDatastore('cache').leaseConnection(async (db, proceed) => {
+                        await (util.promisify(db.set).bind(db))(key, JSON.stringify({open: "true"}))
+                        return proceed();
+
+                    });
+
                     sails.log.info("strandbar job successful");
 
                 } else {
                     return sails.log.error("Strandbar job failed");
-
                 }
             } catch (error) {
                 return sails.log.error(error);
