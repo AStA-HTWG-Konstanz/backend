@@ -55,7 +55,7 @@ module.exports.datastores = {
 
   cache: {
     adapter: 'sails-redis',
-    url: 'redis://localhost:6379',
+    url: 'redis://' + process.env.REDIS_PASS + '@localhost:6379/1',
 
   },
 

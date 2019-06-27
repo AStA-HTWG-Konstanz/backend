@@ -66,7 +66,7 @@ module.exports.bootstrap = async function (done) {
         });
 
         // update strandbar open status every hour
-        let strandbarJob = scheduler.scheduleJob('* * * * * ', function () {
+        let strandbarJob = scheduler.scheduleJob('0 * * * * ', function () {
             sails.log.info('get strandbar status');
             strandbarservice.strandbarJob();
 

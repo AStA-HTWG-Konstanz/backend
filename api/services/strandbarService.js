@@ -3,12 +3,12 @@ const util = require('util');
 const cheerio = require('cheerio');
 
 
-var key = 'strandbar';
-var expiresIn = 1000*60*60*24;
+let key = 'strandbar';
+let expiresIn = 1000 * 60 * 60 * 24;
 
 // Convert `expiresIn` (which is expressed in milliseconds) to seconds,
 // because unlike JavaScript, Redis likes to work with whole entire seconds.
-var ttlInSeconds = Math.ceil(expiresIn / 1000);
+let ttlInSeconds = Math.ceil(expiresIn / 1000);
 
 
 module.exports = {
@@ -46,21 +46,23 @@ module.exports = {
 
                 let open = $("strong").text();
                 if (open === "geschlossen" || open === "Geschlossen") {
-                    await sails.getDatastore('cache').leaseConnection(async (db) => {
-                        await (util.promisify(db.setex).bind(db))(key, ttlInSeconds, JSON.stringify({open: "false"}));
+                    await sails.getDatastore('cache').leaseConnection(async (db, proceed) => {
+                        await (util.promisify(db.set).bind(db))(key, JSON.stringify({open: "false"}));
+                        return proceed();
                     });
                     sails.log.info("strandbar job successful");
 
                 } else if (open === "geöffnet" || open === "Geöffnet") {
-                        await sails.getDatastore('cache').leaseConnection(async (db)=>{
-                            await (util.promisify(db.setex).bind(db))(key, ttlInSeconds, JSON.stringify({open: "true"}));
+                    await sails.getDatastore('cache').leaseConnection(async (db, proceed) => {
+                        await (util.promisify(db.set).bind(db))(key, JSON.stringify({open: "true"}))
+                        return proceed();
+
                     });
 
                     sails.log.info("strandbar job successful");
 
                 } else {
                     return sails.log.error("Strandbar job failed");
-
                 }
             } catch (error) {
                 return sails.log.error(error);

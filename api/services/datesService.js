@@ -1,7 +1,9 @@
 let request = require('request');
 const cheerio = require('cheerio');
-const redis = require('redis');
-client = redis.createClient(6379 / 1, 'localhost');
+const util = require('util');
+
+let expiresIn = 8 * 24 * 60 * 60;
+
 
 module.exports = {
 
@@ -28,7 +30,7 @@ module.exports = {
         request.get({
             url: sails.config.custom.events.urlopen,
             headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0'}
-        }, function (err, httpResponse, body) {
+        }, async function (err, httpResponse, body) {
             if (err) {
                 sails.log.error(err);
                 return exits.errorOccured();
@@ -60,8 +62,13 @@ module.exports = {
                         currentDate = currentDate.substring(0, index);
                         output.events.push({title: values[i], eventDate: currentDate});
                     }
-                    client.set('dates', JSON.stringify(output));
-                    sails.log.info('dates saved successfully');
+                    await sails.getDatastore('cache').leaseConnection(async (db, proceed) => {
+                        await (util.promisify(db.set).bind(db))('dates', JSON.stringify(output));
+                        return proceed();
+                    });
+
+                    sails.log.info('Dates saved successfully');
+
                 } else if (examRegistrationPeriod.includes("Wintersemester")) {
                     let firstWinterSemesterYear = examRegistrationPeriod.substring(39, 43);
                     let secondWinterSemesterYear = firstWinterSemesterYear.substring(0, 2) + examRegistrationPeriod.substring(44, 46);
@@ -76,7 +83,10 @@ module.exports = {
                         currentDate = currentDate.substring(0, index);
                         output.events.push({title: values[i], eventDate: currentDate});
                     }
-                    client.set('dates', JSON.stringify(output));
+                    await sails.getDatastore('cache').leaseConnection(async (db, proceed) => {
+                        await (util.promisify(db.set).bind(db))('dates', JSON.stringify(output));
+                        return proceed();
+                    });
                     sails.log.info('Dates saved successfully');
 
                 } else {
