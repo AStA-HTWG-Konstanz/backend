@@ -1,5 +1,5 @@
-const redis = require('redis');
-client = redis.createClient(6379 / 1, 'localhost');
+const key = 'strandbar';
+const util = require('util');
 
 module.exports = {
     friendlyName: 'strandbar',
@@ -24,17 +24,18 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         try {
-            client.get('strandbar', function (error, value) {
-                if (error) {
-                    sails.log.error(error);
-                    return exits.failure;
+            let value = await sails.getDatastore('cache').leaseConnection(async (db) =>{
+                let found = await (util.promisify(db.get).bind(db))(key);
+                if (found === null){
+                    sails.log.error('no strandbar entry in redis');
+                    return exits.errorOccured();
                 } else {
-                    return exits.success({open: value});
+                    return exits.success(found);
                 }
-            })
-        } catch (error) {
+            });
+        } catch(error) {
             sails.log.error(error);
-            return exits.failure;
+            return exits.errorOccured();
         }
     }
 

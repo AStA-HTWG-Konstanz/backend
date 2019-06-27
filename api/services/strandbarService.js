@@ -1,7 +1,15 @@
 let request = require('request');
+const util = require('util');
 const cheerio = require('cheerio');
-const redis = require('redis');
-client = redis.createClient(6379 / 1, 'localhost');
+
+
+var key = 'strandbar';
+var expiresIn = 1000*60*60*24;
+
+// Convert `expiresIn` (which is expressed in milliseconds) to seconds,
+// because unlike JavaScript, Redis likes to work with whole entire seconds.
+var ttlInSeconds = Math.ceil(expiresIn / 1000);
+
 
 module.exports = {
     friendlyName: 'strandbar',
@@ -28,19 +36,29 @@ module.exports = {
         request.get({
             url: sails.config.custom.strandbar.urlopen,
             headers: {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0'}
-        }, function (err, httpResponse, body) {
+        }, async function (err, httpResponse, body) {
             if (err) {
                 return sails.log.error(err);
             }
             try {
-                const $ = cheerio.load(body);
-                let open = $("strong:nth-child(1)").text();
-                if (open === "Geschlossen") {
-                    client.set('strandbar', false);
+                let data = JSON.parse(body);
+                const $ = cheerio.load(data["collection"]["description"]);
+
+                let open = $("strong").text();
+                if (open === "geschlossen" || open === "Geschlossen") {
+                    await sails.getDatastore('cache').leaseConnection(async (db) => {
+                        await (util.promisify(db.setex).bind(db))(key, ttlInSeconds, JSON.stringify({open: "false"}));
+                    });
                     sails.log.info("strandbar job successful");
 
-                } else if (open === "Geöffnet") {
-                    client.set('strandbar', true);
+                } else if (open === "geöffnet" || open === "Geöffnet") {
+                    //await sails.getDatastore('cache').leaseConnection(async (db)=>{
+                      //  await (util.promisify(db.setex).bind(db))('test', ttlInSeconds, JSON.stringify({test: true}));
+
+                        await sails.getDatastore('cache').leaseConnection(async (db)=>{
+                            await (util.promisify(db.setex).bind(db))(key, ttlInSeconds, JSON.stringify({open: "true"}));
+                    });
+
                     sails.log.info("strandbar job successful");
 
                 } else {
