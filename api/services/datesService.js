@@ -1,8 +1,8 @@
 let request = require('request');
 const cheerio = require('cheerio');
 const util = require('util');
+let key = 'dates';
 
-let expiresIn = 8 * 24 * 60 * 60;
 
 
 module.exports = {
@@ -63,7 +63,7 @@ module.exports = {
                         output.events.push({title: values[i], eventDate: currentDate});
                     }
                     await sails.getDatastore('cache').leaseConnection(async (db, proceed) => {
-                        await (util.promisify(db.set).bind(db))('dates', JSON.stringify(output));
+                        await (util.promisify(db.set).bind(db))(key, JSON.stringify(output));
                         return proceed();
                     });
 
@@ -84,7 +84,7 @@ module.exports = {
                         output.events.push({title: values[i], eventDate: currentDate});
                     }
                     await sails.getDatastore('cache').leaseConnection(async (db, proceed) => {
-                        await (util.promisify(db.set).bind(db))('dates', JSON.stringify(output));
+                        await (util.promisify(db.set).bind(db))(key, JSON.stringify(output));
                         return proceed();
                     });
                     sails.log.info('Dates saved successfully');

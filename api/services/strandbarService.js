@@ -4,11 +4,6 @@ const cheerio = require('cheerio');
 
 
 let key = 'strandbar';
-let expiresIn = 1000 * 60 * 60 * 24;
-
-// Convert `expiresIn` (which is expressed in milliseconds) to seconds,
-// because unlike JavaScript, Redis likes to work with whole entire seconds.
-let ttlInSeconds = Math.ceil(expiresIn / 1000);
 
 
 module.exports = {
