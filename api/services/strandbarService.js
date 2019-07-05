@@ -27,7 +27,6 @@ module.exports = {
     },
     strandbarJob: async function () {
         sails.log.info("starting strandbar job");
-
         request.get({
             url: sails.config.custom.strandbar.urlopen,
             headers: {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0'}
@@ -57,10 +56,12 @@ module.exports = {
                     sails.log.info("strandbar job successful");
 
                 } else {
-                    return sails.log.error("Strandbar job failed");
+                    sails.log.error("Strandbar job failed");
+                    return exists.errorOccured();
                 }
             } catch (error) {
-                return sails.log.error(error);
+                sails.log.error(error);
+                return exists.errorOccured();
 
             }
 
