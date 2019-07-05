@@ -64,6 +64,7 @@ module.exports = {
                         output.events.push({title: values[i], eventDate: currentDate});
                     }
                     await sails.getDatastore('cache').leaseConnection(async (db, proceed) => {
+                        sails.log.info("try to save");
                         await (util.promisify(db.set).bind(db))(key, JSON.stringify(output));
                         return proceed();
                     });
