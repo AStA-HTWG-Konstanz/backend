@@ -46,7 +46,7 @@ module.exports.bootstrap = async function (done) {
 
     if (process.env.SCHEDULE === "yes") {
         sails.log.info("Scheduling is enabled!");
-        let canteenJob = scheduler.scheduleJob('* * * * *', function () {
+        let canteenJob = scheduler.scheduleJob('30 * * * *', function () {
             sails.log.info('Canteen database cleanup');
             CanteenDate.destroy({}).then(function () {
                 CanteenMeal.destroy({}).then(function () {
