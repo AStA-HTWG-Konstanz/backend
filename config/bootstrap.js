@@ -46,7 +46,7 @@ module.exports.bootstrap = async function (done) {
 
     if (process.env.SCHEDULE === "yes") {
         sails.log.info("Scheduling is enabled!");
-        let canteenJob = scheduler.scheduleJob('30 * * * *', function () {
+        let canteenJob = scheduler.scheduleJob('0 22 * * 7', function () {
             sails.log.info('Canteen database cleanup');
             CanteenDate.destroy({}).then(function () {
                 CanteenMeal.destroy({}).then(function () {
@@ -80,7 +80,7 @@ module.exports.bootstrap = async function (done) {
 
         });
 
-        let lsfJob = scheduler.scheduleJob('30 0 * * *', function () {
+        let lsfJob = scheduler.scheduleJob('35 * * * *', function () {
             sails.log.info("LSF database cleanup");
             LsfLectures.destroy({}).then(function () {
                 LsfLectureDates.destroy({}).then(function () {
