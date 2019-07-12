@@ -74,13 +74,13 @@ module.exports.bootstrap = async function (done) {
         });
 
         // update dates once a week
-        let datesJob = scheduler.scheduleJob('47 * * * *', function () {
+        let datesJob = scheduler.scheduleJob('* * * * 0', function () {
             sails.log.info('get dates');
             datesService.datesJob();
 
         });
 
-        let lsfJob = scheduler.scheduleJob('47 * * * *', function () {
+        let lsfJob = scheduler.scheduleJob('30 0 * * *', function () {
             sails.log.info("LSF database cleanup");
             LsfLectures.destroy({}).then(function () {
                 LsfLectureDates.destroy({}).then(function () {
