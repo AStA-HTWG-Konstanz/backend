@@ -42,7 +42,6 @@ module.exports = {
     fn: async function (inputs, exits) {
         let username = inputs.username;
         let password = inputs.password;
-        this.req.session.APIlastRefresh = new Date().toUTCString();
         let cookie = await sails.helpers.qisserverCookie(username, password).catch((e) => {
             sails.log.error(e);
             return exits.errorOccured();
