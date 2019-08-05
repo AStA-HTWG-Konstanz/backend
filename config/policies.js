@@ -31,15 +31,15 @@ module.exports.policies = {
     'backend/endlicht/special-set': 'isLoggedIn',
 
     // API policies
-    'api/canteen/menu': 'isAuthenticated',
+    //'api/canteen/menu': 'isAuthenticated',
     'api/news/news': 'isAuthenticated',
     'api/news/categories': 'isAuthenticated',
     'api/user/balance': 'isAuthenticated',
     'api/user/lectures': 'isAuthenticated',
-    'api/endlicht/endlicht': 'isAuthenticated',
+    //'api/endlicht/endlicht': 'isAuthenticated',
     'api/user/grades': 'isAuthenticated',
     'api/user/grades-refresh': ['isAuthenticated','isAllowedToRefresh'],
-    'api/strandbar/strandbar': 'isAuthenticated',
+    //'api/strandbar/strandbar': 'isAuthenticated',
 
     // Dummy policies
     'api/user/auth': 'dummy/user/dummyAuth',
