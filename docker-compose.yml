@@ -1,0 +1,26 @@
+# Docker Compose for development environment
+version: '3.7'
+services:
+  # Mysql Database
+  mysql:
+    image: mysql:5.7.27
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: appDevelopment
+      MYQL_USER: dbUser
+      MYSQL_PASSWORD: W1v2066D36757w
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    ports:
+      - "3306:3306"
+    volumes:
+      - appDB:/var/lib/mysql
+  # Redis Database
+  redis:
+    image: redis:5.0.6-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+# Docker Volumes
+volumes:
+  appDB:
