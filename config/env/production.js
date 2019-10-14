@@ -333,7 +333,7 @@ module.exports = {
      * this, just try deploying without setting it and see if it works.)       *
      *                                                                         *
      ***************************************************************************/
-    port: process.env.PROXY_PORT,
+    port: 80,
 
 
     /**************************************************************************
