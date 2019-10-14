@@ -1,3 +1,5 @@
+const oneWeek = 60 * 60 * 168 * 1000;
+
 module.exports = {
 
     friendlyName: 'User grades',
@@ -5,6 +7,18 @@ module.exports = {
     description: 'Grades for user.',
 
     inputs: {
+        username: {
+            type: 'string',
+            required: true,
+            example: 'user1',
+            description: 'Username for datacenter login at HTWG Konstanz.'
+        },
+        password: {
+            type: 'string',
+            required: true,
+            example: 'password1234',
+            description: 'Password for datacenter login at HTWG Konstanz.'
+        },
         token: {
             type: 'string',
             required: true,
@@ -26,7 +40,30 @@ module.exports = {
     },
 
     fn: async function (inputs, exits) {
+        let username = inputs.username;
+        let password = inputs.password;
         let token = inputs.token;
+        let refresh = true;
+        if (this.req.session.APIlastRefresh) {
+            let lastAccess = new Date(this.req.session.APIlastRefresh);
+            let now = new Date();
+            //if older than 7 days
+            if ((now - lastAccess) > oneWeek) {
+                refresh = true;
+            } else {
+                //else
+                refresh = false;
+            }
+        } else {
+            refresh = true;
+        }
+        if (refresh) {
+            this.req.session.APIlastRefresh = new Date().toUTCString();
+            await sails.helpers.gradesRefresh(username, password, token).catch((e) => {
+                sails.log.error(e);
+                return exits.errorOccured();
+            });
+        }
         let output = {};
         let gradeData = await QisGrades.find({token: token}).populate('semester').populate('course').sort('id ASC').catch((e) => {
             sails.log.error(e);
@@ -45,7 +82,6 @@ module.exports = {
                     return 0;
                 }
             });
-            sails.log(sorted);
             output["grades"] = [];
             currSemester = "";
             currIdx = -1;

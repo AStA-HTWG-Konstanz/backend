@@ -38,13 +38,13 @@ module.exports.policies = {
     'api/user/lectures': 'isAuthenticated',
     //'api/endlicht/endlicht': 'isAuthenticated',
     'api/user/grades': 'isAuthenticated',
+    'api/strandbar/strandbar': 'isAuthenticated',
     'api/user/grades-refresh': ['isAuthenticated','isAllowedToRefresh'],
-    //'api/strandbar/strandbar': 'isAuthenticated',
+
 
     // Dummy policies
     'api/user/auth': 'dummy/user/dummyAuth',
     'api/user/balance': 'dummy/user/dummyBalance',
     'api/user/lectures': 'dummy/user/dummyLectures',
-    'api/user/grades': 'dummy/user/dummyGrades',
-    'api/user/grades-refresh': 'dummy/user/dummyGrades'
+    'api/user/grades': 'dummy/user/dummyGrades'
 };

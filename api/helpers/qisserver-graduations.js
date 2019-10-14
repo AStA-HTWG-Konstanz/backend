@@ -1,7 +1,7 @@
 let request = require('request');
 const cheerio = require('cheerio');
 var fs = require('fs');
-const {URL} = require('url');
+const { URL } = require('url');
 module.exports = {
 
 
@@ -58,11 +58,13 @@ module.exports = {
             try {
                 //check first link for bachelor or master
                 let graduationURL = $('#wrapper > div.divcontent > div.content > form > ul > li:nth-child(1) > a:nth-child(3)').attr("href");
-                let graduationNumber = new URL(graduationURL).searchParams.get("nodeID").split("=")[1];
-                if (graduationNumber === "84") {
-                    bachelor = true;
-                } else if (graduationNumber === "90") {
-                    master = true;
+                if (typeof graduationURL !== 'undefined') {
+                    let graduationNumber = new URL(graduationURL).searchParams.get("nodeID").split("=")[1];
+                    if (graduationNumber === "84") {
+                        bachelor = true;
+                    } else if (graduationNumber === "90") {
+                        master = true;
+                    }
                 }
             } catch (e) {
                 sails.log.error(e);
@@ -71,15 +73,17 @@ module.exports = {
             try {
                 //check if second link exists and for master
                 let url = $('#wrapper > div.divcontent > div.content > form > ul > li:nth-child(2) > a:nth-child(3)').attr("href");
-                let number = new URL(url).searchParams.get("nodeID").split("=")[1];
-                if (number === "90") {
-                    master = true;
+                if (typeof url !== 'undefined') {
+                    let number = new URL(url).searchParams.get("nodeID").split("=")[1];
+                    if (number === "90") {
+                        master = true;
+                    }
                 }
             } catch (e) {
                 sails.log.error(e);
                 //ignore error
             }
-            return exits.success({bachelor: bachelor, master: master});
+            return exits.success({ bachelor: bachelor, master: master });
         });
     }
 };
