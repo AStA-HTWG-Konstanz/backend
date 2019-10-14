@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm install
 # Copy source files
 COPY . .
-# Espose production port
+# Expose production port
 EXPOSE 80
 # Run application
 CMD ["node" ,"app.js"]
