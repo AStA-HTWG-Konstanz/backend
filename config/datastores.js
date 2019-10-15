@@ -49,13 +49,13 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
     adapter: 'sails-mysql',
-    url: 'mysql://' + process.env.DBUSER + ':' + process.env.DBPASS +'@localhost:3306/'+ process.env.DB,
+    url: 'mysql://' + process.env.MYSQL_USER + ':' + process.env.MYSQL_PASSWORD +'@' + process.env.MYSQL_HOST +':'+ process.env.MYSQL_PORT +'/'+ process.env.MYSQL_DATABASE,
 
   },
 
   cache: {
     adapter: 'sails-redis',
-    url: 'redis://' + 'localhost:6379/1',
+    url: 'redis://' + process.env.REDIS_HOST +':'+ process.env.REDIS_PORT +'/1',
 
   },
 

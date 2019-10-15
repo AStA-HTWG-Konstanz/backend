@@ -76,8 +76,7 @@ module.exports = {
 
         cache: {
             adapter: 'sails-redis',
-            url: 'redis://' + 'localhost:6379/1',
-
+            url: 'redis://' + process.env.REDIS_HOST +':'+ process.env.REDIS_PORT +'/1',
         }
     },
 

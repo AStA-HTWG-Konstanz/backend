@@ -7,7 +7,7 @@ services:
     container_name: mysql
     environment:
       MYSQL_DATABASE: appDevelopment
-      MYQL_USER: dbUser
+      MYSQL_USER: dbUser
       MYSQL_PASSWORD: W1v2066D36757w
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     ports:
