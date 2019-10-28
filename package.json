@@ -14,6 +14,7 @@
     "grunt": "^1.0.4",
     "ical-date-parser": "^4.0.0",
     "ical2json": "^1.2.0",
+    "influx": "^5.4.2",
     "ldapauth-fork": "^4.2.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
