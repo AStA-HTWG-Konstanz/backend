@@ -20,7 +20,35 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+  # InfluxDB
+  influxdb:
+    image: influxdb:1.7-alpine
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxDB:/var/lib/influxdb
+    networks:
+      - influx-network
+  # Chronograf
+  chronograf:
+    image: chronograf:1.7-alpine
+    container_name: chronograf
+    environment:
+      INFLUXDB_URL: http://influxdb:8086
+    ports:
+      - "8888:8888"
+    volumes:
+      - chronograf:/var/lib/chronograf
+    networks:
+      - influx-network
 
 # Docker Volumes
 volumes:
   appDB:
+  influxDB:
+  chronograf:
+
+networks:
+  influx-network:
+    driver: bridge
