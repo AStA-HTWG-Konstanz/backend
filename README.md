@@ -22,13 +22,5 @@ npm install
 sails lift
 ```
 
-### How to contribute
-
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/AStA-HTWG-Konstanz/organisation.svg?columns=all)](https://waffle.io/AStA-HTWG-Konstanz/organisation)
-
-- Create or take an issue
-- Create a feature branch with a correct name for the waffle bot: [issue number]-[your_branch_name]
-- Pull request + assign [Alesfatalis](https://github.com/Alesfatalis) as reviewer
-
 ### API Documentation
 The backend API is documented <a href='https://asta-htwg-konstanz.github.io/api-docs/'> here</a>
