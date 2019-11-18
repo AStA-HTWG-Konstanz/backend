@@ -22,5 +22,5 @@ npm install
 sails lift
 ```
 
-### API Documentation
+##### API Documentation
 The backend API is documented <a href='https://asta-htwg-konstanz.github.io/api-docs/'> here</a>
