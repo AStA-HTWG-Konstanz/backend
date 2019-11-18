@@ -23,4 +23,4 @@ sails lift
 ```
 
 #### API Documentation
-The backend API is documented <a href='https://asta-htwg-konstanz.github.io/api-docs/'> here</a>
+The backend API is documented <a target="_blank" rel="noopener noreferrer" href='https://asta-htwg-konstanz.github.io/api-docs/'> here</a>
