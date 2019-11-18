@@ -129,6 +129,10 @@ module.exports.routes = {
     },
     'GET /api/events': {
         action: 'api/events/events'
+    },
+
+    'POST: api/userfeedback':{
+      action: 'api/feedback/userfeedback'
     }
 
 
