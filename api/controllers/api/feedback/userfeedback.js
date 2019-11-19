@@ -47,10 +47,6 @@ module.exports = {
       responseType: ''
     },
 
-    errorOccured: {
-      statusCode: 500,
-      responseType: ''
-    }
   },
 
   fn: async function (inputs, exits) {
