@@ -65,7 +65,7 @@ module.exports = {
       if (input !== undefined) {
         return exits.success();
       } else {
-        return exits.errorOccured();
+        return exits.errorOccured("Cant write data to db");
       }
     } catch (error) {
       sails.log.error(error);
