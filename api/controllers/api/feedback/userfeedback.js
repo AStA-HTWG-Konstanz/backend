@@ -17,9 +17,15 @@ module.exports = {
     os: {
       description: 'the operating System of the device',
       type: 'string',
-      default: 'none',
       required: false,
       example: 'Ios 12.4'
+    },
+
+    device: {
+      description: 'device of the user',
+      type: 'string',
+      required: false,
+      example: 'IPhone X'
     },
 
     message: {
@@ -39,11 +45,34 @@ module.exports = {
     failure: {
       statusCode: 400,
       responseType: ''
+    },
+
+    errorOccured: {
+      statusCode: 500,
+      responseType: ''
     }
   },
 
   fn: async function (inputs, exits) {
-    await Feedback.create({category: inputs.category, os: inputs.os, message: inputs.message, date: moment.format('DD MM YYYY')});
+    try {
+      let input = await UserFeedback.create({
+        category: inputs.category,
+        os: inputs.os,
+        device: inputs.device,
+        message: inputs.message,
+        date: moment().format('YYYY-MM-DD')
+      }).fetch();
+      if (input !== undefined) {
+        return exits.success();
+      } else {
+        return exits.errorOccured();
+      }
+    } catch (error) {
+      sails.log.error(error);
+      return exits.failure;
+
+    }
+
   }
 
 };

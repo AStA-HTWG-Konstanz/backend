@@ -1,5 +1,5 @@
 /**
- * Feedback.js
+ * UserFeedback.js
  *
  * @description :: App feedback
  * **/
@@ -19,6 +19,11 @@ module.exports = {
     },
 
     os: {
+      type: 'string',
+      required: false
+    },
+
+    device: {
       type: 'string',
       required: false
     },
