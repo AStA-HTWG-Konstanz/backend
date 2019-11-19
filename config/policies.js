@@ -31,14 +31,14 @@ module.exports.policies = {
     'backend/endlicht/special-set': 'isLoggedIn',
 
     // API policies
-    'api/canteen/menu': 'isAuthenticated',
-    'api/news/news': 'isAuthenticated',
-    'api/news/categories': 'isAuthenticated',
-    'api/user/balance': 'isAuthenticated',
-    'api/user/lectures': 'isAuthenticated',
-    'api/endlicht/endlicht': 'isAuthenticated',
-    'api/user/grades': 'isAuthenticated',
-    'api/strandbar/strandbar': 'isAuthenticated',
+    'api/canteen/menu': ['logResponseTime', 'isAuthenticated'],
+    'api/news/news': ['logResponseTime', 'isAuthenticated'],
+    'api/news/categories': ['logResponseTime', 'isAuthenticated'],
+    'api/user/balance': ['logResponseTime', 'isAuthenticated'],
+    'api/user/lectures': ['logResponseTime', 'isAuthenticated'],
+    'api/endlicht/endlicht': ['logResponseTime', 'isAuthenticated'],
+    'api/user/grades': ['logResponseTime', 'isAuthenticated'],
+    'api/strandbar/strandbar': ['logResponseTime', 'isAuthenticated'],
 
 
     // Dummy policies

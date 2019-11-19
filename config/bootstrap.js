@@ -8,6 +8,7 @@
  * For more information on bootstrapping your app, check out:
  * https://sailsjs.com/config/bootstrap
  */
+
 let scheduler = require('node-schedule');
 let lsfService = require('../api/services/LsfService');
 let strandbarservice = require('../api/services/strandbarService');
@@ -15,7 +16,7 @@ const fs = require('fs');
 const path = require('path');
 let CanteenService = require('../api/services/canteenService');
 let datesService = require('../api/services/datesService');
-
+const InfluxService = require("../api/services/influxService");
 
 module.exports.bootstrap = async function (done) {
 
@@ -34,6 +35,8 @@ module.exports.bootstrap = async function (done) {
     //   // etc.
     // ]);
     // ```
+  let influxService = new InfluxService(sails.config.custom.influxDB);
+  await influxService.createDatabases();
     if (await EndlichtHours.count() === 0) {
         await EndlichtHours.createEach([
             {weekday: "Monday"},
