@@ -54,25 +54,17 @@ module.exports = {
   },
 
   fn: async function (inputs, exits) {
-    try {
-      let input = await UserFeedback.create({
-        category: inputs.category,
-        os: inputs.os,
-        device: inputs.device,
-        message: inputs.message,
-        date: moment().format('YYYY-MM-DD')
-      }).fetch();
-      if (input !== undefined) {
-        return exits.success();
-      } else {
-        return exits.errorOccured("Cant write data to db");
-      }
-    } catch (error) {
+    UserFeedback.create({
+      category: inputs.category,
+      os: inputs.os,
+      device: inputs.device,
+      message: inputs.message,
+      date: moment().format('YYYY-MM-DD')
+    }).then(() => {
+      return exits.success();
+    }).catch(error => {
       sails.log.error(error);
-      return exits.failure;
-
-    }
-
+      return exits.failure();
+    });
   }
-
 };
