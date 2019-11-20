@@ -18,14 +18,14 @@ module.exports = {
       description: 'the operating System of the device',
       type: 'string',
       required: false,
-      example: 'Ios 12.4'
+      example: 'Android 10.0'
     },
 
     device: {
       description: 'device of the user',
       type: 'string',
       required: false,
-      example: 'IPhone X'
+      example: 'Huawei P30 Pro'
     },
 
     message: {
