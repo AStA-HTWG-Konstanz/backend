@@ -18,7 +18,7 @@ module.exports.policies = {
      ***************************************************************************/
 
     // Backend policies
-    'backend/dashboard/dashboard-view': 'isLoggedIn',
+    /*'backend/dashboard/dashboard-view': 'isLoggedIn',
     'backend/news/news-view': 'isLoggedIn',
     'backend/news/category-add': 'isLoggedIn',
     'backend/news/category-delete': 'isLoggedIn',
@@ -29,7 +29,7 @@ module.exports.policies = {
     'backend/endlicht/beverages-delete': 'isLoggedIn',
     'backend/endlicht/hours-set': 'isLoggedIn',
     'backend/endlicht/special-set': 'isLoggedIn',
-
+*/
     // API policies
     'api/canteen/menu': 'isAuthenticated',
     'api/news/news': 'isAuthenticated',
