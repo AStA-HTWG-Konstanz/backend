@@ -82,6 +82,11 @@ module.exports.routes = {
     'GET /endlicht/hours/set': {
         action: 'backend/endlicht/hours-set'
     },
+      
+        'GET /feedback/userfeedback': {
+    action: 'backend/feedback/userfeedback/userfeedback-view'
+  },
+
 
 
 
@@ -144,6 +149,4 @@ module.exports.routes = {
     //  ╔╦╗╦╔═╗╔═╗
     //  ║║║║╚═╗║
     //  ╩ ╩╩╚═╝╚═╝
-
-
 };
