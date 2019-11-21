@@ -8,6 +8,10 @@
                     <p>Couldnt get feedback</p>
                 </div>
             <% } else { %>
+                <div class="block block-bordered">
+                    <div class="block-header bg-gray-lighter">
+                        <h3 class="block-title">User Feedback</h3>
+                    </div>
             <table class="table table-striped">
                 <thread>
                     <tr>
@@ -24,11 +28,11 @@
                 <% feedbackData.forEach(function (feedback){ %>
                     <tr>
                         <td class="text-center"><%= feedback.id %></td>
-                        <td class="text-center"><%= feedback.date %></td>
+                        <td class="text-center"><%= feedback.date.toDateString() %></td>
                         <td class="text-center"><%= feedback.category %></td>
                         <td class="text-center"><%= feedback.os %> </td>
                         <td class="text-center"><%= feedback.device %> </td>
-                        <td class="text-center"><%= feedback.message %> </td>
+                        <td class="text-center" style="width: 300px;"><%= feedback.message %> </td>
                         <td class="text-center">
                             <div class="btn-group">
                                 <a href="javascript:removeFeedback(<%= feedback.id %>)" class="btn btn-xs btn-danger"
