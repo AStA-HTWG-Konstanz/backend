@@ -3,6 +3,47 @@
     <% include ./modules/header.ejs %>
     <main id="main-container">
         <div class="content">
+            <% if(feedbackData === null) { %>
+                <div class="alert alert-danger">
+                    <p>Couldnt get feedback</p>
+                </div>
+            <% } else { %>
+            <table class="table table-striped">
+                <thread>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Category</th>
+                        <th class="text-center">OS</th>
+                        <th class="text-center">Device</th>
+                        <th class="text-center">Message</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thread>
+                <tbody>
+                <% feedbackData.forEach(function (feedback){ %>
+                    <tr>
+                        <td class="text-center"><%= feedback.id %></td>
+                        <td class="text-center"><%= feedback.date %></td>
+                        <td class="text-center"><%= feedback.category %></td>
+                        <td class="text-center"><%= feedback.os %> </td>
+                        <td class="text-center"><%= feedback.device %> </td>
+                        <td class="text-center"><%= feedback.message %> </td>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <a href="javascript:removeFeedback(<%= feedback.id %>)" class="btn btn-xs btn-danger"
+                                   type="button"
+                                   data-toggle="tooltip"
+                                   title="" data-original-title="Remove Feedback"><i
+                                            class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                <% })} %>
+
+                </tbody>
+
+            </table>
 
         </div>
 

@@ -60,6 +60,18 @@ $('#add-news').submit(function (event) {
     });
 });
 
+function removeFeedback(id){
+  let url = '/feedback/delete-userfeedback/';
+  let deleteRequest = $.get(url + id);
+  deleteRequest.done(function () {
+    location.reload();
+  }).error( function (xhr) {
+    if (xhr.status === 500){
+      $('#news-delete-error-message').empty().append('<div class="alert alert-danger"><p>Failed to delete feedback. Please try again later.</p></div>');
+    }
+  });
+}
+
 function removeNews(id) {
     let url = '/news/delete/';
     let deleteRequest = $.get(url + id);

@@ -13,9 +13,16 @@ module.exports = {
     }
   },
 
-  fn: async function(inputs, exits) {
+  fn: function (inputs, exits) {
+    UserFeedback.find()
+      .then(function (feedback) {
+        return exits.success({page: 'userfeedback', feedbackData: feedback});
+      })
+      .catch(error => {
+        sails.log.error(error);
+        return exits.failure();
+      });
 
 
-    return exits.success({page: 'userfeedback'});
   }
 };
