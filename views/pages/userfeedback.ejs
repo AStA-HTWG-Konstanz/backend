@@ -8,49 +8,50 @@
                     <p>Couldnt get feedback</p>
                 </div>
             <% } else { %>
-                <div class="block block-bordered">
-                    <div class="block-header bg-gray-lighter">
-                        <h3 class="block-title">User Feedback</h3>
-                    </div>
-            <table class="table table-striped">
-                <thread>
-                    <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Date</th>
-                        <th class="text-center">Category</th>
-                        <th class="text-center">OS</th>
-                        <th class="text-center">Device</th>
-                        <th class="text-center">Message</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thread>
-                <tbody>
-                <% feedbackData.forEach(function (feedback){ %>
-                    <tr>
-                        <td class="text-center"><%= feedback.id %></td>
-                        <td class="text-center"><%= feedback.date.toDateString() %></td>
-                        <td class="text-center"><%= feedback.category %></td>
-                        <td class="text-center"><%= feedback.os %> </td>
-                        <td class="text-center"><%= feedback.device %> </td>
-                        <td class="text-center" style="width: 300px;"><%= feedback.message %> </td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <a href="javascript:removeFeedback(<%= feedback.id %>)" class="btn btn-xs btn-danger"
-                                   type="button"
-                                   data-toggle="tooltip"
-                                   title="" data-original-title="Remove Feedback"><i
-                                            class="fa fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                <% })} %>
+            <div class="block block-bordered">
+                <div class="block-header bg-gray-lighter">
+                    <h3 class="block-title">User Feedback</h3>
+                </div>
+                <table class="table table-striped">
+                    <thread>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Date</th>
+                            <th class="text-center">Category</th>
+                            <th class="text-center">OS</th>
+                            <th class="text-center">Device</th>
+                            <th class="text-center">Message</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thread>
+                    <tbody>
+                    <% feedbackData.forEach(function (feedback){ %>
+                        <tr>
+                            <td class="text-center"><%= feedback.id %></td>
+                            <td class="text-center"><%= feedback.date.toDateString() %></td>
+                            <td class="text-center"><%= feedback.category %></td>
+                            <td class="text-center"><%= feedback.os %> </td>
+                            <td class="text-center"><%= feedback.device %> </td>
+                            <td class="text-center" style="width: 300px;"><%= feedback.message %> </td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a href="javascript:removeFeedback(<%= feedback.id %>)"
+                                       class="btn btn-xs btn-danger"
+                                       type="button"
+                                       data-toggle="tooltip"
+                                       title="" data-original-title="Remove Feedback"><i
+                                                class="fa fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    <% })} %>
 
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
 
+            </div>
         </div>
-
     </main>
 
     <% include ./modules/footer.ejs %>
