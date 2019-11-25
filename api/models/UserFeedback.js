@@ -14,7 +14,7 @@ module.exports = {
     },
 
     category: {
-      type: 'string',
+      type: 'number',
       required: true
     },
 

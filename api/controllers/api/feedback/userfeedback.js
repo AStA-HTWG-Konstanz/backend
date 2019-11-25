@@ -9,9 +9,9 @@ module.exports = {
   inputs: {
     category: {
       description: 'Feedback Category (Bug, Feedback, etc.)',
-      type: 'string',
+      type: 'number',
       required: true,
-      example: 'feddback'
+      example: 0
     },
 
     os: {
