@@ -29,7 +29,15 @@
                         <tr>
                             <td class="text-center"><%= feedback.id %></td>
                             <td class="text-center"><%= feedback.date.toDateString() %></td>
-                            <td class="text-center"><%= feedback.category %></td>
+                            <td class="text-center">
+                                <% if (feedback.category == 0) { %>
+                                    <p>Error</p>
+                                <% } else if (feedback.category === 1) { %>
+                                    <p>Feedback</p>
+                                <% } else { %>
+                                    Unknown Category
+                                <% } %>
+                            </td>
                             <td class="text-center"><%= feedback.os %> </td>
                             <td class="text-center"><%= feedback.device %> </td>
                             <td class="text-center" style="width: 300px;"><%= feedback.message %> </td>
