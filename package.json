@@ -14,7 +14,7 @@
     "ical-date-parser": "^4.0.0",
     "ical2json": "^1.2.0",
     "ldapauth-fork": "^4.0.2",
-    "moment": "^2.22.1",
+    "moment": "^2.29.4",
     "moment-recur2": "^1.0.0",
     "moment-timezone": "^0.5.16",
     "node-ical": "^0.6.1",
